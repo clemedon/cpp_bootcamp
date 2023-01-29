@@ -1,0 +1,18 @@
+# @file     .gitignore
+# @brief    Files to be ignored by git.
+# @author   clemedon (Clément Vidon)
+
+# Build
+
+*
+!/**/
+!*.*
+
+*.o
+*.d
+*.out
+*.out
+
+# Editor
+
+tags
