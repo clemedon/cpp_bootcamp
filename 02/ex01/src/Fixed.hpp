@@ -7,10 +7,6 @@
 /**
  * Fixed-point number
  *
- * The fixed-point representation of 1 is expressed as 1 << 8 ( or 256 ) because
- * it has 8 bits for the fractional part.  This means that when we divide a
- * number x with a fixed point number y with the value 1, we will arrive at the
- * same number x, but shifted right by 8.
  *
  * Data members
  *

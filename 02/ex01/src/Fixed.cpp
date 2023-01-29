@@ -30,8 +30,6 @@ Fixed::Fixed( int const& number )
 /**
  * @brief       Parametric Constructor
  *
- * TODO
- *
  * Converts a float to the corresponding fixed-point value
  */
 
@@ -99,8 +97,6 @@ void Fixed::setRawBits( int const rawBits ) {
 /**
  * @brief       Converts fixed-point value to floating-point value
  *
- * TODO
- *
  * @return      a floating-point value
  */
 
@@ -111,8 +107,6 @@ float Fixed::toFloat( void ) const {
 
 /**
  * @brief       Converts fixed-point value to int value
- *
- * TODO
  *
  * @return      an int value
  */
