@@ -7,12 +7,8 @@
 /**
  * Fixed-point number
  *
- * The fixed-point representation of 1 is expressed as 1 << 8 ( or 256 ) because
- * it has 8 bits for the fractional part.  This means that when we divide a
- * number x with a fixed point number y with the value 1, we will arrive at the
- * same number x, but shifted right by 8.
  *
- * Data members
+ * Data members:
  *
  * _rawBits :
  *    the raw value of the fixed-point value
@@ -53,10 +49,10 @@ class Fixed {
   float toFloat( void ) const;
   float toInt( void ) const;
 
-  static Fixed const& min( Fixed& a, Fixed& b );
-  static Fixed const& min( Fixed const& a, Fixed const& b );
-  static Fixed const& max( Fixed& a, Fixed& b );
-  static Fixed const& max( Fixed const& a, Fixed const& b );
+  static Fixed min( Fixed& a, Fixed& b );
+  static Fixed min( Fixed const& a, Fixed const& b );
+  static Fixed max( Fixed& a, Fixed& b );
+  static Fixed max( Fixed const& a, Fixed const& b );
 
  private:
   int              _rawBits;

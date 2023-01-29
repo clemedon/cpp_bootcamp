@@ -28,8 +28,6 @@ Fixed::Fixed( int const& number )
 /**
  * @brief       Parametric Constructor
  *
- * TODO
- *
  * Converts a float to the corresponding fixed-point value
  */
 
@@ -169,8 +167,6 @@ void Fixed::setRawBits( int const rawBits ) {
 /**
  * @brief       Converts fixed-point value to floating-point/int value
  *
- * TODO
- *
  * @return      a floating-point value
  */
 
@@ -181,8 +177,6 @@ float Fixed::toFloat( void ) const {
 
 /**
  * @brief       Converts fixed-point value to int value
- *
- * TODO
  *
  * @return      an int value
  */
@@ -199,28 +193,28 @@ float Fixed::toInt( void ) const {
  * @return      smallest/greatest fixed-point number
  */
 
-Fixed const& Fixed::min( Fixed& a, Fixed& b ) {
+Fixed Fixed::min( Fixed& a, Fixed& b ) {
   if( a._rawBits < b._rawBits ) {
     return a;
   }
   return b;
 }
 
-Fixed const& Fixed::min( Fixed const& a, Fixed const& b ) {
+Fixed Fixed::min( Fixed const& a, Fixed const& b ) {
   if( a._rawBits < b._rawBits ) {
     return a;
   }
   return b;
 }
 
-Fixed const& Fixed::max( Fixed& a, Fixed& b ) {
+Fixed Fixed::max( Fixed& a, Fixed& b ) {
   if( a._rawBits > b._rawBits ) {
     return a;
   }
   return b;
 }
 
-Fixed const& Fixed::max( Fixed const& a, Fixed const& b ) {
+Fixed Fixed::max( Fixed const& a, Fixed const& b ) {
   if( a._rawBits > b._rawBits ) {
     return a;
   }
