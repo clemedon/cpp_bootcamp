@@ -9,10 +9,10 @@
 
 ClapTrap::ClapTrap( std::string const& name )
   : _name( name ),
-    _hitPoints( 10 ),
+    _healthPoints( 10 ),
     _energyPoints( 10 ),
     _attackDamage( 0 ) {
-  std::cout << "Parametric constructor called" << std::endl;
+  std::cout << __func__ << " Parametric constructor called" << std::endl;
   return;
 }
 
@@ -27,7 +27,7 @@ ClapTrap::ClapTrap( std::string const& name )
 
 ClapTrap::ClapTrap( ClapTrap const& src ) {
   *this = src;
-  std::cout << "Copy constructor called" << std::endl;
+  std::cout << __func__ << " Copy constructor called" << std::endl;
   return;
 }
 
@@ -36,7 +36,7 @@ ClapTrap::ClapTrap( ClapTrap const& src ) {
  */
 
 ClapTrap::~ClapTrap( void ) {
-  std::cout << "Destructor called" << std::endl;
+  std::cout << __func__ << " Destructor called" << std::endl;
   return;
 }
 
@@ -53,7 +53,7 @@ ClapTrap::~ClapTrap( void ) {
 ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
   if( this != &rhs ) {
     this->_name = rhs._name;
-    this->_hitPoints = rhs._hitPoints;
+    this->_healthPoints = rhs._healthPoints;
     this->_energyPoints = rhs._energyPoints;
     this->_attackDamage = rhs._attackDamage;
   }
@@ -62,25 +62,30 @@ ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
 }
 
 /**
- * @brief       Getters
+ * @brief       Print
+ *
+ * Print this object
+ *
+ * @param[out]  os where to print
  */
 
-std::string ClapTrap::getName( void ) const {
-  return _name;
-}
-
-int ClapTrap::getAttackDamage( void ) const {
-  return _attackDamage;
+void ClapTrap::print( std::ostream& os ) const {
+  os << "[";
+  os << " health = " << this->_healthPoints;
+  os << " energy = " << this->_energyPoints;
+  os << " attack = " << this->_attackDamage;
+  os << " ]\tClapTrap " << this->_name;
+  return;
 }
 
 /**
- * @brief       Verify is the ClapTrap is able to confront
+ * @brief       Check ClapTrap state
  *
  * @return      True or false
  */
 
 bool ClapTrap::isAble() const {
-  int hp = this->_hitPoints;
+  int hp = this->_healthPoints;
   int ep = this->_energyPoints;
 
   if( hp <= 0 && ep <= 0 ) {
@@ -94,23 +99,6 @@ bool ClapTrap::isAble() const {
     return false;
   }
   return true;
-}
-
-/**
- * @brief       Print
- *
- * Print this object
- *
- * @param[out]  os where to print
- */
-
-void ClapTrap::print( std::ostream& os ) const {
-  os << "[";
-  os << " hitpts = " << this->_hitPoints;
-  os << " energy = " << this->_energyPoints;
-  os << " attack = " << this->_attackDamage;
-  os << " ]\t" << this->_name << "\t";
-  return;
 }
 
 /**
@@ -139,9 +127,9 @@ void ClapTrap::attack( std::string const& target ) {
  * @param[in]   amount the amount of hit points taken
  */
 
-void ClapTrap::takeDamage( unsigned int amount ) {
+void ClapTrap::takeDamage( unsigned int const& amount ) {
   if( this->isAble() ) {
-    this->_hitPoints -= amount;
+    this->_healthPoints -= amount;
     std::cout << *this << " TOOK " << amount << " points of damage !"
               << std::endl;
   }
@@ -157,14 +145,34 @@ void ClapTrap::takeDamage( unsigned int amount ) {
  * @param[in]   amount the amount of hit points recovered
  */
 
-void ClapTrap::beRepaired( unsigned int amount ) {
+void ClapTrap::beRepaired( unsigned int const& amount ) {
   if( this->isAble() ) {
     this->_energyPoints -= 1;
-    this->_hitPoints += amount;
+    this->_healthPoints += amount;
     std::cout << *this << " REPAIRED itself up to " << amount << " hit points."
               << std::endl;
   }
   return;
+}
+
+/**
+ * @brief       Getters
+ */
+
+std::string ClapTrap::getName( void ) const {
+  return _name;
+}
+
+int ClapTrap::getHealthPoints( void ) const {
+  return _healthPoints;
+}
+
+int ClapTrap::getEnergyPoints( void ) const {
+  return _energyPoints;
+}
+
+int ClapTrap::getAttackDamage( void ) const {
+  return _attackDamage;
 }
 
 /**

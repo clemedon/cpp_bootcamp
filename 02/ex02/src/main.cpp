@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Fixed.hpp"
-
 int main( void ) {
   Fixed       a;
   Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
@@ -58,4 +57,19 @@ int main( void ) {
   std::cout << " fixed point number    is " << foo.getRawBits() << std::endl;
   std::cout << " float representation  is " << foo << std::endl;
   std::cout << std::endl;
+
+  std::cout << "foo.max( Fixed( 5.01f ), Fixed( 5.49f ).toInt() );"
+            << std::endl;
+  std::cout << " max is " << foo.max( Fixed( 5.01f ), Fixed( 5.49f ).toInt() )
+            << std::endl;
+  std::cout << "foo.max( Fixed( 5.01f ), Fixed( 5.49f ).toInt() );"
+            << std::endl;
+  std::cout << " max is " << foo.max( 5, 44 ) << std::endl;
+  std::cout << std::endl;
+
+  Fixed i( 3.2f );
+  Fixed j( 42.1f );
+
+  std::cout << "foo.max( Fixed( 42f ), Fixed( -42 ) );" << std::endl;
+  std::cout << " max is " << foo.max( i, j ) << std::endl;
 }

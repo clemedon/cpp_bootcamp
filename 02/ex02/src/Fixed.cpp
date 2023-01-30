@@ -29,6 +29,7 @@ Fixed::Fixed( int const& number )
  * @brief       Parametric Constructor
  *
  * Converts a float to the corresponding fixed-point value
+ * "number * ( 1 << _fractionalBits )" since bitshift doesnt work with float
  */
 
 Fixed::Fixed( float const& number )
@@ -191,31 +192,33 @@ float Fixed::toInt( void ) const {
  * @param[in]   a a fixed-point number
  * @param[in]   b a fixed-point number
  * @return      smallest/greatest fixed-point number
+ *
+ * @see operator>() and operator<()
  */
 
 Fixed Fixed::min( Fixed& a, Fixed& b ) {
-  if( a._rawBits < b._rawBits ) {
+  if( a < b ) {
     return a;
   }
   return b;
 }
 
 Fixed Fixed::min( Fixed const& a, Fixed const& b ) {
-  if( a._rawBits < b._rawBits ) {
+  if( a < b ) {
     return a;
   }
   return b;
 }
 
 Fixed Fixed::max( Fixed& a, Fixed& b ) {
-  if( a._rawBits > b._rawBits ) {
+  if( a > b ) {
     return a;
   }
   return b;
 }
 
 Fixed Fixed::max( Fixed const& a, Fixed const& b ) {
-  if( a._rawBits > b._rawBits ) {
+  if( a > b ) {
     return a;
   }
   return b;
