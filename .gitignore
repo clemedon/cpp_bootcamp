@@ -7,10 +7,10 @@
 *
 !/**/
 !*.*
+!Makefile
 
 *.o
 *.d
-*.out
 *.out
 
 # Editor
