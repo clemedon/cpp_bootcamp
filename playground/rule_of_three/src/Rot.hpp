@@ -14,7 +14,6 @@ class Rot {
   Rot( Rot const& src );
   ~Rot( void );
   Rot& operator=( Rot const& src );
-
   void print( std::ostream& o ) const;
 
  private:

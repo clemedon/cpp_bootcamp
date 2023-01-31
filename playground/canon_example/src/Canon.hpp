@@ -14,12 +14,11 @@ class Canon {
   Canon( Canon const& src );
   ~Canon( void );
   Canon& operator=( Canon const& rhs );
-
-  void print( std::ostream& o ) const;
+  void   print( std::ostream& o ) const;
 
  private:
 };
 
-std::ostream& operator<<( std::ostream& os, Canon const& i );
+std::ostream& operator<<( std::ostream& o, Canon const& i );
 
 #endif  // CANON_HPP_

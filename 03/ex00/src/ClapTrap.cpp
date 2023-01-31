@@ -3,6 +3,9 @@
 #include <string>
 #include "ClapTrap.hpp"
 
+/*  STANDARD MEMBER FUNCTIONS
+------------------------------------------------- */
+
 /**
  * @brief       Default Constructor
  */
@@ -12,22 +15,19 @@ ClapTrap::ClapTrap( std::string const& name )
     _healthPoints( 10 ),
     _energyPoints( 10 ),
     _attackDamage( 0 ) {
-  std::cout << __func__ << " Parametric constructor called" << std::endl;
+  std::cout << __func__ << " ";
+  std::cout << " Parametric constructor called" << std::endl;
   return;
 }
 
 /**
  * @brief       Copy Constructor
- *
- * Create a copy of the given object
- * They both use different memory location
- *
- * @param[in]   src the object to copy
  */
 
 ClapTrap::ClapTrap( ClapTrap const& src ) {
   *this = src;
-  std::cout << __func__ << " Copy constructor called" << std::endl;
+  std::cout << __func__ << " ";
+  std::cout << " Copy constructor called" << std::endl;
   return;
 }
 
@@ -36,47 +36,50 @@ ClapTrap::ClapTrap( ClapTrap const& src ) {
  */
 
 ClapTrap::~ClapTrap( void ) {
-  std::cout << __func__ << " Destructor called" << std::endl;
+  std::cout << __func__ << " ";
+  std::cout << " Destructor called" << std::endl;
   return;
 }
 
 /**
  * @brief       Copy Assignment Operator
- *
- * Assigns value of one existing object to another existing object
- * They both share the same memory location
- *
- * @param[in]   rhs the object to copy
- * @return      a reference on rhs
  */
 
 ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
-  if( this != &rhs ) {
-    this->_name = rhs._name;
-    this->_healthPoints = rhs._healthPoints;
-    this->_energyPoints = rhs._energyPoints;
-    this->_attackDamage = rhs._attackDamage;
+  if( this == &rhs ) {
+    return *this;
   }
+  this->_name = rhs._name;
+  this->_healthPoints = rhs._healthPoints;
+  this->_energyPoints = rhs._energyPoints;
+  this->_attackDamage = rhs._attackDamage;
   std::cout << "Copy assignment operator called" << std::endl;
   return *this;
 }
 
 /**
- * @brief       Print
- *
- * Print this object
- *
- * @param[out]  os where to print
+ * @brief       Print Instance State
  */
 
-void ClapTrap::print( std::ostream& os ) const {
-  os << "[";
-  os << " health = " << this->_healthPoints;
-  os << " energy = " << this->_energyPoints;
-  os << " attack = " << this->_attackDamage;
-  os << " ]\tClapTrap " << this->_name;
+void ClapTrap::print( std::ostream& o ) const {
+  o << "[";
+  o << " health = " << this->_healthPoints;
+  o << " energy = " << this->_energyPoints;
+  o << " attack = " << this->_attackDamage;
+  o << " ]\tClapTrap " << this->_name;
   return;
 }
+
+/**
+ * @brief       Output Operator Handling
+ */
+
+std::ostream& operator<<( std::ostream& o, ClapTrap const& i ) {
+  i.print( o );
+  return o;
+}
+
+/* ---------------------------------------------- */
 
 /**
  * @brief       Check ClapTrap state
@@ -155,9 +158,8 @@ void ClapTrap::beRepaired( unsigned int const& amount ) {
   return;
 }
 
-/**
- * @brief       Getters
- */
+/*  GETTERS SETTERS
+------------------------------------------------- */
 
 std::string ClapTrap::getName( void ) const {
   return _name;
@@ -173,22 +175,4 @@ int ClapTrap::getEnergyPoints( void ) const {
 
 int ClapTrap::getAttackDamage( void ) const {
   return _attackDamage;
-}
-
-/**
- * @brief       Output Operator Overloading
- *
- * How the Output Operator should handle ClapTrap
- *
- * Use print member function in order to access the data members without to
- * break the encapsulation with getters
- *
- * @param[out]  os where to stream
- * @param[in]   i what to stream
- * @return      the stream
- */
-
-std::ostream& operator<<( std::ostream& os, ClapTrap const& i ) {
-  i.print( os );
-  return os;
 }

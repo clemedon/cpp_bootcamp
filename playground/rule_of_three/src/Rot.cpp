@@ -2,7 +2,7 @@
 #include <sstream>
 #include "Rot.hpp"
 
-/*  ORTHODOX CANONICAL CANONICAL FORM
+/*  STANDARD
 ------------------------------------------------- */
 
 /**
@@ -61,9 +61,6 @@ Rot& Rot::operator=( Rot const& src ) {
   return *this;
 }
 
-/*  MEMBER FUNCTIONS
-------------------------------------------------- */
-
 /**
  * @brief       Print Instance State
  */
@@ -74,6 +71,8 @@ void Rot::print( std::ostream& o ) const {
   o << "  " << this->_ptr;
   return;
 }
+
+/* ---------------------------------------------- */
 
 /**
  * @brief       Output Operator Handling

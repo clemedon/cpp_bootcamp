@@ -3,7 +3,7 @@
 #include <string>
 #include "Canon.hpp"
 
-/*  ORTHODOX CANONICAL CANONICAL FORM
+/*  STANDARD
 ------------------------------------------------- */
 
 /**
@@ -42,20 +42,14 @@ Canon& Canon::operator=( Canon const& rhs ) {
   return *this;
 }
 
-/*  MEMBER FUNCTIONS
-------------------------------------------------- */
-
 /**
- * @brief       Print Instance State
+ * @brief       Print State
  */
 
 void Canon::print( std::ostream& o ) const {
   o << "class: Canon";
   return;
 }
-
-/*  FUNCTIONS
-------------------------------------------------- */
 
 /**
  * @brief       Output Operator Handling
@@ -65,3 +59,5 @@ std::ostream& operator<<( std::ostream& o, Canon const& i ) {
   i.print( o );
   return o;
 }
+
+/* ---------------------------------------------- */

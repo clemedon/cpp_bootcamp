@@ -19,7 +19,7 @@ class ClapTrap {
   ClapTrap( ClapTrap const& src );
   ~ClapTrap( void );
   ClapTrap& operator=( ClapTrap const& rhs );
-  void      print( std::ostream& os ) const;
+  void      print( std::ostream& o ) const;
 
   bool isAble() const;
   void attack( std::string const& target );
@@ -31,13 +31,13 @@ class ClapTrap {
   int         getEnergyPoints( void ) const;
   int         getAttackDamage( void ) const;
 
- protected:  // TODO ex00
+ private:
   std::string _name;
   int         _healthPoints;
   int         _energyPoints;
   int         _attackDamage;
 };
 
-std::ostream& operator<<( std::ostream& os, ClapTrap const& i );
+std::ostream& operator<<( std::ostream& o, ClapTrap const& i );
 
 #endif  // CLAPTRAP_HPP_
