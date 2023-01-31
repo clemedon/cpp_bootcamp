@@ -12,7 +12,7 @@ class Canon {
  public:
   Canon( void );
   Canon( Canon const& src );
-  ~Canon( void );
+  virtual ~Canon( void );
   Canon& operator=( Canon const& rhs );
   void   print( std::ostream& o ) const;
 

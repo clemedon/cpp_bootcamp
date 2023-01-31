@@ -12,7 +12,7 @@ class Rot {
   Rot( void );
   Rot( int const val, int const ptr );
   Rot( Rot const& src );
-  ~Rot( void );
+  virtual ~Rot( void );
   Rot& operator=( Rot const& src );
   void print( std::ostream& o ) const;
 
