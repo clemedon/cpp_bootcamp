@@ -15,8 +15,8 @@ ClapTrap::ClapTrap( std::string const& name )
     _healthPoints( 10 ),
     _energyPoints( 10 ),
     _attackDamage( 0 ) {
-  std::cout << "ClapTrap ";
-  std::cout << "Parametric constructor called" << std::endl;
+  std::cout << *this;
+  std::cout << " IS BORN !" << std::endl;
   return;
 }
 
@@ -29,8 +29,8 @@ ClapTrap::ClapTrap( ClapTrap const& src )
     _healthPoints( src._healthPoints ),
     _energyPoints( src._energyPoints ),
     _attackDamage( src._attackDamage ) {
-  std::cout << "ClapTrap ";
-  std::cout << "Copy constructor called" << std::endl;
+  std::cout << *this;
+  std::cout << " IS BORN as a clone of " << src << std::endl;
   return;
 }
 
@@ -39,8 +39,8 @@ ClapTrap::ClapTrap( ClapTrap const& src )
  */
 
 ClapTrap::~ClapTrap( void ) {
-  std::cout << "ClapTrap ";
-  std::cout << "Destructor called" << std::endl;
+  std::cout << *this;
+  std::cout << " IS DEAD !" << std::endl;
   return;
 }
 
@@ -97,15 +97,16 @@ bool ClapTrap::isAble() const {
   int ep = this->_energyPoints;
 
   if( hp <= 0 && ep <= 0 ) {
-    std::cout << this->_name << " is DEAD !!!" << std::endl;
+    std::cout << *this << " is DEAD !!!" << std::endl;
     return false;
   } else if( hp <= 0 && ep > 0 ) {
-    std::cout << this->_name << " has NO MORE HEALTH points !" << std::endl;
+    std::cout << *this << " has NO MORE HEALTH points !" << std::endl;
     return false;
   } else if( hp > 0 && ep <= 0 ) {
-    std::cout << this->_name << " has NO MORE ENERGY points !" << std::endl;
+    std::cout << *this << " has NO MORE ENERGY points !" << std::endl;
     return false;
   }
+  std::cout << *this << " is in good shape  !" << std::endl;
   return true;
 }
 
