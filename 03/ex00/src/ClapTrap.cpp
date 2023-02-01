@@ -15,8 +15,8 @@ ClapTrap::ClapTrap( std::string const& name )
     _healthPoints( 10 ),
     _energyPoints( 10 ),
     _attackDamage( 0 ) {
-  std::cout << __func__ << " ";
-  std::cout << " Parametric constructor called" << std::endl;
+  std::cout << "ClapTrap ";
+  std::cout << "Parametric constructor called" << std::endl;
   return;
 }
 
@@ -24,10 +24,13 @@ ClapTrap::ClapTrap( std::string const& name )
  * @brief       Copy Constructor
  */
 
-ClapTrap::ClapTrap( ClapTrap const& src ) {
-  *this = src;
-  std::cout << __func__ << " ";
-  std::cout << " Copy constructor called" << std::endl;
+ClapTrap::ClapTrap( ClapTrap const& src )
+  : _name( src._name ),
+    _healthPoints( src._healthPoints ),
+    _energyPoints( src._energyPoints ),
+    _attackDamage( src._attackDamage ) {
+  std::cout << "ClapTrap ";
+  std::cout << "Copy constructor called" << std::endl;
   return;
 }
 
@@ -36,8 +39,8 @@ ClapTrap::ClapTrap( ClapTrap const& src ) {
  */
 
 ClapTrap::~ClapTrap( void ) {
-  std::cout << __func__ << " ";
-  std::cout << " Destructor called" << std::endl;
+  std::cout << "ClapTrap ";
+  std::cout << "Destructor called" << std::endl;
   return;
 }
 
@@ -53,6 +56,7 @@ ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
   this->_healthPoints = rhs._healthPoints;
   this->_energyPoints = rhs._energyPoints;
   this->_attackDamage = rhs._attackDamage;
+  std::cout << "ClapTrap ";
   std::cout << "Copy assignment operator called" << std::endl;
   return *this;
 }
