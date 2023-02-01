@@ -66,11 +66,12 @@ ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
  */
 
 void ClapTrap::print( std::ostream& o ) const {
-  o << "[";
+  o << "ClapTrap " << this->_name;
+  o << "\t[";
   o << " health = " << this->_healthPoints;
   o << " energy = " << this->_energyPoints;
   o << " attack = " << this->_attackDamage;
-  o << " ]\tClapTrap " << this->_name;
+  o << " ]\t";
   return;
 }
 
@@ -99,7 +100,7 @@ bool ClapTrap::isAble() const {
     std::cout << this->_name << " is DEAD !!!" << std::endl;
     return false;
   } else if( hp <= 0 && ep > 0 ) {
-    std::cout << this->_name << " has NO MORE HIT points !" << std::endl;
+    std::cout << this->_name << " has NO MORE HEALTH points !" << std::endl;
     return false;
   } else if( hp > 0 && ep <= 0 ) {
     std::cout << this->_name << " has NO MORE ENERGY points !" << std::endl;
@@ -111,7 +112,7 @@ bool ClapTrap::isAble() const {
 /**
  * @brief       ClapTrap attacks
  *
- * Causes its target to lose hit points.
+ * Causes its target to lose health points.
  * Costs 1 points of energy.
  *
  * @param[in]   target the target to attack
@@ -129,9 +130,9 @@ void ClapTrap::attack( std::string const& target ) {
 /**
  * @brief       ClapTrap take damage
  *
- * Causes ClapTrap to lost hit points.
+ * Causes ClapTrap to lost health points.
  *
- * @param[in]   amount the amount of hit points taken
+ * @param[in]   amount the amount of health points taken
  */
 
 void ClapTrap::takeDamage( unsigned int const& amount ) {
@@ -146,18 +147,18 @@ void ClapTrap::takeDamage( unsigned int const& amount ) {
 /**
  * @brief       ClapTrap repairs
  *
- * Causes ClapTrap to recover hit points.
+ * Causes ClapTrap to recover health points.
  * Costs 1 points of energy.
  *
- * @param[in]   amount the amount of hit points recovered
+ * @param[in]   amount the amount of health points recovered
  */
 
 void ClapTrap::beRepaired( unsigned int const& amount ) {
   if( this->isAble() ) {
     this->_energyPoints -= 1;
     this->_healthPoints += amount;
-    std::cout << *this << " REPAIRED itself up to " << amount << " hit points."
-              << std::endl;
+    std::cout << *this << " REPAIRED itself up to " << amount
+              << " health points." << std::endl;
   }
   return;
 }

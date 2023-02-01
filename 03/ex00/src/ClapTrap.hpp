@@ -15,7 +15,7 @@
 
 class ClapTrap {
  public:
-  ClapTrap( std::string const& name = "Unknown" );
+  ClapTrap( std::string const& name = "Xavier" );
   ClapTrap( ClapTrap const& src );
   ~ClapTrap( void );
   ClapTrap& operator=( ClapTrap const& rhs );
