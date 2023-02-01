@@ -12,6 +12,7 @@
 *.o
 *.d
 *.out
+*.gch
 
 # Editor
 
