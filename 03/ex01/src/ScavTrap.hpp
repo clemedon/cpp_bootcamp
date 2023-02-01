@@ -16,28 +16,16 @@
 
 class ScavTrap : public ClapTrap {
  public:
-  ScavTrap( std::string const& name = "Unknown" );
+  ScavTrap( std::string const& name = "5<av7rap",
+            int const&         healthPoints = 100,
+            int const&         energyPoints = 50,
+            int const&         attackDamage = 20 );
   ScavTrap( ScavTrap const& src );
-  virtual ~ScavTrap( void );
-  /* ScavTrap& operator=( ScavTrap const& rhs ); */
-  /* void      print( std::ostream& o ) const; */
+  ~ScavTrap( void );
+  void print( std::ostream& o ) const;
 
-  /* bool isAble() const; */
   void attack( std::string const& target );
   void guardGate( void );
-  /* void takeDamage( unsigned int const& amount ); */
-  /* void beRepaired( unsigned int const& amount ); */
-
-  /* std::string getName( void ) const; */
-  /* int         getHealthPoints( void ) const; */
-  /* int         getEnergyPoints( void ) const; */
-  /* int         getAttackDamage( void ) const; */
-
- protected:
-  /* std::string _name; */
-  /* int         _healthPoints; */
-  /* int         _energyPoints; */
-  /* int         _attackDamage; */
 };
 
 std::ostream& operator<<( std::ostream& o, ScavTrap const& i );

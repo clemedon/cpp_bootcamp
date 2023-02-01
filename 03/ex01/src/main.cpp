@@ -1,29 +1,29 @@
 #include <stdlib.h>
 #include <iostream>
-#include "ScavTrap.hpp"
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main( void ) {
   int      random;
-  ClapTrap ct0;
-  ClapTrap ct1( "Kevin" );
+  ClapTrap ct0( "Xavier" );
+  ScavTrap st0( "Kevin" );
 
   srand( time( NULL ) );
 
   std::cout << ">> Start <<" << std::endl;
-  while( ct0.isAble() && ct1.isAble() ) {
+  while( ct0.isAble() && st0.isAble() ) {
     random = rand() % 100 + 1;
     if( random <= 50 ) {
-      ct0.attack( ct1.getName() );
-      ct1.takeDamage( ct0.getAttackDamage() );
+      ct0.attack( st0.getName() );
+      st0.takeDamage( ct0.getAttackDamage() );
     } else {
-      ct1.attack( ct0.getName() );
-      ct0.takeDamage( ct1.getAttackDamage() );
+      st0.attack( ct0.getName() );
+      ct0.takeDamage( st0.getAttackDamage() );
     }
     if( random <= 50 ) {
       ct0.beRepaired( random % 10 );
     } else {
-      ct1.beRepaired( random % 10 );
+      st0.beRepaired( random % 10 );
     }
   }
 

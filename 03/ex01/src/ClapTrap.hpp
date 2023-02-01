@@ -15,16 +15,19 @@
 
 class ClapTrap {
  public:
-  ClapTrap( std::string const& name = "Unknown" );
+  ClapTrap( std::string const& name = "C1ap7rap",
+            int const&         healthPoints = 10,
+            int const&         energyPoints = 10,
+            int const&         attackDamage = 0 );
   ClapTrap( ClapTrap const& src );
   virtual ~ClapTrap( void );
-  ClapTrap& operator=( ClapTrap const& rhs );
-  void      print( std::ostream& o ) const;
+  ClapTrap&    operator=( ClapTrap const& rhs );
+  virtual void print( std::ostream& o ) const;
 
-  bool isAble() const;
-  void attack( std::string const& target );
-  void takeDamage( unsigned int const& amount );
-  void beRepaired( unsigned int const& amount );
+  bool         isAble() const;
+  virtual void attack( std::string const& target );
+  void         takeDamage( unsigned int const& amount );
+  void         beRepaired( unsigned int const& amount );
 
   std::string getName( void ) const;
   int         getHealthPoints( void ) const;
