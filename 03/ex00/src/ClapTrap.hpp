@@ -17,7 +17,7 @@ class ClapTrap {
  public:
   ClapTrap( std::string const& name = "Unknown" );
   ClapTrap( ClapTrap const& src );
-  virtual ~ClapTrap( void );
+  ~ClapTrap( void );
   ClapTrap& operator=( ClapTrap const& rhs );
   void      print( std::ostream& o ) const;
 
