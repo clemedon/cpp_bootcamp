@@ -8,7 +8,8 @@ int main( void ) {
   FragTrap ft0( "Xavier" );
   ScavTrap st0( "Charly" );
 
-  srand( time( NULL ) );
+  /* srand( time( NULL ) ); */
+  srand( 166328311 );
   std::cout << ">> Start <<" << std::endl;
   while( 1 ) {
     random = rand() % 100 + 1;
