@@ -52,8 +52,8 @@ ClapTrap::~ClapTrap( void ) {
  */
 
 ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
-  std::cout << *this;
-  std::cout << "get assigned to " << rhs._name << std::endl;
+  std::cout << rhs;
+  std::cout << "is assigned to " << *this << std::endl;
   if( this == &rhs ) {
     return *this;
   }

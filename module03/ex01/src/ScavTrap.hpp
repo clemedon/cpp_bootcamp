@@ -22,7 +22,8 @@ class ScavTrap : public ClapTrap {
             int const&         attackDamage = 20 );
   ScavTrap( ScavTrap const& src );
   ~ScavTrap( void );
-  void print( std::ostream& o ) const;
+  ScavTrap& operator=( ScavTrap const& rhs );
+  void      print( std::ostream& o ) const;
 
   void attack( std::string const& target );
   void guardGate( void );

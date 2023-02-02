@@ -45,6 +45,23 @@ ScavTrap::~ScavTrap( void ) {
 }
 
 /**
+ * @brief       Copy Assignment Operator
+ */
+
+ScavTrap& ScavTrap::operator=( ScavTrap const& rhs ) {
+  std::cout << rhs;
+  std::cout << "is assigned to " << *this << std::endl;
+  if( this == &rhs ) {
+    return *this;
+  }
+  this->_name = rhs._name;
+  this->_healthPoints = rhs._healthPoints;
+  this->_energyPoints = rhs._energyPoints;
+  this->_attackDamage = rhs._attackDamage;
+  return *this;
+}
+
+/**
  * @brief       Print Instance State
  */
 
