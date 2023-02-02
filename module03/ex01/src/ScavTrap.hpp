@@ -21,12 +21,12 @@ class ScavTrap : public ClapTrap {
             int const&         energyPoints = 50,
             int const&         attackDamage = 20 );
   ScavTrap( ScavTrap const& src );
-  ~ScavTrap( void );
-  ScavTrap& operator=( ScavTrap const& rhs );
-  void      print( std::ostream& o ) const;
+  virtual ~ScavTrap( void );
+  ScavTrap&    operator=( ScavTrap const& rhs );
+  virtual void print( std::ostream& o ) const;
 
-  void attack( std::string const& target );
-  void guardGate( void );
+  virtual void attack( std::string const& target );
+  void         guardGate( void );
 };
 
 std::ostream& operator<<( std::ostream& o, ScavTrap const& i );
