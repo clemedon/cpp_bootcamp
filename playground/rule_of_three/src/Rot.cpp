@@ -9,7 +9,7 @@
  * @brief       Default Constructor
  */
 
-Rot::Rot( void ) : _val( 0 ), _ptr( new int() ) {
+Rot::Rot( void ) : _val( 0 ), _ptr( new int() ) { // TODO new necessary?
   std::cout << "Default Constructor called" << std::endl;
   return;
 }
@@ -53,8 +53,7 @@ Rot& Rot::operator=( Rot const& src ) {
   this->_val = src._val;
   *this->_ptr = *src._ptr;
 
-  // deep copy (for objects)
-
+  // TODO deep copy for objects only?
   /* delete this->_ptr; */
   /* this->_ptr = new int (*src._ptr); */
 

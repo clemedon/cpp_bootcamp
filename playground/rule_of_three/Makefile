@@ -23,7 +23,8 @@ LDFLAGS     := $(addprefix -L,$(dir $(LIBS_PATH)))
 LDLIBS      := $(addprefix -l,$(LIBS))
 
 RM          := rm -f
-MAKEFLAGS   := --no-print-directory --jobs
+MAKEFLAGS   := --no-print-directory --jobs -C
+AGE			:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
 DIR_DUP     = mkdir -p $(@D)
 
 all: $(NAME)
@@ -33,7 +34,7 @@ $(NAME): $(OBJS) $(LIBS_PATH)
 	$(info CREATED $(NAME))
 
 $(LIBS_PATH):
-	$(MAKE) -C $(@D)
+	$(MAKE) $(@D)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(DIR_DUP)
@@ -43,7 +44,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 -include $(DEPS)
 
 clean:
-	for f in $(dir $(LIBS_PATH)); do $(MAKE) -C $$f clean; done
+	for f in $(dir $(LIBS_PATH)); do $(MAKE) $$f clean; done
 	$(RM) $(OBJS) $(DEPS) $(NAME)
 	$(info REMOVED $(OBJS))
 	$(info REMOVED $(DEPS))
@@ -57,8 +58,19 @@ asan: CXXFLAGS	+= -O -g -fsanitize=address,undefined -fno-optimize-sibling-calls
 asan: LDFLAGS   += -g -fsanitize=address,undefined
 asan: all
 
-run: all
+run:
+ifneq ("$(wildcard $(NAME))","")
+	clear
+	echo BINARY CREATED $(AGE) AGO
+	echo "---------------------------"
 	./$(NAME)
+endif
+
+run-valgrind:
+	clear
+	echo BINARY CREATED $(AGE) AGO
+	echo "---------------------------"
+	valgrind -q ./$(NAME)
 
 .PHONY: clean re run
 .SILENT:
