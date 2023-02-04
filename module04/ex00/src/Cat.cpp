@@ -11,11 +11,9 @@
  */
 
 Cat::Cat( std::string const& type ) : Animal( type ) {
-
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
   std::cout << this->_type;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   return;
 }
@@ -25,10 +23,8 @@ Cat::Cat( std::string const& type ) : Animal( type ) {
  */
 
 Cat::Cat( Cat const& src ) : Animal( src._type ) {
-
   std::cout << src;
   std::cout << " COPIED AS " << *this;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   *this = src;
   return;
@@ -39,11 +35,9 @@ Cat::Cat( Cat const& src ) : Animal( src._type ) {
  */
 
 Cat::~Cat( void ) {
-
   std::cout << *this;
   std::cout << " DESTROYED ";
   std::cout << this->_type;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   return;
 }
@@ -53,10 +47,8 @@ Cat::~Cat( void ) {
  */
 
 Cat& Cat::operator=( Cat const& rhs ) {
-
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   if( this == &rhs ) {
     return *this;
@@ -71,6 +63,7 @@ Cat& Cat::operator=( Cat const& rhs ) {
 
 void Cat::print( std::ostream& o ) const {
   o << this->_type;
+  std::cout << " (via " << __FILE__ << ")";
   return;
 }
 
@@ -86,6 +79,7 @@ std::ostream& operator<<( std::ostream& o, Cat const& i ) {
 /* ---------------------------------------------- */
 
 void Cat::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound*" << std::endl;
+  std::cout << "*" << this->_type << " sound*";
+  std::cout << std::endl;
   return;
 }

@@ -10,9 +10,11 @@
  * @brief       Default Constructor
  */
 
-Cat::Cat( std::string const& type ) : Animal( type ) {
+WrongCat::WrongCat( std::string const& type ) : WrongAnimal( type ) {
   std::cout << *this;
-  std::cout << " CONSTRUCTED" << std::endl;
+  std::cout << " CONSTRUCTED ";
+  std::cout << this->_type;
+  std::cout << std::endl;
   return;
 }
 
@@ -20,9 +22,10 @@ Cat::Cat( std::string const& type ) : Animal( type ) {
  * @brief       Copy Constructor
  */
 
-WrongCat::WrongCat( WrongCat const& src ) : Animal( src._type ) {
-  std::cout << *src;
-  std::cout << " COPIED AS " << *this << std::endl;
+WrongCat::WrongCat( WrongCat const& src ) : WrongAnimal( src._type ) {
+  std::cout << src;
+  std::cout << " COPIED AS " << *this;
+  std::cout << std::endl;
   *this = src;
   return;
 }
@@ -33,7 +36,9 @@ WrongCat::WrongCat( WrongCat const& src ) : Animal( src._type ) {
 
 WrongCat::~WrongCat( void ) {
   std::cout << *this;
-  std::cout << " DESTROYED" << std::endl;
+  std::cout << " DESTROYED ";
+  std::cout << this->_type;
+  std::cout << std::endl;
   return;
 }
 
@@ -43,7 +48,8 @@ WrongCat::~WrongCat( void ) {
 
 WrongCat& WrongCat::operator=( WrongCat const& rhs ) {
   std::cout << rhs;
-  std::cout << " ASSIGNED TO " << *this << std::endl;
+  std::cout << " ASSIGNED TO " << *this;
+  std::cout << std::endl;
   if( this == &rhs ) {
     return *this;
   }
@@ -57,6 +63,7 @@ WrongCat& WrongCat::operator=( WrongCat const& rhs ) {
 
 void WrongCat::print( std::ostream& o ) const {
   o << this->_type;
+  std::cout << " (via " << __FILE__ << ")";
   return;
 }
 
@@ -72,6 +79,7 @@ std::ostream& operator<<( std::ostream& o, WrongCat const& i ) {
 /* ---------------------------------------------- */
 
 void WrongCat::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound*" << std::endl;
+  std::cout << "*" << this->_type << " sound*";
+  std::cout << std::endl;
   return;
 }

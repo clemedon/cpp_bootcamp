@@ -5,30 +5,57 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
-// TODO
-// operator= *this? ou type?
-// copy *this or type
+/**
+ * TODO should I follow the private or public data members naming convention for
+ * protected data members ?
+ *
+ * Copy Assignment Operator:
+ *
+ *  Animal* cat = new Cat();
+ *  Animal* dog = new Dog();
+ *  *cat = *dog; // OK an animal can be a cat or a dog
+ *
+ *  Animal* cat;
+ *  - cat          type is   Animal*
+ *  - *cat         type is   Animal
+ *  - *cat = *dog  type is   Animal = Animal
+ *
+ *  Cat* cat = new Cat();
+ *  Dog* dog = new Dog();
+ *  *cat = *dog; // NOK a cat can not be a dog
+ *
+ */
+
 int main( void ) {
-  /* const Animal* meta = new Animal();  // Animal can't be abstract */
-  /* const Animal* j = new Dog(); */
-  /* const Animal* i = new Cat(); */
+  const Animal* animal = new Animal();  // Animal can't be abstract
+  const Animal* dog = new Dog();
+  const Animal* cat = new Cat();
 
-  Animal* cat = new Cat();
-  Animal* dog = new Dog();
-  *cat = *dog; // WHY
+  std::cout << std::endl;
+  std::cout << animal->getType() << " " << std::endl;
+  std::cout << dog->getType() << " " << std::endl;
+  std::cout << cat->getType() << " " << std::endl;
+  std::cout << std::endl;
+  animal->makeSound();
+  dog->makeSound();
+  cat->makeSound();  // will output the cat sound!
+  std::cout << std::endl;
 
-  std::cout << *cat << std::endl;
-  (void)cat;
-  (void)dog;
+  delete animal;
+  delete dog;
+  delete cat;
 
-  /* std::cout << j->getType() << " " << std::endl; */
-  /* std::cout << i->getType() << " " << std::endl; */
+  const WrongAnimal* wrongAnimal = new WrongAnimal();
+  const WrongAnimal* wrongCat = new WrongCat();
 
-  /* i->makeSound();  // will output the cat sound! */
-  /* j->makeSound(); */
-  /* meta->makeSound(); */
+  std::cout << std::endl;
+  std::cout << wrongAnimal->getType() << " " << std::endl;
+  std::cout << wrongCat->getType() << " " << std::endl;
+  std::cout << std::endl;
+  wrongAnimal->makeSound();
+  wrongCat->makeSound();  // will output the wrong cat sound!
+  std::cout << std::endl;
 
-  /* delete meta; */
-  /* delete j; */
-  /* delete i; */
+  delete wrongAnimal;
+  delete wrongCat;
 }

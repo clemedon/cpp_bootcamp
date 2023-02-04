@@ -12,7 +12,9 @@
 
 WrongAnimal::WrongAnimal( std::string const& type ) : _type( type ) {
   std::cout << *this;
-  std::cout << " CONSTRUCTED" << std::endl;
+  std::cout << " CONSTRUCTED ";
+  std::cout << this->_type;
+  std::cout << std::endl;
   return;
 }
 
@@ -20,9 +22,10 @@ WrongAnimal::WrongAnimal( std::string const& type ) : _type( type ) {
  * @brief       Copy Constructor
  */
 
-WrongAnimal::WrongAnimal( Animal const& src ) : _type( src._type ) {
-  std::cout << *src;
-  std::cout << " COPIED AS " << *this << std::endl;
+WrongAnimal::WrongAnimal( WrongAnimal const& src ) : _type( src._type ) {
+  std::cout << src;
+  std::cout << " COPIED AS " << *this;
+  std::cout << std::endl;
   *this = src;
   return;
 }
@@ -33,7 +36,9 @@ WrongAnimal::WrongAnimal( Animal const& src ) : _type( src._type ) {
 
 WrongAnimal::~WrongAnimal( void ) {
   std::cout << *this;
-  std::cout << " DESTROYED" << std::endl;
+  std::cout << " DESTROYED ";
+  std::cout << this->_type;
+  std::cout << std::endl;
   return;
 }
 
@@ -43,7 +48,8 @@ WrongAnimal::~WrongAnimal( void ) {
 
 WrongAnimal& WrongAnimal::operator=( WrongAnimal const& rhs ) {
   std::cout << rhs;
-  std::cout << " ASSIGNED TO " << *this << std::endl;
+  std::cout << " ASSIGNED TO " << *this;
+  std::cout << std::endl;
   if( this == &rhs ) {
     return *this;
   }
@@ -57,6 +63,7 @@ WrongAnimal& WrongAnimal::operator=( WrongAnimal const& rhs ) {
 
 void WrongAnimal::print( std::ostream& o ) const {
   o << this->_type;
+  std::cout << " (via " << __FILE__ << ")";
   return;
 }
 
@@ -72,7 +79,8 @@ std::ostream& operator<<( std::ostream& o, WrongAnimal const& i ) {
 /* ---------------------------------------------- */
 
 void WrongAnimal::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound‥ sounds weird*" << std::endl;
+  std::cout << "*" << this->_type << " sound‥ silence*";
+  std::cout << std::endl;
   return;
 }
 

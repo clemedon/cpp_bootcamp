@@ -14,7 +14,6 @@ Animal::Animal( std::string const& type ) : _type( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
   std::cout << this->_type;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   return;
 }
@@ -26,7 +25,6 @@ Animal::Animal( std::string const& type ) : _type( type ) {
 Animal::Animal( Animal const& src ) : _type( src._type ) {
   std::cout << src;
   std::cout << " COPIED AS " << *this;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   *this = src;
   return;
@@ -40,7 +38,6 @@ Animal::~Animal( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
   std::cout << this->_type;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   return;
 }
@@ -52,7 +49,6 @@ Animal::~Animal( void ) {
 Animal& Animal::operator=( Animal const& rhs ) {
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   if( this == &rhs ) {
     return *this;
@@ -67,6 +63,7 @@ Animal& Animal::operator=( Animal const& rhs ) {
 
 void Animal::print( std::ostream& o ) const {
   o << this->_type;
+  std::cout << " (via " << __FILE__ << ")";
   return;
 }
 
@@ -82,7 +79,8 @@ std::ostream& operator<<( std::ostream& o, Animal const& i ) {
 /* ---------------------------------------------- */
 
 void Animal::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound‥ sounds weird*" << std::endl;
+  std::cout << "*" << this->_type << " sound‥ silence*";
+  std::cout << std::endl;
   return;
 }
 

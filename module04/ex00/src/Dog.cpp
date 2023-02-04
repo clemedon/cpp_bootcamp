@@ -14,7 +14,6 @@ Dog::Dog( std::string const& type ) : Animal( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
   std::cout << this->_type;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   return;
 }
@@ -26,7 +25,6 @@ Dog::Dog( std::string const& type ) : Animal( type ) {
 Dog::Dog( Dog const& src ) : Animal( src._type ) {
   std::cout << src;
   std::cout << " COPIED AS " << *this;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   *this = src;
   return;
@@ -40,7 +38,6 @@ Dog::~Dog( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
   std::cout << this->_type;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   return;
 }
@@ -52,7 +49,6 @@ Dog::~Dog( void ) {
 Dog& Dog::operator=( Dog const& rhs ) {
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
-  std::cout << " (via " << __FILE__ << ")";
   std::cout << std::endl;
   if( this == &rhs ) {
     return *this;
@@ -67,6 +63,7 @@ Dog& Dog::operator=( Dog const& rhs ) {
 
 void Dog::print( std::ostream& o ) const {
   o << this->_type;
+  std::cout << " (via " << __FILE__ << ")";
   return;
 }
 
@@ -82,6 +79,7 @@ std::ostream& operator<<( std::ostream& o, Dog const& i ) {
 /* ---------------------------------------------- */
 
 void Dog::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound*" << std::endl;
+  std::cout << "*" << this->_type << " sound*";
+  std::cout << std::endl;
   return;
 }

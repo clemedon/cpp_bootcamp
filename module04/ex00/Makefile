@@ -3,10 +3,12 @@ NAME        := a.out
 BUILD_DIR   := .build
 SRC_DIR     := src
 SRCS        := \
-	main.cpp \
 	Animal.cpp \
 	Cat.cpp \
 	Dog.cpp \
+	WrongAnimal.cpp \
+	WrongCat.cpp \
+	main.cpp \
 
 LIBS		:=
 LIBS_PATH	:=
@@ -26,6 +28,7 @@ LDLIBS      := $(addprefix -l,$(LIBS))
 
 RM          := rm -f
 MAKEFLAGS   := --no-print-directory --jobs -C
+AGE			:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
 DIR_DUP     = mkdir -p $(@D)
 
 all: $(NAME)
@@ -60,8 +63,18 @@ asan: LDFLAGS   += -g -fsanitize=address,undefined
 asan: all
 
 run:
-	$(info -------)
+ifneq ("$(wildcard $(NAME))","")
+	clear
+	echo BINARY CREATED $(AGE) AGO
+	echo "---------------------------"
 	./$(NAME)
+endif
+
+run-valgrind:
+	clear
+	echo BINARY CREATED $(AGE) AGO
+	echo "---------------------------"
+	valgrind -q ./$(NAME)
 
 .PHONY: clean re run
 .SILENT:
