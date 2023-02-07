@@ -1,6 +1,8 @@
 NAME        := a.out
 
-BUILD_DIR   := .build
+LIBS		:=
+LIBS_PATH	:=
+
 SRC_DIR     := src
 SRCS        := \
 	Animal.cpp \
@@ -11,13 +13,13 @@ SRCS        := \
 	WrongCat.cpp \
 	main.cpp \
 
-LIBS		:=
-LIBS_PATH	:=
+INC_DIR		:= include
+BUILD_DIR   := .build
 
-##############
+############
 
-INCS        := $(dir $(SRCS))
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
+INCS        := $(INC_DIR) $(dir $(SRCS))
 OBJS        := $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 

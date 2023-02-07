@@ -5,6 +5,18 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
+/* Cat* a = new Cat(); */
+/* Cat* b = new Cat(); */
+/* Cat *c = new Cat(*b); */
+
+/* std::cout << "00A" << std::endl; */
+/* *b = *a = *c; */
+/* std::cout << "salut" << std::endl; */
+
+/* delete a; */
+/* delete b; */
+/* delete c; */
+
 int main( void ) {
   size_t        i;
   const Animal* animals[4];
@@ -22,39 +34,13 @@ int main( void ) {
     std::cout << std::endl;
   }
 
-  std::cout << "          [FIRST WORDS]" << std::endl;
+  std::cout << "          [LIVE]" << std::endl;
   std::cout << std::endl;
 
   for( i = 0; i < 4; i++ ) {
     std::cout << "Animal nᵒ" << i << ", a " << *animals[i] << " says: ";
     animals[i]->makeSound();
   }
-
-  std::cout << std::endl;
-  std::cout << "          [LITTLE LIFE]" << std::endl;
-  std::cout << std::endl;
-
-  /* const Animal* filou = new Animal(animals[2]); */
-
-  //
-  Cat* a = new Cat();
-  Cat* b = new Cat();
-  (void)a;
-  /* const Cat *b = new Cat(*a); */
-  (void)b;
-  *b = *a;
-
-  // TODO copy constructor segfault
-  /* const Cat *b = new Cat(*a); */
-  /* (void)b; */
-
-  /* const Cat *c = b; */
-  /* (void)c; */
-
-  // TODO copy assignment operator segfault
-  /* animals[0] = animals[1]; */
-
-  (void)animals;
 
   std::cout << std::endl;
   std::cout << "          [DEATH]" << std::endl;
@@ -64,4 +50,17 @@ int main( void ) {
     delete animals[i];
     std::cout << std::endl;
   }
+
+  std::cout << std::endl;
+  std::cout << "Copy assignment operator and copy constructors" << std::endl;
+  std::cout << std::endl;
+  Cat* a = new Cat();
+  Cat* b = new Cat();
+  Cat* c = new Cat( *b );
+  std::cout << std::endl;
+  *b = *a = *c;
+  std::cout << std::endl;
+  delete a;
+  delete b;
+  delete c;
 }

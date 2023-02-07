@@ -22,12 +22,13 @@ Brain::Brain() : _size( 100 ), _ideas( new std::string[this->_size] ) {
  * @brief       Copy Constructor
  */
 
-Brain::Brain( Brain const& src ) : _size( src._size ) {
+Brain::Brain( Brain const& src )
+  : _size( src._size ),
+    _ideas( new std::string[src._size] ) {
   size_t i;
   for( i = 0; i < this->_size; i++ ) {
     this->_ideas[i] = src._ideas[i];
   }
-  std::cout << ">>" << __FILE__ << "<<";
   std::cout << src;
   std::cout << " COPIED AS " << *this;
   std::cout << std::endl;
@@ -52,7 +53,6 @@ Brain::~Brain( void ) {
  */
 
 Brain& Brain::operator=( Brain const& rhs ) {
-  std::cout << ">>" << __FILE__ << "<<";
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
   std::cout << std::endl;

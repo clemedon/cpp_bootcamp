@@ -23,7 +23,6 @@ Animal::Animal( std::string const& type ) : _type( type ) {
  */
 
 Animal::Animal( Animal const& src ) : _type( src._type ) {
-  std::cout << ">>" << __FILE__ << "<<";
   std::cout << src;
   std::cout << " COPIED AS " << *this;
   std::cout << std::endl;
@@ -48,7 +47,6 @@ Animal::~Animal( void ) {
  */
 
 Animal& Animal::operator=( Animal const& rhs ) {
-  std::cout << ">>" << __FILE__ << "<<";
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
   std::cout << std::endl;

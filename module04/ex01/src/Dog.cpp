@@ -25,7 +25,6 @@ Dog::Dog( std::string const& type ) : Animal( type ), _brain( new Brain() ) {
 Dog::Dog( Dog const& src )
   : Animal( src._type ),
     _brain( new Brain( *src._brain ) ) {
-  std::cout << ">>" << __FILE__ << "<<";
   std::cout << src;
   std::cout << " COPIED AS " << *this;
   std::cout << std::endl;
@@ -50,7 +49,6 @@ Dog::~Dog( void ) {
  */
 
 Dog& Dog::operator=( Dog const& rhs ) {
-  std::cout << ">>" << __FILE__ << "<<";
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
   std::cout << std::endl;
