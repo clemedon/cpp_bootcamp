@@ -22,7 +22,8 @@
  *
  *  Cat* cat = new Cat();
  *  Dog* dog = new Dog();
- *  *cat = *dog; // NOK a cat can not be a dog
+ *  *cat = *dog;  // NOK a cat can not be a dog
+ *  cat = dog;    // NOK only assign an address
  *
  */
 
