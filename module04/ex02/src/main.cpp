@@ -63,4 +63,5 @@ int main( void ) {
   delete a;
   delete b;
   delete c;
+  return 0;
 }
