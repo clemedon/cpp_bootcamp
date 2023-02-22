@@ -17,11 +17,8 @@
 
 class DiamondTrap : public ScavTrap, public FragTrap {
  public:
-  DiamondTrap( std::string const& name = "Diamond",
-               int const&         healthPoints = 100,
-               int const&         energyPoints = 50,
-               int const&         attackDamage = 30 );
-  DiamondTrap( DiamondTrap const& src );
+  DiamondTrap( std::string const& name = "Diamond" );
+  /* DiamondTrap( DiamondTrap const& src ); */
   ~DiamondTrap( void );
   DiamondTrap& operator=( DiamondTrap const& rhs );
   void         print( std::ostream& o ) const;

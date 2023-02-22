@@ -10,12 +10,15 @@
  * @brief       Default Constructor
  */
 
-DiamondTrap::DiamondTrap( std::string const& name,
-                          int const&         healthPoints,
-                          int const&         energyPoints,
-                          int const&         attackDamage )
-  : ClapTrap( name + "_clap_name", healthPoints, energyPoints, attackDamage ) {
-  this->whoAmI();
+DiamondTrap::DiamondTrap( std::string const& name )
+  : ClapTrap( name + "_clap_name" ),
+    ScavTrap( name ),
+    FragTrap( name ) {
+  this->_name = name;
+  this->_healthPoints = FragTrap::_healthPoints;
+  this->_energyPoints = ScavTrap::_energyPoints;
+  this->_attackDamage = FragTrap::_attackDamage;
+  std::cout << *this;
   std::cout << "IS BORN !" << std::endl;
   return;
 }
@@ -24,24 +27,24 @@ DiamondTrap::DiamondTrap( std::string const& name,
  * @brief       Copy Constructor
  */
 
-DiamondTrap::DiamondTrap( DiamondTrap const& src )
-  : ClapTrap( src.ClapTrap::_name,
-              src.ClapTrap::_healthPoints,
-              src.ClapTrap::_energyPoints,
-              src.ClapTrap::_attackDamage ),
-    ScavTrap(),
-    FragTrap() {
-  this->whoAmI();
-  std::cout << "IS BORN as a clone of " << src << std::endl;
-  return;
-}
+/* DiamondTrap::DiamondTrap( DiamondTrap const& src ) */
+/*   : ClapTrap( src.ClapTrap::_name, */
+/*               src.ClapTrap::_healthPoints, */
+/*               src.ClapTrap::_energyPoints, */
+/*               src.ClapTrap::_attackDamage ), */
+/*     ScavTrap(), */
+/*     FragTrap() { */
+/* std::cout << *this; */
+/*   std::cout << "IS BORN as a clone of " << src << std::endl; */
+/*   return; */
+/* } */
 
 /**
  * @brief       Destructor
  */
 
 DiamondTrap::~DiamondTrap( void ) {
-  this->whoAmI();
+  std::cout << *this;
   std::cout << "IS DEAD !" << std::endl;
   return;
 }
@@ -49,8 +52,6 @@ DiamondTrap::~DiamondTrap( void ) {
 DiamondTrap& DiamondTrap::operator=( DiamondTrap const& rhs ) {
   std::cout << rhs;
   std::cout << "is assigned to " << *this << std::endl;
-  this->whoAmI();
-  std::cout << std::endl;
   if( this == &rhs ) {
     return *this;
   }
@@ -72,7 +73,6 @@ void DiamondTrap::print( std::ostream& o ) const {
   o << " attack = " << this->_attackDamage;
   o << "\t] ";
   o << "DiamondTrap " << this->_name << " ";
-  o << "(ClapTrap " << this->ClapTrap::_name << ") ";
   return;
 }
 
@@ -108,5 +108,6 @@ void DiamondTrap::attack( std::string const& target ) {
  */
 
 void DiamondTrap::whoAmI( void ) {
-  std::cout << *this;
+  std::cout << "\"DiamondTrap " << this->_name << ", son of ";
+  std::cout << " ClapTrap " << this->ClapTrap::_name << "\"";
 }
