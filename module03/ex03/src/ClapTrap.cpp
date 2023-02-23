@@ -10,14 +10,11 @@
  * @brief       Default Constructor
  */
 
-ClapTrap::ClapTrap( std::string const& name,
-                    int const&         healthPoints,
-                    int const&         energyPoints,
-                    int const&         attackDamage )
+ClapTrap::ClapTrap( std::string const& name )
   : _name( name ),
-    _healthPoints( healthPoints ),
-    _energyPoints( energyPoints ),
-    _attackDamage( attackDamage ) {
+    _healthPoints( 10 ),
+    _energyPoints( 10 ),
+    _attackDamage( 0 ) {
   std::cout << *this;
   std::cout << "IS BORN !" << std::endl;
   return;

@@ -16,10 +16,7 @@
 
 class ScavTrap : public virtual ClapTrap {
  public:
-  ScavTrap( std::string const& name = "Derived",
-            int const&         healthPoints = 100,
-            int const&         energyPoints = 50,
-            int const&         attackDamage = 20 );
+  ScavTrap( std::string const& name = "C" );
   ScavTrap( ScavTrap const& src );
   ~ScavTrap( void );
   ScavTrap& operator=( ScavTrap const& rhs );

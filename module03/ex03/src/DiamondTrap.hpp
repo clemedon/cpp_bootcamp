@@ -15,10 +15,10 @@
  * - DiamondTrap stops if it runs out of healthPoints or energyPoints
  */
 
-class DiamondTrap : public ScavTrap, public FragTrap {
+class DiamondTrap : public FragTrap, public ScavTrap {
  public:
-  DiamondTrap( std::string const& name = "Diamond" );
-  /* DiamondTrap( DiamondTrap const& src ); */
+  DiamondTrap( std::string const& name = "D" );
+  DiamondTrap( DiamondTrap const& src );
   ~DiamondTrap( void );
   DiamondTrap& operator=( DiamondTrap const& rhs );
   void         print( std::ostream& o ) const;

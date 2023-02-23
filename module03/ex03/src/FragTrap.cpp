@@ -10,11 +10,10 @@
  * @brief       Default Constructor
  */
 
-FragTrap::FragTrap( std::string const& name,
-                    int const&         healthPoints,
-                    int const&         energyPoints,
-                    int const&         attackDamage )
-  : ClapTrap( name, healthPoints, energyPoints, attackDamage ) {
+FragTrap::FragTrap( std::string const& name ) : ClapTrap( name ) {
+  this->_healthPoints = 100;
+  this->_energyPoints = 100;
+  this->_attackDamage = 30;
   std::cout << *this;
   std::cout << "IS BORN !" << std::endl;
   return;
@@ -24,11 +23,10 @@ FragTrap::FragTrap( std::string const& name,
  * @brief       Copy Constructor
  */
 
-FragTrap::FragTrap( FragTrap const& src )
-  : ClapTrap( src._name,
-              src._healthPoints,
-              src._energyPoints,
-              src._attackDamage ) {
+FragTrap::FragTrap( FragTrap const& src ) : ClapTrap( src._name ) {
+  this->_healthPoints = src._healthPoints;
+  this->_energyPoints = src._energyPoints;
+  this->_attackDamage = src._attackDamage;
   std::cout << *this;
   std::cout << "IS BORN as a clone of " << src << std::endl;
   return;

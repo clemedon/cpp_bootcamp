@@ -8,12 +8,15 @@
 
 /**
  * @brief       Default Constructor
+ *
+ * XXX DiamondTrap inherits of FragTrap and ScavTrap attributes, which is of
+ * little interest since both come from the same source: ClapTrap.
  */
 
 DiamondTrap::DiamondTrap( std::string const& name )
   : ClapTrap( name + "_clap_name" ),
-    ScavTrap( name ),
-    FragTrap( name ) {
+    FragTrap(),
+    ScavTrap() {
   this->_name = name;
   this->_healthPoints = FragTrap::_healthPoints;
   this->_energyPoints = ScavTrap::_energyPoints;
@@ -26,18 +29,18 @@ DiamondTrap::DiamondTrap( std::string const& name )
 /**
  * @brief       Copy Constructor
  */
-
-/* DiamondTrap::DiamondTrap( DiamondTrap const& src ) */
-/*   : ClapTrap( src.ClapTrap::_name, */
-/*               src.ClapTrap::_healthPoints, */
-/*               src.ClapTrap::_energyPoints, */
-/*               src.ClapTrap::_attackDamage ), */
-/*     ScavTrap(), */
-/*     FragTrap() { */
-/* std::cout << *this; */
-/*   std::cout << "IS BORN as a clone of " << src << std::endl; */
-/*   return; */
-/* } */
+DiamondTrap::DiamondTrap( DiamondTrap const& src )
+  : ClapTrap( src._name + "_clap_name" ),
+    FragTrap(),
+    ScavTrap() {
+  this->_name = src._name;
+  this->_healthPoints = src._healthPoints;
+  this->_energyPoints = src._energyPoints;
+  this->_attackDamage = src._attackDamage;
+  std::cout << *this;
+  std::cout << "IS BORN as a clone of " << src << std::endl;
+  return;
+}
 
 /**
  * @brief       Destructor
@@ -108,6 +111,8 @@ void DiamondTrap::attack( std::string const& target ) {
  */
 
 void DiamondTrap::whoAmI( void ) {
-  std::cout << "\"DiamondTrap " << this->_name << ", son of ";
-  std::cout << " ClapTrap " << this->ClapTrap::_name << "\"";
+  std::cout << "\"My name is DiamondTrap " << this->_name
+            << ", I am the son of ";
+  std::cout << "ClapTrap " << this->ClapTrap::_name << "\"";
+  std::cout << std::endl;
 }

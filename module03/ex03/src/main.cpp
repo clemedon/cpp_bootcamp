@@ -4,66 +4,50 @@
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
-/** XXX Another heavier but more flexible approach would be to create the
- * parents at first (from the initialization list) then to recover the values of
- * their attributes from which our diamond must inherit and assign them to it
- * within the body of its constructor
+/** XXX My approach to initialization differs from the previous exercises.
+ * Rather than cascading the parameters of the derived class that I instantiate
+ * to the base class so that it is directly initialized with the derived class
+ * wanted values, I create the base class with its default values then I
+ * overwrite them with those of the derived class that invoked it.
  */
 
 int main( void ) {
-  DiamondTrap    a;
-  /* FragTrap    b; */
-  /* DiamondTrap d( "joe" ); */
-  /* DiamondTrap d2( d ); */
+  std::cout << std::endl;
+  std::cout << ">>> CREATION OF XAV <<<" << std::endl;
+  DiamondTrap a( "Xav" );
+
+  std::cout << std::endl;
+  std::cout << ">>> CREATION OF XAV COPY <<<" << std::endl;
+  DiamondTrap b( a );
+
+  std::cout << std::endl;
+  std::cout << ">>> XAV <<<" << std::endl;
+  std::cout << a << std::endl;
+  a.whoAmI();
+
+  std::cout << std::endl;
+  std::cout << ">>> XAV COPY <<<" << std::endl;
+  std::cout << b << std::endl;
+  b.whoAmI();
+
+  std::cout << std::endl;
+  std::cout << ">>> XAV ATTACK XAV COPY <<<" << std::endl;
+  a.attack( b.getName() );
+  b.takeDamage( a.getAttackDamage() );
+
+  std::cout << std::endl;
+  std::cout << ">>> XAV <<<" << std::endl;
+  std::cout << a << std::endl;
+  a.whoAmI();
+
+  std::cout << std::endl;
+  std::cout << ">>> XAV COPY <<<" << std::endl;
+  std::cout << b << std::endl;
+  b.whoAmI();
+
+  std::cout << std::endl;
+  std::cout << ">>> DESTRUCTION OF XAV COPY AND XAV <<<" << std::endl;
   (void)a;
-  /* (void)b; */
-  /* (void)d; */
-
-  /*   int         random; */
-  /*   DiamondTrap ft0( "Xavier" ); */
-  /*   DiamondTrap st1( "Charly" ); */
-  /*   DiamondTrap st0( st1 ); */
-
-  /*   /1* srand( time( NULL ) ); *1/ */
-  /*   srand( 166328311 ); */
-  /*   std::cout << ">> Start <<" << std::endl; */
-  /*   while( 1 ) { */
-  /*     random = rand() % 100 + 1; */
-
-  /*     if( ft0.isAble() && st0.isAble() ) { */
-  /*       if( random <= 50 ) { */
-  /*         ft0.attack( st0.getName() ); */
-  /*         st0.takeDamage( ft0.getAttackDamage() ); */
-  /*       } else { */
-  /*         st0.attack( ft0.getName() ); */
-  /*         ft0.takeDamage( st0.getAttackDamage() ); */
-  /*       } */
-  /*     } else { */
-  /*       break; */
-  /*     } */
-
-  /*     if( ft0.isAble() && st0.isAble() ) { */
-  /*       random = rand() % 100 + 1; */
-  /*       if( random <= 50 ) { */
-  /*         ft0.beRepaired( random % 10 ); */
-  /*       } else { */
-  /*         st0.beRepaired( random % 10 ); */
-  /*       } */
-  /*       random = rand() % 100 + 1; */
-  /*     } else { */
-  /*       break; */
-  /*     } */
-
-  /*     if( ft0.isAble() && st0.isAble() ) { */
-  /*       if( random <= 50 ) { */
-  /*         st0.guardGate(); */
-  /*       } else { */
-  /*         ft0.highFivesGuys(); */
-  /*       } */
-  /*     } else { */
-  /*       break; */
-  /*     } */
-  /*   } */
-  /*   std::cout << ">> Finish <<" << std::endl; */
+  (void)b;
   return 0;
 }

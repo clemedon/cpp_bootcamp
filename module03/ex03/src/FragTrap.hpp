@@ -16,10 +16,7 @@
 
 class FragTrap : public virtual ClapTrap {
  public:
-  FragTrap( std::string const& name = "Derived",
-            int const&         healthPoints = 100,
-            int const&         energyPoints = 100,
-            int const&         attackDamage = 30 );
+  FragTrap( std::string const& name = "B" );
   FragTrap( FragTrap const& src );
   ~FragTrap( void );
   FragTrap& operator=( FragTrap const& rhs );

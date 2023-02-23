@@ -15,10 +15,7 @@
 
 class ClapTrap {
  public:
-  ClapTrap( std::string const& name = "Base",
-            int const&         healthPoints = 10,
-            int const&         energyPoints = 10,
-            int const&         attackDamage = 0 );
+  ClapTrap( std::string const& name = "A" );
   ClapTrap( ClapTrap const& src );
   virtual ~ClapTrap( void );
   ClapTrap&    operator=( ClapTrap const& rhs );
