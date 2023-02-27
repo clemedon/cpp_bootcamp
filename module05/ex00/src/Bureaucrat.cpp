@@ -40,10 +40,10 @@ Bureaucrat::Bureaucrat( Bureaucrat const& src )
   } else if( src._grade < Bureaucrat::_botLevel ) {
     throw Bureaucrat::GradeTooLowException( src._grade );
   }
+  *this = src;
   std::cout << src;
   std::cout << " COPIED AS " << *this;
   std::cout << std::endl;
-  *this = src;
   return;
 }
 
