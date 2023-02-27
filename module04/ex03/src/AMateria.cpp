@@ -12,7 +12,9 @@
  * @brief       Default Constructor
  */
 
-AMateria::AMateria( std::string const& type ) : _type( type ) {
+AMateria::AMateria( std::string const& type )
+  : _type( type ),
+    _lockStatus( false ) {
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;
@@ -26,6 +28,7 @@ AMateria::AMateria( std::string const& type ) : _type( type ) {
 
 AMateria::AMateria( AMateria const& src ) {
   this->_type = src._type;
+  this->_lockStatus = false;
   std::cout << __FILE__;
   std::cout << " COPY CONSTRUCTED ";
   std::cout << *this;
@@ -58,6 +61,8 @@ AMateria& AMateria::operator=( AMateria const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
+  this->_type = rhs._type;
+  this->_lockStatus = this->_lockStatus;
   return *this;
 }
 
@@ -66,7 +71,7 @@ AMateria& AMateria::operator=( AMateria const& rhs ) {
  */
 
 void AMateria::print( std::ostream& o ) const {
-  o << this->_type;
+  o << this->_type << "(" << this->_lockStatus << ")";
   return;
 }
 
@@ -98,8 +103,32 @@ void AMateria::use( ICharacter& target ) {
  * @return      True if the type match, or false
  */
 
-bool AMateria::compareType( std::string const& type ) {
+bool AMateria::compareType( std::string const& type ) const {
   return this->_type == type;
+}
+
+/**
+ * @brief       Check if the Materia is already equipped
+ *
+ * @return      True if it is equipped, or false
+ */
+
+bool AMateria::checkLockStatus( void ) const {
+  return this->_lockStatus;
+}
+
+/**
+ * @brief       Lock/Unlock the Materia
+ *
+ *  false is unlocked is unequipped
+ *  true is locked is equipped
+ *
+ * @param[in]   lockStatus the lock status
+ */
+
+void AMateria::lock( bool lockStatus ) {
+  this->_lockStatus = lockStatus;
+  return;
 }
 
 /*  GETTERS

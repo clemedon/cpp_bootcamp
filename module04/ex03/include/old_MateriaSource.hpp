@@ -18,9 +18,20 @@ class AMateria;
  *
  *  _learned
  *    up to 4 learned Materia's recipe
+ *
+ *  _createdCount
+ *    the total number of created (thus existing) materias
+ *
+ *  _created
+ *    the address of each created (thus existing) materias
  */
 
-const int g_knowledgeSize = 4;
+struct Node {
+  AMateria* data;
+  Node*     next;
+};
+
+const int g_learningCapacity = 4;
 
 class MateriaSource : public IMateriaSource {
  public:
@@ -32,10 +43,17 @@ class MateriaSource : public IMateriaSource {
 
   void      learnMateria( AMateria* );
   AMateria* createMateria( std::string const& type );
-  void      displayLearned( void ) const;
+
+  void displayLearned( void ) const;
+
+  void displayCreated( void ) const;
+  /* void addToCreated( void ) const; // ? */
+  /* void destroyCreated( void ) const; */
 
  private:
-  AMateria* _learned[g_knowledgeSize];
+  AMateria* _learned[g_learningCapacity];
+  int       _createdCount;
+  Node*     _created;
 };
 
 std::ostream& operator<<( std::ostream& o, MateriaSource const& i );

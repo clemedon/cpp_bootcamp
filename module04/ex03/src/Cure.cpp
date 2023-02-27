@@ -66,7 +66,7 @@ Cure& Cure::operator=( Cure const& rhs ) {
  */
 
 void Cure::print( std::ostream& o ) const {
-  o << this->_type;
+  o << this->_type << "(" << this->_lockStatus << ")";
   return;
 }
 
@@ -94,9 +94,14 @@ AMateria* Cure::clone( void ) const {
  */
 
 void Cure::use( ICharacter& target ) {
-  std::cout << "* heals ";
-  std::cout << target.getName();
-  std::cout << "'s wounds *";
-  std::cout << std::endl;
+  if( this->_lockStatus ) {
+    std::cout << "* heals ";
+    std::cout << target.getName();
+    std::cout << "'s wounds *";
+    std::cout << std::endl;
+  } else {
+    std::cout << "This material must be equipped to be used.";
+    std::cout << std::endl;
+  }
   return;
 }

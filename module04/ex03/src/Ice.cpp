@@ -25,6 +25,8 @@ Ice::Ice( std::string const& type ) : AMateria( type ) {
  * @brief       Copy Constructor
  */
 
+// TODO why not AMateria ( src ) to call the copy constr de AMateria directement
+// plutot que d'appeler son constructor
 Ice::Ice( Ice const& src ) : AMateria( src._type ) {
   std::cout << __FILE__;
   std::cout << " COPY CONSTRUCTED ";
@@ -66,7 +68,7 @@ Ice& Ice::operator=( Ice const& rhs ) {
  */
 
 void Ice::print( std::ostream& o ) const {
-  o << this->_type;
+  o << this->_type << "(" << this->_lockStatus << ")";
   return;
 }
 
@@ -94,9 +96,14 @@ AMateria* Ice::clone( void ) const {
  */
 
 void Ice::use( ICharacter& target ) {
-  std::cout << "* shoots an ice bolt at ";
-  std::cout << target.getName();
-  std::cout << " *";
-  std::cout << std::endl;
+  if( this->_lockStatus ) {
+    std::cout << "* shoots an ice bolt at ";
+    std::cout << target.getName();
+    std::cout << " *";
+    std::cout << std::endl;
+  } else {
+    std::cout << "This Materia must be equipped to be used.";
+    std::cout << std::endl;
+  }
   return;
 }

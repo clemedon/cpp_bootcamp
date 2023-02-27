@@ -69,17 +69,11 @@ Character::~Character( void ) {
   delete this->_name;
   for( i = 0; i < g_inventorySize; i++ ) {
     if( this->_inventory[i] ) {
-      std::cout << "111 " << i << " " << this->_inventory[i] << std::endl;
-
-      // TODO segfault when the materia is double deleted!
       delete this->_inventory[i];
       this->_inventory[i] = NULL;
-
-      std::cout << "222 " << i << " " << this->_inventory[i] << std::endl;
     }
     std::cout << std::endl;
   }
-  std::cout << "333" << std::endl;
   return;
 }
 
@@ -143,9 +137,15 @@ void Character::equip( AMateria* m ) {
   if( m == NULL ) {
     return;
   }
+  if( m->checkLockStatus() ) {
+    std::cout << "This Materia is already stored in an inventory.";
+    std::cout << std::endl;
+    return;
+  }
   for( i = 0; i < g_inventorySize; i++ ) {
     if( this->_inventory[i] == NULL ) {
       this->_inventory[i] = m;
+      m->lock( true );
       std::cout << *this;
       std::cout << " has placed ";
       std::cout << *m;
@@ -180,6 +180,7 @@ void Character::unequip( int idx ) {
     //
     // "Vous pouvez enregistrer l’adresse avant d’appeler unequip(), ou autre,
     // du moment que vous n’avez pas de fuites de mémoire."
+    this->_inventory[idx]->lock( false );
     this->_inventory[idx] = NULL;
   } else {
     std::cout << *this;
@@ -210,6 +211,24 @@ void Character::use( int idx, ICharacter& target ) {
     std::cout << idx;
     std::cout << " of its inventory";
     std::cout << std::endl;
+  }
+  return;
+}
+
+/**
+ * @brief       Display the content of the inventory
+ */
+
+void Character::displayInventory( void ) const {
+  int i;
+
+  std::cout << "* " << *this << " take a look at its inventory *" << std::endl;
+  for( i = 0; i < g_inventorySize; i++ ) {
+    if( this->_inventory[i] ) {
+      std::cout << " - space " << i + 1  << " contains " << *this->_inventory[i] << std::endl;
+    } else {
+      std::cout << " - space " << i + 1  << " is free" << std::endl;
+    }
   }
   return;
 }

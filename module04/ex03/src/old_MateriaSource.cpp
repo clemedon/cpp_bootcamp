@@ -5,7 +5,7 @@
 
 #include "MateriaSource.hpp"
 
-extern const int g_knowledgeSize;
+extern const int g_learningCapacity;
 
 /*  STANDARD
 ------------------------------------------------- */
@@ -14,12 +14,16 @@ extern const int g_knowledgeSize;
  * @brief       Default Constructor
  */
 
-MateriaSource::MateriaSource( void ) {
+MateriaSource::MateriaSource( void ) : _createdCount( 0 ), _created( NULL ) {
   int i;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_learningCapacity; i++ ) {
     this->_learned[i] = NULL;
   }
+
+  // TODO
+  this->_created = NULL;
+
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;
@@ -34,7 +38,7 @@ MateriaSource::MateriaSource( void ) {
 MateriaSource::MateriaSource( MateriaSource const& src ) {
   int i;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_learningCapacity; i++ ) {
     if( src._learned[i] ) {
       this->_learned[i] = src._learned[i]->clone();
     } else {
@@ -62,10 +66,26 @@ MateriaSource::~MateriaSource( void ) {
   std::cout << *this;
   std::cout << std::endl;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_learningCapacity; i++ ) {
     if( this->_learned[i] ) {
       delete this->_learned[i];
     }
+  }
+
+  Node* ptr;
+
+  ptr = this->_created;
+  while( ptr != NULL ) {
+    if( ptr->data->checkLockStatus() == false ) { //TODO
+      delete ptr->data;
+    }
+    ptr = ptr->next;
+  }
+
+  while( this->_created != NULL ) {
+    ptr = this->_created;
+    this->_created = this->_created->next;
+    delete ptr;
   }
   return;
 }
@@ -83,7 +103,7 @@ MateriaSource& MateriaSource::operator=( MateriaSource const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_learningCapacity; i++ ) {
     if( this->_learned[i] ) {
       delete this->_learned[i];
     }
@@ -124,7 +144,7 @@ void MateriaSource::learnMateria( AMateria* m ) {
   if( m == NULL ) {
     return;
   }
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_learningCapacity; i++ ) {
     if( this->_learned[i] == NULL ) {
       this->_learned[i] = m;
       std::cout << *this;
@@ -132,7 +152,7 @@ void MateriaSource::learnMateria( AMateria* m ) {
       std::cout << *m;
       std::cout << " in space ";
       std::cout << i;
-      std::cout << " of its knowledge";
+      std::cout << " of its learning memory";
       std::cout << std::endl;
       return;
     }
@@ -148,11 +168,17 @@ void MateriaSource::learnMateria( AMateria* m ) {
  */
 
 AMateria* MateriaSource::createMateria( std::string const& type ) {
-  int i;
+  int   i;
+  Node* newCreated;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  newCreated = new Node();
+  for( i = 0; i < g_learningCapacity; i++ ) {
     if( this->_learned[i]->compareType( type ) ) {
-      return this->_learned[i]->clone();
+      newCreated->data = this->_learned[i]->clone();
+      this->_createdCount++;
+      newCreated->next = this->_created;
+      this->_created = newCreated;
+      return newCreated->data;
     }
   }
   return NULL;
@@ -165,8 +191,8 @@ AMateria* MateriaSource::createMateria( std::string const& type ) {
 void MateriaSource::displayLearned( void ) const {
   int i;
 
-  std::cout << *this << "'s knowledge:" << std::endl;
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  std::cout << *this << "'s learning memory:" << std::endl;
+  for( i = 0; i < g_learningCapacity; i++ ) {
     if( this->_learned[i] ) {
       std::cout << " - space " << i + 1 << " contains " << *this->_learned[i]
                 << std::endl;
@@ -174,5 +200,24 @@ void MateriaSource::displayLearned( void ) const {
       std::cout << " - space " << i + 1 << " is free" << std::endl;
     }
   }
+  return;
+}
+
+/**
+ * @brief       Display the created (thus existing) materia
+ */
+
+void MateriaSource::displayCreated( void ) const {
+  Node* ptr;
+
+  ptr = this->_created;
+  std::cout << *this << "'s created:" << std::endl;
+  while( ptr != NULL ) {
+    std::cout << *ptr->data;
+    std::cout << std::endl;
+    ptr = ptr->next;
+  }
+  std::cout << "For a total of " << this->_createdCount << " Materias.";
+  std::cout << std::endl;
   return;
 }

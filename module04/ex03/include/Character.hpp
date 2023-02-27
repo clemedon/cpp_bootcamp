@@ -34,10 +34,11 @@ class Character : public ICharacter {
   void equip( AMateria* m );
   void unequip( int idx );
   void use( int idx, ICharacter& target );
+  void displayInventory( void ) const;
 
   std::string const& getName() const;
 
- public: //TODO
+ public:  // TODO
   std::string* _name;
   AMateria*    _inventory[g_inventorySize];
 };
