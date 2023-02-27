@@ -80,23 +80,23 @@ Fixed& Fixed::operator=( Fixed const& rhs ) {
  * @brief       Comparison operators
  */
 
-bool Fixed::operator>( const Fixed& rhs ) const {
+bool Fixed::operator>( Fixed const& rhs ) const {
   return this->_rawBits > rhs._rawBits;
 }
 
-bool Fixed::operator<( const Fixed& rhs ) const {
+bool Fixed::operator<( Fixed const& rhs ) const {
   return this->_rawBits < rhs._rawBits;
 }
 
-bool Fixed::operator>=( const Fixed& rhs ) const {
+bool Fixed::operator>=( Fixed const& rhs ) const {
   return this->_rawBits >= rhs._rawBits;
 }
 
-bool Fixed::operator<=( const Fixed& rhs ) const {
+bool Fixed::operator<=( Fixed const& rhs ) const {
   return this->_rawBits <= rhs._rawBits;
 }
 
-bool Fixed::operator==( const Fixed& rhs ) const {
+bool Fixed::operator==( Fixed const& rhs ) const {
   return this->_rawBits == rhs._rawBits;
 }
 
