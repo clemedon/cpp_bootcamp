@@ -27,6 +27,7 @@ class LinkedList {
   void addFront( T const& newData );
   void addBack( T const& newData );
   void delFirst( T const& data );
+  void delAll( void );
 
  private:
   Node<T>* _head;
@@ -72,15 +73,6 @@ LinkedList<T>::LinkedList( LinkedList const& src ) : _head( NULL ) {
 template <class T>
 LinkedList<T>::~LinkedList( void ) {
   std::cerr << "LINKEDLIST DESTRUCTOR" << std::endl;
-  Node<T>* current;
-  Node<T>* next;
-
-  current = this->_head;
-  while( current != NULL ) {
-    next = current->next;
-    delete current;
-    current = next;
-  }
   return;
 }
 
@@ -97,13 +89,13 @@ LinkedList<T>& LinkedList<T>::operator=( LinkedList<T> const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  current = this->_head;
+  current = _head;
   while( current != NULL ) {
     next = current->next;
     delete current;
     current = next;
   }
-  this->_head = NULL;
+  _head = NULL;
   current = rhs._head;
   while( current != NULL ) {
     addBack( current->data );
@@ -120,8 +112,15 @@ template <class T>
 void LinkedList<T>::print( std::ostream& o ) const {
   Node<T>* current;
 
-  current = this->_head;
+  current = _head;
+  o << " list address  ";
+  o << " node address  ";
+  o << " data address  ";
+  o << " data preview  ";
+  std::cout << std::endl;
   while( current ) {
+    o << " " << this;
+    o << " " << current;
     o << " " << current->data;
     o << " " << *current->data;
     std::cout << std::endl;
@@ -154,8 +153,8 @@ void LinkedList<T>::addFront( T const& newData ) {
 
   newNode = new Node<T>();
   newNode->data = newData;
-  newNode->next = this->_head;
-  this->_head = newNode;
+  newNode->next = _head;
+  _head = newNode;
   return;
 }
 
@@ -172,10 +171,10 @@ void LinkedList<T>::addBack( T const& newData ) {
   newNode = new Node<T>();
   newNode->data = newData;
   newNode->next = NULL;
-  if( this->_head == NULL ) {
-    this->_head = newNode;
+  if( _head == NULL ) {
+    _head = newNode;
   } else {
-    current = this->_head;
+    current = _head;
     while( current->next != NULL )
       current = current->next;
     current->next = newNode;
@@ -193,14 +192,14 @@ void LinkedList<T>::delFirst( T const& data ) {
   Node<T>* current;
   Node<T>* previous;
 
-  current = this->_head;
+  current = _head;
   previous = NULL;
   while( current != NULL ) {
     if( current->data == data ) {
       if( previous == NULL ) {
-        this->_head = current->next;
+        _head = current->next;
         delete current;
-        current = this->_head;
+        current = _head;
         return;
       } else {
         previous->next = current->next;
@@ -213,6 +212,21 @@ void LinkedList<T>::delFirst( T const& data ) {
     current = current->next;
   }
   return;
+}
+
+template <typename T>
+void LinkedList<T>::delAll( void ) {
+  std::cerr << "LINKEDLIST " << __func__ << std::endl;
+  Node<T>* current;
+  Node<T>* next;
+
+  current = _head;
+  while( current != NULL ) {
+    next = current->next;
+    std::cout << " delete  " << current->data << std::endl;
+    delete current;
+    current = next;
+  }
 }
 
 #endif  // LINKEDLIST_HPP_

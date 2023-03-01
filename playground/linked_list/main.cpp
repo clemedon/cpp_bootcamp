@@ -6,12 +6,12 @@
 class Color {
  public:
   Color( int r, int g, int b ) : _r( r ), _g( g ), _b( b ) {
-    this->_history.addBack( this );  // use the LL within a member function
+    _history.addBack( this );  // use the LL within a member function
     return;
   }
 
   void print( std::ostream& o ) const {
-    o << "(" << this->_r << ", " << this->_g << ", " << this->_b << ")";
+    o << "(" << _r << ", " << _g << ", " << _b << ")";
     return;
   }
 
@@ -43,21 +43,23 @@ int main( void ) {
   std::cout << "list:" << std::endl;
   std::cout << Color::_history << std::endl;
 
-  Color c1( 10, 10, 10 );
-  Color c2( 20, 20, 20 );
-  Color c3( 30, 30, 30 );
+  Color  c1( 10, 10, 10 );
+  Color  c2( 20, 20, 20 );
+  Color* c3 = new Color( 30, 30, 30 );
   std::cout << "list:" << std::endl;
   std::cout << Color::_history << std::endl;
 
-  Color::_history.addBack( &c3 );
+  Color::_history.addBack( c3 );
   std::cout << "list:" << std::endl;
   std::cout << Color::_history << std::endl;
 
-  Color::_history.addFront( &c3 );
+  Color::_history.addFront( &c1 );
   std::cout << "list:" << std::endl;
   std::cout << Color::_history << std::endl;
 
-  Color::_history.delFirst( &c3 );
+  Color::_history.delFirst( &c1 );
   std::cout << "list:" << std::endl;
   std::cout << Color::_history << std::endl;
+
+  delete c3;
 }
