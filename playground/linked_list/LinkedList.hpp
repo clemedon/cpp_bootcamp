@@ -5,18 +5,14 @@
 #include <string>
 
 /**
- * @brief       Generic Linked List
- *
- * @param[out]  TODO
- * @param[in]   TODO
- * @return      TODO
+ *  Generic Linked List
  */
 
 template <class T>
 class Node {
  public:
   T     data;
-  Node* next;  // TODO <T>?
+  Node* next;
 };
 
 template <class T>
