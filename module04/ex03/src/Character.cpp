@@ -16,16 +16,18 @@ extern const int g_inventorySize;
  */
 
 Character::Character( std::string const& name )
-  : _name( new std::string( name ) ) {  // TODO new, to keep the ptr?
+  : _name( new std::string( name ) ) {
   int i;
 
   for( i = 0; i < g_inventorySize; i++ ) {
-    this->_inventory[i] = NULL;
+    _inventory[i] = NULL;
   }
+#if defined( DEBUG )
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;
   std::cout << std::endl;
+#endif
   return;
 }
 
@@ -34,23 +36,28 @@ Character::Character( std::string const& name )
  */
 
 Character::Character( Character const& src )
-  : _name( new std::string(
-    src.getName() ) ) {  // TODO why not src._name TRY *src._name
-  int i;
+#if defined( DEBUG )
+  : _name( new std::string( *src._name + "_copy" ) ) {
+#else
+  : _name( new std::string( *src._name ) ) {
+#endif
 
+  int i;
   for( i = 0; i < g_inventorySize; i++ ) {
     if( src._inventory[i] ) {
-      this->_inventory[i] = src._inventory[i]->clone();
+      _inventory[i] = src._inventory[i]->clone();
     } else {
-      this->_inventory[i] = NULL;
+      _inventory[i] = NULL;
     }
   }
+#if defined( DEBUG )
   std::cout << __FILE__;
   std::cout << " COPY CONSTRUCTED ";
   std::cout << *this;
   std::cout << " FROM ";
   std::cout << src;
   std::cout << std::endl;
+#endif
   return;
 }
 
@@ -61,16 +68,18 @@ Character::Character( Character const& src )
 Character::~Character( void ) {
   int i;
 
+#if defined( DEBUG )
   std::cout << __FILE__;
-  std::cout << " DESTROYED ";
+  std::cout << " DESTRUCTED ";
   std::cout << *this;
   std::cout << std::endl;
+#endif
 
-  delete this->_name;
+  delete _name;
   for( i = 0; i < g_inventorySize; i++ ) {
-    if( this->_inventory[i] ) {
-      delete this->_inventory[i];
-      this->_inventory[i] = NULL;
+    if( _inventory[i] ) {
+      delete _inventory[i];
+      _inventory[i] = NULL;
     }
     std::cout << std::endl;
   }
@@ -84,24 +93,30 @@ Character::~Character( void ) {
 Character& Character::operator=( Character const& rhs ) {
   int i;
 
+#if defined( DEBUG )
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
   std::cout << std::endl;
+#endif
   if( this == &rhs ) {
     return *this;
   }
-  if( this->_name ) {
-    delete this->_name;
+  if( _name ) {
+    delete _name;
   }
-  this->_name = new std::string( *rhs._name );
+#if defined( DEBUG )
+  _name = new std::string( *rhs._name + "_assigned" );
+#else
+  _name = new std::string( *rhs._name );
+#endif
   for( i = 0; i < g_inventorySize; i++ ) {
-    if( this->_inventory[i] ) {
-      delete this->_inventory[i];
+    if( _inventory[i] ) {
+      delete _inventory[i];
     }
     if( rhs._inventory[i] ) {
-      this->_inventory[i] = rhs._inventory[i]->clone();
+      _inventory[i] = rhs._inventory[i]->clone();
     } else {
-      this->_inventory[i] = NULL;
+      _inventory[i] = NULL;
     }
   }
   return *this;
@@ -112,7 +127,7 @@ Character& Character::operator=( Character const& rhs ) {
  */
 
 void Character::print( std::ostream& o ) const {
-  o << ( *this->_name );
+  o << ( *_name );
   return;
 }
 
@@ -138,26 +153,25 @@ void Character::equip( AMateria* m ) {
     return;
   }
   if( m->checkLockStatus() ) {
-    std::cout << "This Materia is already stored in an inventory.";
+    std::cout << *this << " can't put it twice in his inventory.";
     std::cout << std::endl;
     return;
   }
   for( i = 0; i < g_inventorySize; i++ ) {
-    if( this->_inventory[i] == NULL ) {
-      this->_inventory[i] = m;
+    if( _inventory[i] == NULL ) {
+      _inventory[i] = m;
       m->lock( true );
+      m->delFreeMaterias();
       std::cout << *this;
-      std::cout << " has placed ";
+      std::cout << " has placed a Materia ";
       std::cout << *m;
-      std::cout << " in space ";
-      std::cout << i;
-      std::cout << " of its inventory";
+      std::cout << " in his inventory!";
       std::cout << std::endl;
       return;
     }
   }
   std::cout << *this;
-  std::cout << "'s inventory is full";
+  std::cout << "'s inventory is full.";
   std::cout << std::endl;
   return;
 }
@@ -167,26 +181,22 @@ void Character::equip( AMateria* m ) {
  */
 
 void Character::unequip( int idx ) {
-  if( idx > -1 && idx < g_inventorySize
-      && this->_inventory[idx] ) {  // TODO test
+  if( idx > -1 && idx < g_inventorySize && _inventory[idx] ) {
+    _inventory[idx]->lock( false );
     std::cout << *this;
-    std::cout << " carefully lay its ";
-    std::cout << *this->_inventory[idx];
-    std::cout << " Materia on the ground and say: ";
-    std::cout << "\"I am going to miss you…  but we must separate now.\"";
+    std::cout << " carefully lay its Materia ";
+    std::cout << *_inventory[idx];
+    std::cout << " on the ground and says: ";
+    std::cout << "\"I am going to miss you…  but we must say good bye.\"";
     std::cout << std::endl;
-    // TODO leak ?
-    // "la fonction unequip ne doit PAS delete la Materia"
-    //
-    // "Vous pouvez enregistrer l’adresse avant d’appeler unequip(), ou autre,
-    // du moment que vous n’avez pas de fuites de mémoire."
-    this->_inventory[idx]->lock( false );
-    this->_inventory[idx] = NULL;
-  } else {
-    std::cout << *this;
-    std::cout << " does not have a Materia in space ";
+    _inventory[idx]->addFreeMaterias();
+    _inventory[idx] = NULL;
+  } else if( idx > -1 && idx < g_inventorySize ) {
+    std::cout << "Compartment ";
     std::cout << idx;
-    std::cout << " of its inventory";
+    std::cout << " of ";
+    std::cout << *this;
+    std::cout << "'s inventory has nothing but dust…";
     std::cout << std::endl;
   }
   return;
@@ -197,19 +207,19 @@ void Character::unequip( int idx ) {
  */
 
 void Character::use( int idx, ICharacter& target ) {
-  if( idx > -1 && idx < g_inventorySize
-      && this->_inventory[idx] ) {  // TODO test
-    std::cout << target.getName();  // TODO interface encapsulation
-    std::cout << " uses a ";
-    std::cout << *this->_inventory[idx];
-    std::cout << " Materia";
+  if( idx > -1 && idx < g_inventorySize && _inventory[idx] ) {
+    std::cout << *this;
+    std::cout << " uses a Materia ";
+    std::cout << *_inventory[idx];
+    std::cout << "…";
     std::cout << std::endl;
-    this->_inventory[idx]->use( target );
+    _inventory[idx]->use( target );
   } else {
-    std::cout << target.getName();  // TODO interface encapsulation
-    std::cout << " does not have a Materia in space ";
+    std::cout << "Compartment ";
     std::cout << idx;
-    std::cout << " of its inventory";
+    std::cout << " of ";
+    std::cout << *this;
+    std::cout << "'s inventory has nothing but dust…";
     std::cout << std::endl;
   }
   return;
@@ -224,10 +234,14 @@ void Character::displayInventory( void ) const {
 
   std::cout << "* " << *this << " take a look at its inventory *" << std::endl;
   for( i = 0; i < g_inventorySize; i++ ) {
-    if( this->_inventory[i] ) {
-      std::cout << " - space " << i + 1  << " contains " << *this->_inventory[i] << std::endl;
+    if( _inventory[i] ) {
+      std::cout << " Compartments " << i + 1 << ": ";
+      std::cout << "Materia." << *_inventory[i];
+      std::cout << std::endl;
     } else {
-      std::cout << " - space " << i + 1  << " is free" << std::endl;
+      std::cout << " Compartments " << i + 1 << ": ";
+      std::cout << "empty.";
+      std::cout << std::endl;
     }
   }
   return;
@@ -237,5 +251,5 @@ void Character::displayInventory( void ) const {
 ------------------------------------------------- */
 
 std::string const& Character::getName( void ) const {
-  return *this->_name;
+  return *_name;
 }

@@ -23,13 +23,11 @@ class Ice : public AMateria {
   Ice( std::string const& type = "ice" );
   Ice( Ice const& src );
   virtual ~Ice( void );
-  Ice&         operator=( Ice const& rhs );
-  virtual void print( std::ostream& o ) const;
+  Ice& operator=( Ice const& rhs );
+  void print( std::ostream& o ) const;
 
   virtual AMateria* clone( void ) const;
   virtual void      use( ICharacter& target );
 };
-
-std::ostream& operator<<( std::ostream& o, Ice const& i );
 
 #endif  // ICE_HPP_

@@ -30,9 +30,9 @@ class MateriaSource : public IMateriaSource {
   MateriaSource& operator=( MateriaSource const& rhs );
   virtual void   print( std::ostream& o ) const;
 
-  void      learnMateria( AMateria* );
-  AMateria* createMateria( std::string const& type );
-  void      displayLearned( void ) const;
+  virtual void      learnMateria( AMateria* );
+  virtual AMateria* createMateria( std::string const& type );
+  virtual void      displayLearned( void ) const;
 
  private:
   AMateria* _learned[g_knowledgeSize];

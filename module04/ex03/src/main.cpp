@@ -8,8 +8,10 @@
 #include "Ice.hpp"
 #include "MateriaSource.hpp"
 
-extern const int g_inventorySize;
-extern const int g_knowledgeSize;
+#include "LinkedList.hpp"
+
+const int tg_inventorySize = 4;
+const int tg_knowledgeSize = 4;
 
 void t_default() {
   IMateriaSource* src = new MateriaSource();
@@ -44,35 +46,32 @@ void t_Character() {
   std::cout << *c1 << std::endl;
   std::cout << std::endl;
 
+
+  std::cerr << " ---------- ( ... )" << std::endl;
   IMateriaSource* src = new MateriaSource();
   src->learnMateria( new Ice() );
   src->learnMateria( new Cure() );
-
   AMateria* m1;
-  m1 = src->createMateria( "ice" );  // TODO segfault is given unknown materia
-  (void)m1;                          // XXX
+  m1 = src->createMateria( "ice" );
   AMateria* m2;
   m2 = src->createMateria( "cure" );
-  (void)m2;  // XXX
+  src->displayLearned();
+  std::cout << std::endl;
 
-  std::cerr << " ---------- ( equip normal use )" << std::endl;
-  c1->equip( NULL );
-  /* for( i = 0; i < g_inventoryCapacity + 1; i++ ) */
-  c2->equip( m2 );
-  /* std::cout << std::endl; */
+  std::cerr << " ---------- ( equip )" << std::endl;
+  c1->equip( m1 );
+  c2->equip( NULL );
+  for( i = 0; i < tg_inventorySize + 1; i++ ) {
+    c2->equip( m1 );
+  }
+  c1->equip( m2 );
+  std::cout << std::endl;
 
-  /* c2->equip( m1 ); */
+  std::cerr << " ---------- ( unequip )" << std::endl;
+  for( i = 0 - 1; i < tg_inventorySize + 1; i++ )
+    c2->unequip( i );
 
-  /* std::cerr << " ---------- ( unequip normal use )" << std::endl; */
-  /* c1->unequip( 0 ); */
-  /* c1->unequip( 3 ); */
-  /* std::cerr << " ---------- ( equip abnormal use )" << std::endl; */
-  /* for( i = 0 - 1; i < g_inventoryCapacity + 1; i++ ) */
-  /*   c1->unequip( i ); */
-
-  /* std::cout << std::endl; */
-
-  /* std::cerr << " ---------- ( use normal use )" << std::endl; */
+  std::cerr << " ---------- ( use )" << std::endl;
   /* c1->use( 0, c2 ); */
   /* std::cerr << " ---------- ( use abnormal use )" << std::endl; */
 
@@ -82,6 +81,12 @@ void t_Character() {
   delete c1;
   delete c2;
   delete src;
+}
+void t_next( void ) {
+  std::cout << "Press ENTER to continue";
+  std::cin.ignore();
+  std::cout << "\033[2J\033[1;1H";
+  return;
 }
 
 /*
@@ -105,12 +110,15 @@ void t_Character() {
  *  we would not be able to programmatically delete unequiped Materias in the
  *  end of the program.
  *
+ * Check anytime if a Materia is equipped or unequipped with:
+ *  std::cout << m << " status: " << m->checkLockStatus();
  *
  */
 
 int main( void ) {
-  t_default();
+  /* t_default(); */
+  /* t_next(); */
   // TODO press a touch for next && clear
-  /* t_Character(); */
+  t_Character();
   return 0;
 }

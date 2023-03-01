@@ -4,6 +4,8 @@
 #include <iosfwd>
 #include <string>
 
+#include "LinkedList.hpp"
+
 class ICharacter;
 
 /**
@@ -18,12 +20,12 @@ class ICharacter;
  *  _lockStatus
  *    indicate if the Materia is held by a character
  *
- *  _head
- *   the list of all existing free Materias (which are not equipped)
+ *  _freeMaterias
+ *   the list of all existing free Materias (those which are not equipped)
  *
- * - created    = add
- * - equipped   = delete
- * - unequipped = add
+ * - constructed  = add
+ * - equipped     = delete
+ * - unequipped   = add
  *
  * - la liste est déclarée en static par la première instance de AMateria
  * - la liste n'est pas sur la heap ainsi le destructor appelé automatiquement
@@ -35,11 +37,11 @@ class ICharacter;
 
 class AMateria {
  public:
-  AMateria( std::string const& type = "Materia" );
+  AMateria( std::string const& type = "AMateria" );
   AMateria( AMateria const& src );
   virtual ~AMateria( void );
-  AMateria&    operator=( AMateria const& rhs );
-  virtual void print( std::ostream& o ) const;
+  AMateria& operator=( AMateria const& rhs );
+  void      print( std::ostream& o ) const;
 
   virtual AMateria* clone( void ) const = 0;
   virtual void      use( ICharacter& target );
@@ -48,14 +50,16 @@ class AMateria {
   bool checkLockStatus( void ) const;
   void lock( bool lockStatus );
 
- protected:
+  void addFreeMaterias( void );
+  void delFreeMaterias( void );
+  void displayFreeMaterias( void ) const;
+
   std::string const& getType( void ) const;
 
-  std::string _type;
-  bool        _lockStatus;
-
-  // TODO Node
-  static Node* _head;
+ protected:
+  std::string                  _type;
+  bool                         _lockStatus;
+  static LinkedList<AMateria*> _freeMaterias;
 };
 
 std::ostream& operator<<( std::ostream& o, AMateria const& i );

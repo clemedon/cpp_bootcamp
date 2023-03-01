@@ -2,8 +2,11 @@
 #include <string>
 
 #include "ICharacter.hpp"
+#include "LinkedList.hpp"
 
 #include "AMateria.hpp"
+
+LinkedList<AMateria*> AMateria::_freeMaterias;
 
 /*  STANDARD
 ------------------------------------------------- */
@@ -15,10 +18,13 @@
 AMateria::AMateria( std::string const& type )
   : _type( type ),
     _lockStatus( false ) {
-  std::cout << __FILE__;
-  std::cout << " CONSTRUCTED ";
-  std::cout << *this;
-  std::cout << std::endl;
+  _freeMaterias.addBack( this );
+#if defined( DEBUG )
+  std::cerr << __FILE__;
+  std::cerr << " CONSTRUCTED ";
+  std::cerr << *this;
+  std::cerr << std::endl;
+#endif
   return;
 }
 
@@ -26,15 +32,17 @@ AMateria::AMateria( std::string const& type )
  * @brief       Copy Constructor
  */
 
-AMateria::AMateria( AMateria const& src ) {
-  this->_type = src._type;
-  this->_lockStatus = false;
-  std::cout << __FILE__;
-  std::cout << " COPY CONSTRUCTED ";
-  std::cout << *this;
-  std::cout << " FROM ";
-  std::cout << src;
-  std::cout << std::endl;
+AMateria::AMateria( AMateria const& src )
+  : _type( src._type ),
+    _lockStatus( false ) {
+#if defined( DEBUG )
+  std::cerr << __FILE__;
+  std::cerr << " COPY CONSTRUCTED ";
+  std::cerr << *this;
+  std::cerr << " FROM ";
+  std::cerr << src;
+  std::cerr << std::endl;
+#endif
   return;
 }
 
@@ -43,10 +51,12 @@ AMateria::AMateria( AMateria const& src ) {
  */
 
 AMateria::~AMateria( void ) {
-  std::cout << __FILE__;
-  std::cout << " DESTROYED ";
-  std::cout << *this;
-  std::cout << std::endl;
+#if defined( DEBUG )
+  std::cerr << __FILE__;
+  std::cerr << " DESTRUCTED ";
+  std::cerr << *this;
+  std::cerr << std::endl;
+#endif
   return;
 }
 
@@ -55,14 +65,16 @@ AMateria::~AMateria( void ) {
  */
 
 AMateria& AMateria::operator=( AMateria const& rhs ) {
-  std::cout << rhs;
-  std::cout << " ASSIGNED TO " << *this;
-  std::cout << std::endl;
+#if defined( DEBUG )
+  std::cerr << rhs;
+  std::cerr << " ASSIGNED TO " << *this;
+  std::cerr << std::endl;
+#endif
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
-  this->_lockStatus = this->_lockStatus;
+  _type = rhs._type;
+  _lockStatus = _lockStatus;
   return *this;
 }
 
@@ -71,7 +83,16 @@ AMateria& AMateria::operator=( AMateria const& rhs ) {
  */
 
 void AMateria::print( std::ostream& o ) const {
-  o << this->_type << "(" << this->_lockStatus << ")";
+  o << _type;
+#if defined( DEBUG )
+  std::cerr << "{";
+  if( _lockStatus ) {
+    std::cerr << "busy";
+  } else {
+    std::cerr << "free";
+  }
+  std::cerr << "}";
+#endif
   return;
 }
 
@@ -104,7 +125,7 @@ void AMateria::use( ICharacter& target ) {
  */
 
 bool AMateria::compareType( std::string const& type ) const {
-  return this->_type == type;
+  return _type == type;
 }
 
 /**
@@ -114,7 +135,7 @@ bool AMateria::compareType( std::string const& type ) const {
  */
 
 bool AMateria::checkLockStatus( void ) const {
-  return this->_lockStatus;
+  return _lockStatus;
 }
 
 /**
@@ -127,7 +148,35 @@ bool AMateria::checkLockStatus( void ) const {
  */
 
 void AMateria::lock( bool lockStatus ) {
-  this->_lockStatus = lockStatus;
+  _lockStatus = lockStatus;
+  return;
+}
+
+/**
+ * @brief       Add the Materia to the list of free Materias
+ */
+
+void AMateria::addFreeMaterias( void ) {
+  _freeMaterias.addBack( this );
+  return;
+}
+
+/**
+ * @brief       Remove the Materia from the list of free Materias
+ */
+
+void AMateria::delFreeMaterias( void ) {
+  _freeMaterias.delFirst( this );
+  return;
+}
+
+/**
+ * @brief       Display the list of free Materias
+ */
+
+void AMateria::displayFreeMaterias( void ) const {
+  std::cout << "The following Materias are lying around:" << std::endl;
+  std::cout << " Materia " << _freeMaterias << "." << std::endl;
   return;
 }
 
@@ -135,5 +184,5 @@ void AMateria::lock( bool lockStatus ) {
 ------------------------------------------------- */
 
 std::string const& AMateria::getType( void ) const {
-  return this->_type;
+  return _type;
 }

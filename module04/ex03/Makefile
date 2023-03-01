@@ -60,7 +60,7 @@ re:
 	$(MAKE) clean
 	$(MAKE) all
 
-asan: CXXFLAGS	+= -O -g -fsanitize=address,undefined -fno-optimize-sibling-calls
+asan: CXXFLAGS	+= -O -g -fsanitize=address,undefined -fno-optimize-sibling-calls -D DEBUG
 asan: LDFLAGS   += -g -fsanitize=address,undefined
 asan: all
 

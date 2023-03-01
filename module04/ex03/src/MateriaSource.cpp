@@ -18,12 +18,14 @@ MateriaSource::MateriaSource( void ) {
   int i;
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    this->_learned[i] = NULL;
+    _learned[i] = NULL;
   }
-  std::cout << __FILE__;
-  std::cout << " CONSTRUCTED ";
-  std::cout << *this;
-  std::cout << std::endl;
+#if defined( DEBUG )
+  std::cerr << __FILE__;
+  std::cerr << " CONSTRUCTED ";
+  std::cerr << *this;
+  std::cerr << std::endl;
+#endif
   return;
 }
 
@@ -36,17 +38,19 @@ MateriaSource::MateriaSource( MateriaSource const& src ) {
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
     if( src._learned[i] ) {
-      this->_learned[i] = src._learned[i]->clone();
+      _learned[i] = src._learned[i]->clone();
     } else {
-      this->_learned[i] = NULL;
+      _learned[i] = NULL;
     }
   }
-  std::cout << __FILE__;
-  std::cout << " COPY CONSTRUCTED ";
-  std::cout << *this;
-  std::cout << " FROM ";
-  std::cout << src;
-  std::cout << std::endl;
+#if defined( DEBUG )
+  std::cerr << __FILE__;
+  std::cerr << " COPY CONSTRUCTED ";
+  std::cerr << *this;
+  std::cerr << " FROM ";
+  std::cerr << src;
+  std::cerr << std::endl;
+#endif
   return;
 }
 
@@ -57,14 +61,16 @@ MateriaSource::MateriaSource( MateriaSource const& src ) {
 MateriaSource::~MateriaSource( void ) {
   int i;
 
-  std::cout << __FILE__;
-  std::cout << " DESTROYED ";
-  std::cout << *this;
-  std::cout << std::endl;
+#if defined( DEBUG )
+  std::cerr << __FILE__;
+  std::cerr << " DESTROYED ";
+  std::cerr << *this;
+  std::cerr << std::endl;
+#endif
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( this->_learned[i] ) {
-      delete this->_learned[i];
+    if( _learned[i] ) {
+      delete _learned[i];
     }
   }
   return;
@@ -77,17 +83,19 @@ MateriaSource::~MateriaSource( void ) {
 MateriaSource& MateriaSource::operator=( MateriaSource const& rhs ) {
   int i;
 
-  std::cout << rhs;
-  std::cout << " ASSIGNED TO " << *this;
-  std::cout << std::endl;
+#if defined( DEBUG )
+  std::cerr << rhs;
+  std::cerr << " ASSIGNED TO " << *this;
+  std::cerr << std::endl;
+#endif
   if( this == &rhs ) {
     return *this;
   }
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( this->_learned[i] ) {
-      delete this->_learned[i];
+    if( _learned[i] ) {
+      delete _learned[i];
     }
-    this->_learned[i] = rhs._learned[i]->clone();
+    _learned[i] = rhs._learned[i]->clone();
   }
   return *this;
 }
@@ -125,18 +133,18 @@ void MateriaSource::learnMateria( AMateria* m ) {
     return;
   }
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( this->_learned[i] == NULL ) {
-      this->_learned[i] = m;
+    if( _learned[i] == NULL ) {
+      _learned[i] = m;
       std::cout << *this;
-      std::cout << " has placed ";
-      std::cout << *m;
-      std::cout << " in space ";
-      std::cout << i;
-      std::cout << " of its knowledge";
+      std::cout << " has learned how to create a Materia ";
+      std::cout << *m << ".";
       std::cout << std::endl;
       return;
     }
   }
+  std::cout << *this;
+  std::cout << " is tired to learn, be happy with what you have.";
+  std::cout << std::endl;
   return;
 }
 
@@ -148,13 +156,21 @@ void MateriaSource::learnMateria( AMateria* m ) {
  */
 
 AMateria* MateriaSource::createMateria( std::string const& type ) {
-  int i;
+  int       i;
+  AMateria* newMateria;
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( this->_learned[i]->compareType( type ) ) {
-      return this->_learned[i]->clone();
+    if( _learned[i] && _learned[i]->compareType( type ) ) {
+      newMateria = _learned[i]->clone();
+      std::cout << *this << " has successfully created a Materia ";
+      std::cout << *newMateria << "!";
+      std::cout << std::endl;
+      return newMateria;
     }
   }
+  std::cout << *this << " doesn't know how to create a Materia ";
+  std::cout << type << "…";
+  std::cout << std::endl;
   return NULL;
 }
 
@@ -167,11 +183,11 @@ void MateriaSource::displayLearned( void ) const {
 
   std::cout << *this << "'s knowledge:" << std::endl;
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( this->_learned[i] ) {
-      std::cout << " - space " << i + 1 << " contains " << *this->_learned[i]
+    if( _learned[i] ) {
+      std::cout << " - space " << i + 1 << " contains " << *_learned[i]
                 << std::endl;
     } else {
-      std::cout << " - space " << i + 1 << " is free" << std::endl;
+      std::cout << " - space " << i + 1 << " is empty" << std::endl;
     }
   }
   return;
