@@ -16,8 +16,8 @@ class AMateria;
  *
  * Data members
  *
- *  _learned
- *    up to 4 learned Materia's recipe
+ *  _knowledge
+ *    up to 4 Materia's recipe
  */
 
 const int g_knowledgeSize = 4;
@@ -25,19 +25,21 @@ const int g_knowledgeSize = 4;
 class MateriaSource : public IMateriaSource {
  public:
   MateriaSource( void );
-  MateriaSource( MateriaSource const& src );
+  MateriaSource( IMateriaSource const& src );
   virtual ~MateriaSource( void );
-  MateriaSource& operator=( MateriaSource const& rhs );
-  virtual void   print( std::ostream& o ) const;
+  virtual IMateriaSource& operator=( IMateriaSource const& rhs );
+  virtual void            print( std::ostream& o ) const;
 
   virtual void      learnMateria( AMateria* );
   virtual AMateria* createMateria( std::string const& type );
-  virtual void      displayLearned( void ) const;
+  virtual void      displayKnowledge( void ) const;
+
+  virtual AMateria* getKnowledge( int idx ) const;
 
  private:
-  AMateria* _learned[g_knowledgeSize];
+  AMateria* _knowledge[g_knowledgeSize];
 };
 
-std::ostream& operator<<( std::ostream& o, MateriaSource const& i );
+std::ostream& operator<<( std::ostream& o, IMateriaSource const& i );
 
 #endif  // MATERIASOURCE_HPP_

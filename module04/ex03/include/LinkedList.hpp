@@ -21,8 +21,8 @@ class LinkedList {
   LinkedList( void );
   LinkedList( LinkedList const& src );
   virtual ~LinkedList( void );
-  LinkedList&  operator=( LinkedList const& rhs );
-  virtual void print( std::ostream& o ) const;
+  virtual LinkedList& operator=( LinkedList const& rhs );
+  virtual void        print( std::ostream& o ) const;
 
   void addFront( T const& newData );
   void addBack( T const& newData );
@@ -119,6 +119,7 @@ void LinkedList<T>::print( std::ostream& o ) const {
   o << " data preview  ";
   std::cout << std::endl;
   while( current ) {
+    o << " ";
     o << " " << this;
     o << " " << current;
     o << " " << current->data;

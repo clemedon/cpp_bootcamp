@@ -18,7 +18,6 @@ extern const int g_inventorySize;
 Character::Character( std::string const& name )
   : _name( new std::string( name ) ) {
   int i;
-
   for( i = 0; i < g_inventorySize; i++ ) {
     _inventory[i] = NULL;
   }
@@ -35,17 +34,19 @@ Character::Character( std::string const& name )
  * @brief       Copy Constructor
  */
 
-Character::Character( Character const& src )
+Character::Character( ICharacter const& src )
 #if defined( DEBUG )
-  : _name( new std::string( *src._name + "_copy" ) ) {
+  : _name( new std::string( src.getName() + "_copy" ) ) {
 #else
-  : _name( new std::string( *src._name ) ) {
+  : _name( new std::string( src.getName() ) ) {
 #endif
+  int       i;
+  AMateria* materia;
 
-  int i;
   for( i = 0; i < g_inventorySize; i++ ) {
-    if( src._inventory[i] ) {
-      _inventory[i] = src._inventory[i]->clone();
+    materia = src.getInventory( i );
+    if( materia ) {
+      _inventory[i] = materia->clone();
     } else {
       _inventory[i] = NULL;
     }
@@ -55,7 +56,7 @@ Character::Character( Character const& src )
   std::cout << " COPY CONSTRUCTED ";
   std::cout << *this;
   std::cout << " FROM ";
-  std::cout << src;
+  std::cout << src.getName();
   std::cout << std::endl;
 #endif
   return;
@@ -81,7 +82,6 @@ Character::~Character( void ) {
       delete _inventory[i];
       _inventory[i] = NULL;
     }
-    std::cout << std::endl;
   }
   return;
 }
@@ -90,7 +90,7 @@ Character::~Character( void ) {
  * @brief       Copy Assignment Operator
  */
 
-Character& Character::operator=( Character const& rhs ) {
+ICharacter& Character::operator=( ICharacter const& rhs ) {
   int i;
 
 #if defined( DEBUG )
@@ -105,16 +105,16 @@ Character& Character::operator=( Character const& rhs ) {
     delete _name;
   }
 #if defined( DEBUG )
-  _name = new std::string( *rhs._name + "_assigned" );
+  _name = new std::string( rhs.getName() + "_assigned" );
 #else
-  _name = new std::string( *rhs._name );
+  _name = new std::string( rhs.getName() );
 #endif
   for( i = 0; i < g_inventorySize; i++ ) {
     if( _inventory[i] ) {
       delete _inventory[i];
     }
-    if( rhs._inventory[i] ) {
-      _inventory[i] = rhs._inventory[i]->clone();
+    if( rhs.getInventory( i ) ) {
+      _inventory[i] = rhs.getInventory( i )->clone();
     } else {
       _inventory[i] = NULL;
     }
@@ -127,7 +127,7 @@ Character& Character::operator=( Character const& rhs ) {
  */
 
 void Character::print( std::ostream& o ) const {
-  o << ( *_name );
+  o << *_name;
   return;
 }
 
@@ -135,7 +135,7 @@ void Character::print( std::ostream& o ) const {
  * @brief       Output Operator Handling
  */
 
-std::ostream& operator<<( std::ostream& o, Character const& i ) {
+std::ostream& operator<<( std::ostream& o, ICharacter const& i ) {
   i.print( o );
   return o;
 }
@@ -153,7 +153,18 @@ void Character::equip( AMateria* m ) {
     return;
   }
   if( m->checkLockStatus() ) {
-    std::cout << *this << " can't put it twice in his inventory.";
+    std::cout << "Materia " << *m << " is already in ";
+
+    for( i = 0; i < g_inventorySize; i++ ) {
+      if( _inventory[i] == m ) {
+        std::cout << *this << " inventory…";
+        break;
+      } else if( i == 3 ) {
+        std::cout << "someone else's inventory…";
+        break;
+      }
+    }
+
     std::cout << std::endl;
     return;
   }
@@ -211,8 +222,7 @@ void Character::use( int idx, ICharacter& target ) {
     std::cout << *this;
     std::cout << " uses a Materia ";
     std::cout << *_inventory[idx];
-    std::cout << "…";
-    std::cout << std::endl;
+    std::cout << "… ";
     _inventory[idx]->use( target );
   } else {
     std::cout << "Compartment ";
@@ -236,11 +246,11 @@ void Character::displayInventory( void ) const {
   for( i = 0; i < g_inventorySize; i++ ) {
     if( _inventory[i] ) {
       std::cout << " Compartments " << i + 1 << ": ";
-      std::cout << "Materia." << *_inventory[i];
+      std::cout << "Materia " << *_inventory[i];
       std::cout << std::endl;
     } else {
       std::cout << " Compartments " << i + 1 << ": ";
-      std::cout << "empty.";
+      std::cout << "empty";
       std::cout << std::endl;
     }
   }
@@ -252,4 +262,8 @@ void Character::displayInventory( void ) const {
 
 std::string const& Character::getName( void ) const {
   return *_name;
+}
+
+AMateria* Character::getInventory( int idx ) const {
+  return _inventory[idx];
 }

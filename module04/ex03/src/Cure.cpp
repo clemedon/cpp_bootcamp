@@ -27,7 +27,7 @@ Cure::Cure( std::string const& type ) : AMateria( type ) {
  * @brief       Copy Constructor
  */
 
-Cure::Cure( Cure const& src ) : AMateria( src._type ) {
+Cure::Cure( AMateria const& src ) : AMateria( src.getType() ) {
 #if defined( DEBUG )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
@@ -72,11 +72,13 @@ Cure& Cure::operator=( Cure const& rhs ) {
 /* ---------------------------------------------- */
 
 /**
- * @brief       Return a new instance of the same type
+ * @brief       Return a new materia of the same type
  */
 
 AMateria* Cure::clone( void ) const {
-  return new Cure( *this );  // TODO new ? copy constr ?
+  AMateria* m = new Cure( *this );
+  std::cout << "salut" << std::endl;
+  return m;
 }
 
 /**

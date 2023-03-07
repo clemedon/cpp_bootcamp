@@ -176,7 +176,7 @@ void AMateria::delFreeMaterias( void ) {
 
 void AMateria::displayFreeMaterias( void ) const {
   std::cout << "The following Materias are lying around:" << std::endl;
-  std::cout << " Materia " << _freeMaterias << "." << std::endl;
+  std::cout << " " << _freeMaterias;
   return;
 }
 

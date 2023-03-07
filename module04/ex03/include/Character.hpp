@@ -26,23 +26,24 @@ const int g_inventorySize = 4;
 class Character : public ICharacter {
  public:
   Character( std::string const& name = "Unknown" );
-  Character( Character const& src );
-  ~Character( void );
-  Character& operator=( Character const& rhs );
-  void       print( std::ostream& o ) const;
+  Character( ICharacter const& src );
+  virtual ~Character( void );
+  virtual ICharacter& operator=( ICharacter const& rhs );
+  virtual void        print( std::ostream& o ) const;
 
-  void equip( AMateria* m );
-  void unequip( int idx );
-  void use( int idx, ICharacter& target );
-  void displayInventory( void ) const;
+  virtual void equip( AMateria* m );
+  virtual void unequip( int idx );
+  virtual void use( int idx, ICharacter& target );
+  virtual void displayInventory( void ) const;
 
-  std::string const& getName() const;
+  virtual std::string const& getName( void ) const;
+  virtual AMateria*          getInventory( int idx ) const;
 
- public:  // TODO
+ private:
   std::string* _name;
   AMateria*    _inventory[g_inventorySize];
 };
 
-std::ostream& operator<<( std::ostream& o, Character const& i );
+std::ostream& operator<<( std::ostream& o, ICharacter const& i );
 
 #endif  // CHARACTER_HPP_

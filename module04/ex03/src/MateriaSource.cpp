@@ -18,7 +18,7 @@ MateriaSource::MateriaSource( void ) {
   int i;
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    _learned[i] = NULL;
+    _knowledge[i] = NULL;
   }
 #if defined( DEBUG )
   std::cerr << __FILE__;
@@ -33,14 +33,16 @@ MateriaSource::MateriaSource( void ) {
  * @brief       Copy Constructor
  */
 
-MateriaSource::MateriaSource( MateriaSource const& src ) {
-  int i;
+MateriaSource::MateriaSource( IMateriaSource const& src ) {
+  int       i;
+  AMateria* materia;
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( src._learned[i] ) {
-      _learned[i] = src._learned[i]->clone();
+    materia = src.getKnowledge( i );
+    if( materia ) {
+      _knowledge[i] = materia->clone();
     } else {
-      _learned[i] = NULL;
+      _knowledge[i] = NULL;
     }
   }
 #if defined( DEBUG )
@@ -69,8 +71,8 @@ MateriaSource::~MateriaSource( void ) {
 #endif
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( _learned[i] ) {
-      delete _learned[i];
+    if( _knowledge[i] ) {
+      delete _knowledge[i];
     }
   }
   return;
@@ -80,7 +82,7 @@ MateriaSource::~MateriaSource( void ) {
  * @brief       Copy Assignment Operator
  */
 
-MateriaSource& MateriaSource::operator=( MateriaSource const& rhs ) {
+IMateriaSource& MateriaSource::operator=( IMateriaSource const& rhs ) {
   int i;
 
 #if defined( DEBUG )
@@ -92,10 +94,14 @@ MateriaSource& MateriaSource::operator=( MateriaSource const& rhs ) {
     return *this;
   }
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( _learned[i] ) {
-      delete _learned[i];
+    if( _knowledge[i] ) {
+      delete _knowledge[i];
     }
-    _learned[i] = rhs._learned[i]->clone();
+    if( rhs.getKnowledge( i ) ) {
+      _knowledge[i] = rhs.getKnowledge( i )->clone();
+    } else {
+      _knowledge[i] = NULL;
+    }
   }
   return *this;
 }
@@ -105,7 +111,7 @@ MateriaSource& MateriaSource::operator=( MateriaSource const& rhs ) {
  */
 
 void MateriaSource::print( std::ostream& o ) const {
-  o << "MateriaSource";
+  o << "MateriaSource-" << this;
   return;
 }
 
@@ -113,7 +119,7 @@ void MateriaSource::print( std::ostream& o ) const {
  * @brief       Output Operator Handling
  */
 
-std::ostream& operator<<( std::ostream& o, MateriaSource const& i ) {
+std::ostream& operator<<( std::ostream& o, IMateriaSource const& i ) {
   i.print( o );
   return o;
 }
@@ -133,8 +139,8 @@ void MateriaSource::learnMateria( AMateria* m ) {
     return;
   }
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( _learned[i] == NULL ) {
-      _learned[i] = m;
+    if( _knowledge[i] == NULL ) {
+      _knowledge[i] = m;
       std::cout << *this;
       std::cout << " has learned how to create a Materia ";
       std::cout << *m << ".";
@@ -152,7 +158,8 @@ void MateriaSource::learnMateria( AMateria* m ) {
  * @brief       Create a Materia of one of the learned type
  *
  * @param[in]   type a type of Materia
- * @return      a new Materia of the given type if the type if known or nothing
+ * @return      a new Materia of the given type if the type if known or
+ * nothing
  */
 
 AMateria* MateriaSource::createMateria( std::string const& type ) {
@@ -160,8 +167,8 @@ AMateria* MateriaSource::createMateria( std::string const& type ) {
   AMateria* newMateria;
 
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( _learned[i] && _learned[i]->compareType( type ) ) {
-      newMateria = _learned[i]->clone();
+    if( _knowledge[i] && _knowledge[i]->compareType( type ) ) {
+      newMateria = _knowledge[i]->clone();
       std::cout << *this << " has successfully created a Materia ";
       std::cout << *newMateria << "!";
       std::cout << std::endl;
@@ -178,17 +185,24 @@ AMateria* MateriaSource::createMateria( std::string const& type ) {
  * @brief       Display the learned materia
  */
 
-void MateriaSource::displayLearned( void ) const {
+void MateriaSource::displayKnowledge( void ) const {
   int i;
 
   std::cout << *this << "'s knowledge:" << std::endl;
   for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( _learned[i] ) {
-      std::cout << " - space " << i + 1 << " contains " << *_learned[i]
+    if( _knowledge[i] ) {
+      std::cout << " - space " << i + 1 << " contains " << *_knowledge[i]
                 << std::endl;
     } else {
       std::cout << " - space " << i + 1 << " is empty" << std::endl;
     }
   }
   return;
+}
+
+/*  GETTERS
+------------------------------------------------- */
+
+AMateria* MateriaSource::getKnowledge( int idx ) const {
+  return _knowledge[idx];
 }

@@ -21,7 +21,7 @@ class ICharacter;
 class Ice : public AMateria {
  public:
   Ice( std::string const& type = "ice" );
-  Ice( Ice const& src );
+  Ice( AMateria const& src );
   virtual ~Ice( void );
   Ice& operator=( Ice const& rhs );
   void print( std::ostream& o ) const;

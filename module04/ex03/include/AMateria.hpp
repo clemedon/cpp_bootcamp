@@ -18,27 +18,19 @@ class ICharacter;
  *    the materia type
  *
  *  _lockStatus
- *    indicate if the Materia is held by a character
+ *    indicate if the Materia is held by a character, it is not subject to the
+ *    copy constructor or the assignment operator
  *
  *  _freeMaterias
  *   the list of all existing free Materias (those which are not equipped)
- *
- * - constructed  = add
- * - equipped     = delete
- * - unequipped   = add
- *
- * - la liste est déclarée en static par la première instance de AMateria
- * - la liste n'est pas sur la heap ainsi le destructor appelé automatiquement
- *   supprime l'ensemble de la liste
- *
- *   Ainsi le Character s'occupe des ses Materias et AMateria s'occupe des
- *   orphelines.
  */
 
 class AMateria {
- public:
+ protected:
   AMateria( std::string const& type = "AMateria" );
   AMateria( AMateria const& src );
+
+ public:
   virtual ~AMateria( void );
   AMateria& operator=( AMateria const& rhs );
   void      print( std::ostream& o ) const;

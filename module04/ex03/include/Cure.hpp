@@ -21,7 +21,7 @@ class ICharacter;
 class Cure : public AMateria {
  public:
   Cure( std::string const& type = "cure" );
-  Cure( Cure const& src );
+  Cure( AMateria const& src );
   virtual ~Cure( void );
   Cure& operator=( Cure const& rhs );
   void  print( std::ostream& o ) const;
