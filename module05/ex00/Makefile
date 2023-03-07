@@ -19,7 +19,7 @@ OBJS        := $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 
 CXX         := c++
-CXXFLAGS    := -Wall -Wextra -Werror -std=c++98 -pedantic -W
+CXXFLAGS    := -Wall -Wextra -Werror -std=c++98 -pedantic -W # -D DEBUG
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBS_PATH)))
 LDLIBS      := $(addprefix -l,$(LIBS))
