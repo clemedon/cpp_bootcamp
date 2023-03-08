@@ -82,7 +82,6 @@ LinkedList<T>::~LinkedList( void ) {
 
 template <class T>
 LinkedList<T>& LinkedList<T>::operator=( LinkedList<T> const& rhs ) {
-  std::cerr << " " << __func__ << std::endl;
   Node<T>* current;
   Node<T>* next;
 
