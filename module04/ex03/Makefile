@@ -34,10 +34,10 @@ UNAME		:= $(shell uname)
 
 
 ifeq ($(UNAME), Darwin)
-AGE			:= $$(printf "%08d" $$(( $$(date +%s) - $$(stat -f "%m" $(NAME)) )))
+	AGE			:= $$(printf "%08d" $$(( $$(date +%s) - $$(stat -f "%m" $(NAME)) )))
 endif
 ifeq ($(UNAME), Linux)
-AGE			:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
+	AGE			:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
 endif
 DIR_DUP     = mkdir -p $(@D)
 
@@ -73,6 +73,7 @@ asan: LDFLAGS   += -g -fsanitize=address,undefined
 asan: all
 
 run:
+
 ifneq ("$(wildcard $(NAME))","")
 	clear
 	echo  CREATED $(AGE) AGO
@@ -81,6 +82,7 @@ ifneq ("$(wildcard $(NAME))","")
 endif
 
 run-leaks:
+
 ifeq ($(UNAME), Linux)
 	$(MAKE) re CXXFLAGS="-D DEBUG"
 	clear
