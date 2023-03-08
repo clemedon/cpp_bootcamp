@@ -35,6 +35,7 @@ AMateria::AMateria( std::string const& type )
 AMateria::AMateria( AMateria const& src )
   : _type( src._type ),
     _lockStatus( false ) {
+  _freeMaterias.addBack( this );
 #if defined( DEBUG )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
@@ -74,7 +75,6 @@ AMateria& AMateria::operator=( AMateria const& rhs ) {
     return *this;
   }
   _type = rhs._type;
-  _lockStatus = _lockStatus;
   return *this;
 }
 
@@ -157,6 +157,7 @@ void AMateria::lock( bool lockStatus ) {
  */
 
 void AMateria::addFreeMaterias( void ) {
+  lock( false );
   _freeMaterias.addBack( this );
   return;
 }
@@ -166,6 +167,7 @@ void AMateria::addFreeMaterias( void ) {
  */
 
 void AMateria::delFreeMaterias( void ) {
+  lock( true );
   _freeMaterias.delFirst( this );
   return;
 }

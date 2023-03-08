@@ -77,7 +77,6 @@ Cure& Cure::operator=( Cure const& rhs ) {
 
 AMateria* Cure::clone( void ) const {
   AMateria* m = new Cure( *this );
-  std::cout << "salut" << std::endl;
   return m;
 }
 

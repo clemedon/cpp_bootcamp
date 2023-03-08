@@ -47,6 +47,7 @@ Character::Character( ICharacter const& src )
     materia = src.getInventory( i );
     if( materia ) {
       _inventory[i] = materia->clone();
+      _inventory[i]->delFreeMaterias();
     } else {
       _inventory[i] = NULL;
     }
@@ -115,6 +116,7 @@ ICharacter& Character::operator=( ICharacter const& rhs ) {
     }
     if( rhs.getInventory( i ) ) {
       _inventory[i] = rhs.getInventory( i )->clone();
+      _inventory[i]->delFreeMaterias();
     } else {
       _inventory[i] = NULL;
     }
@@ -171,7 +173,6 @@ void Character::equip( AMateria* m ) {
   for( i = 0; i < g_inventorySize; i++ ) {
     if( _inventory[i] == NULL ) {
       _inventory[i] = m;
-      m->lock( true );
       m->delFreeMaterias();
       std::cout << *this;
       std::cout << " has placed a Materia ";
@@ -193,14 +194,13 @@ void Character::equip( AMateria* m ) {
 
 void Character::unequip( int idx ) {
   if( idx > -1 && idx < g_inventorySize && _inventory[idx] ) {
-    _inventory[idx]->lock( false );
+    _inventory[idx]->addFreeMaterias();
     std::cout << *this;
     std::cout << " carefully lay its Materia ";
     std::cout << *_inventory[idx];
     std::cout << " on the ground and says: ";
     std::cout << "\"I am going to miss you…  but we must say good bye.\"";
     std::cout << std::endl;
-    _inventory[idx]->addFreeMaterias();
     _inventory[idx] = NULL;
   } else if( idx > -1 && idx < g_inventorySize ) {
     std::cout << "Compartment ";

@@ -27,8 +27,6 @@ Ice::Ice( std::string const& type ) : AMateria( type ) {
  * @brief       Copy Constructor
  */
 
-// TODO why not AMateria ( src ) to call the copy constr de AMateria directement
-// plutot que d'appeler son constructor
 Ice::Ice( AMateria const& src ) : AMateria( src.getType() ) {
 #if defined( DEBUG )
   std::cerr << __FILE__;
@@ -79,7 +77,6 @@ Ice& Ice::operator=( Ice const& rhs ) {
 
 AMateria* Ice::clone( void ) const {
   AMateria* m = new Ice( *this );
-  std::cout << "salut" << std::endl;
   return m;
 }
 
