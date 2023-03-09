@@ -36,9 +36,11 @@ void t_default() {
   ICharacter* bob = new Character( "bob" );
   me->use( 0, *bob );
   me->use( 1, *bob );
+
   delete bob;
   delete me;
   delete src;
+
   t_next();
   return;
 }
@@ -110,8 +112,8 @@ void t_custom() {
 
   std::cerr << " ---> " << __func__ << "( Materia output operator )";
   std::cout << std::endl << std::endl;
-  std::cout << *m1 << " (addr." << s1 << ")" << std::endl;
-  std::cout << *m2 << " (addr." << s2 << ")" << std::endl;
+  std::cout << *m1 << " (addr." << m1 << ")" << std::endl;
+  std::cout << *m2 << " (addr." << m2 << ")" << std::endl;
   t_next();
 
   std::cerr << " ---> " << __func__ << "( Materia clone )";
@@ -253,5 +255,6 @@ int main( void ) {
   t_next();
   t_default();
   t_custom();
+
   return 0;
 }

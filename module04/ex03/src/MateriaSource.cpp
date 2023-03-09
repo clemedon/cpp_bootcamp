@@ -61,20 +61,12 @@ MateriaSource::MateriaSource( IMateriaSource const& src ) {
  */
 
 MateriaSource::~MateriaSource( void ) {
-  int i;
-
 #if defined( DEBUG )
   std::cerr << __FILE__;
   std::cerr << " DESTROYED ";
   std::cerr << *this;
   std::cerr << std::endl;
 #endif
-
-  for( i = 0; i < g_knowledgeSize; i++ ) {
-    if( _knowledge[i] ) {
-      delete _knowledge[i];
-    }
-  }
   return;
 }
 
