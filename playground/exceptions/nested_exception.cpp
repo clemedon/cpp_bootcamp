@@ -65,6 +65,7 @@ void Player::die( void ) {
 ------------------------------------------------- */
 
 EDeath::EDeath( std::string const& name ) : _message( name + " died" ) {
+  return;
 }
 
 EDeath::~EDeath( void ) throw() {
