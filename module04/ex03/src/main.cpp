@@ -247,6 +247,9 @@ void t_custom() {
  *  Character's interface it does not have any implementation for such output
  *  operator handling.
  *
+ *  Character's copy constructor uses its getName() getter instead of a direct
+ *  access to src._name because src is an interface thus it does not have _name
+ *  data member.
  */
 
 int main( void ) {

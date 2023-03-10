@@ -76,7 +76,6 @@ Character::~Character( void ) {
   std::cout << *this;
   std::cout << std::endl;
 #endif
-
   delete _name;
   for( i = 0; i < g_inventorySize; i++ ) {
     if( _inventory[i] ) {
