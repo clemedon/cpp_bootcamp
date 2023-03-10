@@ -1,56 +1,61 @@
 #ifndef BUREAUCRAT_HPP_
 #define BUREAUCRAT_HPP_
 
-#include <iostream>
+#include <exception>
+#include <iosfwd>
 #include <string>
 
 /**
- * TODO
+ * Bureaucrat
  */
 
 class Bureaucrat {
-  public:
-    Bureaucrat( std::string const& name = "bottom bureaucrat",
-        size_t             grade = Bureaucrat::_botLevel );
-    Bureaucrat( Bureaucrat const& src );
-    virtual ~Bureaucrat( void );
-    Bureaucrat&  operator=( Bureaucrat const& rhs );
-    virtual void print( std::ostream& o ) const;
+ public:
+  Bureaucrat( std::string const& name = "bottom bureaucrat",
+              size_t             grade = Bureaucrat::_botLevel );
+  Bureaucrat( Bureaucrat const& src );
+  virtual ~Bureaucrat( void );
+  Bureaucrat&  operator=( Bureaucrat const& rhs );
+  virtual void print( std::ostream& o ) const;
 
-    void upGrade( void );
-    void downGrade( void );
+  void checkGradeLimits( size_t grade );
+  void upGrade( void );
+  void downGrade( void );
 
-    // TODO
-    // TODO typedef struct Bureaucrat::GradeTooHighException TooHighException;
-    class GradeTooHighException : public std::exception {
-      public:
-        GradeTooHighException( size_t grade );
-        virtual char const* what( void ) const throw();
+  std::string getName( void ) const;
+  std::size_t getGrade( void ) const;
 
-      private:
-        size_t _grade;
-    };
+ private:
+  static size_t     _topLevel;
+  static size_t     _botLevel;
+  std::string const _name;
+  size_t            _grade;
 
-    // TODO
-    class GradeTooLowException : public std::exception {
-      public:
-        GradeTooLowException( size_t grade );
-        virtual char const* what( void ) const throw();
+ public:  // EXCEPTIONS
+  class GradeTooHighException : public std::exception {
+   public:
+    explicit GradeTooHighException( size_t grade );
+    virtual ~GradeTooHighException( void ) throw();
+    virtual char const* what( void ) const throw();
 
-      private:
-        size_t _grade;
-    };
+   private:
+    std::string _message;
+  };
 
-    std::string getName( void ) const;
-    std::size_t getGrade( void ) const;
+  class GradeTooLowException : public std::exception {
+   public:
+    explicit GradeTooLowException( size_t grade );
+    virtual ~GradeTooLowException( void ) throw();
+    virtual char const* what( void ) const throw();
 
-  private:
-    static size_t     _topLevel;
-    static size_t     _botLevel;
-    std::string const _name;
-    size_t            _grade;
+   private:
+    std::string _message;
+  };
 };
 
 std::ostream& operator<<( std::ostream& o, Bureaucrat const& i );
+
+typedef Bureaucrat::GradeTooHighException EGradeTooHigh;
+typedef Bureaucrat::GradeTooLowException  EGradeTooLow;
 
 #endif  // BUREAUCRAT_HPP_
