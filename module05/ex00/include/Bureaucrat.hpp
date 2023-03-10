@@ -12,13 +12,13 @@
 class Bureaucrat {
  public:
   Bureaucrat( std::string const& name = "bottom bureaucrat",
-              size_t             grade = Bureaucrat::_botLevel );
+              size_t const&      grade = Bureaucrat::_botLevel );
   Bureaucrat( Bureaucrat const& src );
   virtual ~Bureaucrat( void );
   Bureaucrat&  operator=( Bureaucrat const& rhs );
   virtual void print( std::ostream& o ) const;
 
-  void checkGradeLimits( size_t grade );
+  void checkGradeLimits( size_t const& grade ) const;
   void upGrade( void );
   void downGrade( void );
 

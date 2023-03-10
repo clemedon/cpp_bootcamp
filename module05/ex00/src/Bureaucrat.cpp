@@ -13,7 +13,7 @@ size_t const Bureaucrat::_botLevel = 150;
  * @brief       Default Constructor
  */
 
-Bureaucrat::Bureaucrat( std::string const& name, size_t grade )
+Bureaucrat::Bureaucrat( std::string const& name, size_t const& grade )
   : _name( name ),
     _grade( grade ) {
   checkGradeLimits( _grade );
@@ -98,7 +98,7 @@ std::ostream& operator<<( std::ostream& o, Bureaucrat const& i ) {
 
 /* ---------------------------------------------- */
 
-void Bureaucrat::checkGradeLimits( size_t grade ) {
+void Bureaucrat::checkGradeLimits( size_t const& grade ) const {
   if( grade < Bureaucrat::_topLevel ) {
     throw EGradeTooHigh( grade );
   } else if( grade > Bureaucrat::_botLevel ) {
