@@ -9,14 +9,8 @@
 int main( void ) {
   try {
     Bureaucrat clem = Bureaucrat( "Clem", 142 );
-
-    // TODO if clem is on the heap
     while( 1 ) {
-      /* std::cout << clem; */
-      /* std::cout << " downgraded to "; */
       clem.downGrade();
-      /* std::cout << clem; */
-      /* std::cout << std::endl; */
     }
   } catch( EGradeTooHigh const& e ) {
     std::cerr << e.what() << std::endl;
