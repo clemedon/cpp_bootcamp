@@ -33,7 +33,7 @@ Bureaucrat::Bureaucrat( std::string const& name, size_t const& grade )
 Bureaucrat::Bureaucrat( Bureaucrat const& src )
   : _name( src._name ),
     _grade( src._grade ) {
-  checkGradeLimits( src._grade );
+  checkGradeLimits( _grade );
 #if defined( DEBUG )
   std::cout << __FILE__;
   std::cout << " COPY CONSTRUCTED ";
@@ -127,6 +127,17 @@ void Bureaucrat::downGrade( void ) {
   return;
 }
 
+/*  GETTERS SETTERS
+------------------------------------------------- */
+
+std::string Bureaucrat::getName( void ) const {
+  return _name;
+}
+
+std::size_t Bureaucrat::getGrade( void ) const {
+  return _grade;
+}
+
 /*  EXCEPTIONS
 ------------------------------------------------- */
 
@@ -156,15 +167,4 @@ EGradeTooLow::~GradeTooLowException( void ) throw() {
 
 char const* EGradeTooLow::what( void ) const throw() {
   return _message.c_str();
-}
-
-/*  GETTERS SETTERS
-------------------------------------------------- */
-
-std::string Bureaucrat::getName( void ) const {
-  return _name;
-}
-
-std::size_t Bureaucrat::getGrade( void ) const {
-  return _grade;
 }
