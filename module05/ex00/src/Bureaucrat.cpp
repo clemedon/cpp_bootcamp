@@ -104,6 +104,7 @@ void Bureaucrat::checkGradeLimits( size_t grade ) {
   } else if( grade > Bureaucrat::_botLevel ) {
     throw EGradeTooLow( grade );
   }
+  return;
 }
 
 void Bureaucrat::upGrade( void ) {
@@ -113,6 +114,7 @@ void Bureaucrat::upGrade( void ) {
 #endif
   _grade -= 1;
   checkGradeLimits( _grade );
+  return;
 }
 
 void Bureaucrat::downGrade( void ) {
@@ -122,13 +124,16 @@ void Bureaucrat::downGrade( void ) {
 #endif
   _grade += 1;
   checkGradeLimits( _grade );
+  return;
 }
 
 /*  EXCEPTIONS
 ------------------------------------------------- */
 
 EGradeTooHigh::GradeTooHighException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade ) + " grade abnormaly high" ) {
+  : _message( "Error: Grade " + std::to_string( grade )
+              + " grade abnormaly high" ) {
+  return;
 }
 
 EGradeTooHigh::~GradeTooHighException( void ) throw() {
@@ -140,7 +145,9 @@ char const* EGradeTooHigh::what( void ) const throw() {
 }
 
 EGradeTooLow::GradeTooLowException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade ) + " is abnormaly low" ) {
+  : _message( "Error: Grade " + std::to_string( grade )
+              + " is abnormaly low" ) {
+  return;
 }
 
 EGradeTooLow::~GradeTooLowException( void ) throw() {
