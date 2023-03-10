@@ -13,18 +13,20 @@
 
 #define THROW( EXCEPTION, target )                                             \
   {                                                                            \
-    EXCEPTION e( target );                                                     \
-    e.where( __func__, __FILE__, __LINE__ );                                   \
+    EXCEPTION e;                                                               \
+    e.setMessage( target );                                                    \
+    e.setLocation( __func__, __FILE__, __LINE__ );                             \
     throw e;                                                                   \
   }
 
 class EDeath : public std::exception {
  public:
-  explicit EDeath( const std::string& message );
+  explicit EDeath( std::string const& message );
   virtual ~EDeath( void ) throw();
 
-  const char* what() const throw();
-  void        where( const char* func, const char* file, const int line );
+  virtual char const* what( void ) const throw();
+  void                setMessage( std::string const& message );
+  void setLocation( char const* func, char const* file, int const line );
 
  private:
   std::string _message;
@@ -35,12 +37,12 @@ class EDeath : public std::exception {
 
 class EDrowned : public EDeath {
  public:
-  explicit EDrowned( const std::string& target );
+  EDrowned( void );
 };
 
 class EBurned : public EDeath {
  public:
-  explicit EBurned( const std::string& target );
+  EBurned( void );
 };
 
 /**
@@ -52,8 +54,7 @@ class EBurned : public EDeath {
 /*  BASE EXCEPTION
 ------------------------------------------------- */
 
-EDeath::EDeath( const std::string& message )
-  : _message( "Game Over: " + message ) {
+EDeath::EDeath( std::string const& message ) : _message( "Death: " + message ) {
   return;
 }
 
@@ -61,11 +62,16 @@ EDeath::~EDeath( void ) throw() {
   return;
 }
 
-const char* EDeath::what() const throw() {
+char const* EDeath::what() const throw() {
   return _message.c_str();
 }
 
-void EDeath::where( const char* func, const char* file, const int line ) {
+void EDeath::setMessage( std::string const& target ) {
+  _message += ": " + target;
+  return;
+}
+
+void EDeath::setLocation( char const* func, char const* file, int const line ) {
   _message += "  (in " + std::string( file );
   _message += ": " + std::string( func );
   _message += ": " + std::to_string( line ) + ")";
@@ -75,13 +81,11 @@ void EDeath::where( const char* func, const char* file, const int line ) {
 /*  DERIVED EXCEPTIONS
 ------------------------------------------------- */
 
-EDrowned::EDrowned( const std::string& target )
-  : EDeath( target + " was drowned" ) {
+EDrowned::EDrowned( void ) : EDeath( "Drowned" ) {
   return;
 }
 
-EBurned::EBurned( const std::string& target )
-  : EDeath( target + " was burned" ) {
+EBurned::EBurned( void ) : EDeath( "Burned" ) {
   return;
 }
 
@@ -92,20 +96,10 @@ EBurned::EBurned( const std::string& target )
  */
 
 int main() {
-  /* Base Exception */
-  try {
-    THROW( EDeath, "Clem" )
-  } catch( std::exception const& e ) {
-    /* Game Over: Clem  (in exceptions_1.cpp: main: 97) */
-    std::cout << e.what() << std::endl;
-  } catch( ... ) {
-    std::cerr << "Error occurred during what() message formatting";
-  }
-  /* Derived Exceptions */
   try {
     THROW( EDrowned, "Clem" )
   } catch( std::exception const& e ) {
-    /* Game Over: Clem was drowned  (in exceptions_1.cpp: main: 106) */
+    /* Death: Drowned: Clem (in exceptions_2.cpp: main: 100) */
     std::cout << e.what() << std::endl;
   } catch( ... ) {
     std::cerr << "Error occurred during what() message formatting";
@@ -113,7 +107,7 @@ int main() {
   try {
     THROW( EBurned, "Clem" )
   } catch( std::exception const& e ) {
-    /* Game Over: Clem was burned  (in exceptions_1.cpp: main: 114) */
+    /* Death: Burned: Clem (in exceptions_2.cpp: main: 108) */
     std::cout << e.what() << std::endl;
   } catch( ... ) {
     std::cerr << "Error occurred during what() message formatting";
