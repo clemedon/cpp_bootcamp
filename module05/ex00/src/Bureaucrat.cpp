@@ -3,8 +3,8 @@
 
 #include "Bureaucrat.hpp"
 
-size_t Bureaucrat::_topLevel = 1;
-size_t Bureaucrat::_botLevel = 150;
+size_t const Bureaucrat::_topLevel = 1;
+size_t const Bureaucrat::_botLevel = 150;
 
 /*  STANDARD
 ------------------------------------------------- */

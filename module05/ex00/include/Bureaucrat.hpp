@@ -26,8 +26,9 @@ class Bureaucrat {
   std::size_t getGrade( void ) const;
 
  private:
-  static size_t     _topLevel;
-  static size_t     _botLevel;
+  static const size_t _topLevel;
+  static const size_t _botLevel;
+
   std::string const _name;
   size_t            _grade;
 
