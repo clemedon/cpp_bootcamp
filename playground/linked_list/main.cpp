@@ -1,3 +1,10 @@
+/**
+ * @author    Clément Vidon
+ * @brief     Singly linked-list custom template tests.
+ * @date      230301
+ * @file      main.cp
+ */
+
 #include <iostream>
 #include "LinkedList.hpp"
 

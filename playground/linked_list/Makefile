@@ -1,3 +1,10 @@
+#
+# @author    Clément Vidon
+# @brief     Singly linked-list custom template tests Makefile. [Debian]
+# @date      230301
+# @file      Makefile
+#
+
 NAME        := linked_list
 
 LIBS		:=

@@ -1,3 +1,10 @@
+/**
+ * @author    Clément Vidon
+ * @brief     Singly linked-list custom template.
+ * @date      230301
+ * @file      LinkedList.hpp
+ */
+
 #ifndef LINKEDLIST_HPP_
 #define LINKEDLIST_HPP_
 
