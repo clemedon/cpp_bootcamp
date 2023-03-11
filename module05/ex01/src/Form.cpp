@@ -16,9 +16,9 @@ size_t const Form::_botGrade = 150;
  */
 
 Form::Form( std::string const& name,
-            bool const&        s,
-            size_t const&      signGrade,
-            size_t const&      execGrade )
+            bool const         s,
+            size_t const       signGrade,
+            size_t const       execGrade )
   : _name( name ),
     _signed( s ),
     _signGrade( signGrade ),
@@ -118,7 +118,7 @@ std::ostream& operator<<( std::ostream& o, Form const& i ) {
 
 /* ---------------------------------------------- */
 
-void Form::checkGradeLimits( size_t const& grade ) const {
+void Form::checkGradeLimits( size_t const grade ) const {
   if( grade < Form::_topGrade ) {
     throw EFormGradeTooHigh( grade );
   } else if( grade > Form::_botGrade ) {
@@ -128,11 +128,16 @@ void Form::checkGradeLimits( size_t const& grade ) const {
 }
 
 void Form::beSigned( Bureaucrat const& b ) {
+  size_t const bGrade = b.giveGrade();
+
   if( _signed ) {
     std::cout << *this << " form already signed." << std::endl;
   } else {
-    b.isAccredited( _signGrade );
-    _signed = true;
+    if( _signGrade < bGrade ) {
+      throw EFormGradeTooLow( bGrade );
+    } else {
+      _signed = true;
+    }
   }
   return;
 }
@@ -163,9 +168,8 @@ size_t Form::getExecGrade( void ) const {
 /*  EXCEPTIONS
 ------------------------------------------------- */
 
-EFormGradeTooHigh::GradeTooHighException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade )
-              + " grade abnormaly high" ) {
+EFormGradeTooHigh::GradeTooHighException( size_t const grade )
+  : _message( "Error: Grade " + std::to_string( grade ) + " too high" ) {
   return;
 }
 
@@ -177,9 +181,8 @@ char const* EFormGradeTooHigh::what( void ) const throw() {
   return _message.c_str();
 }
 
-EFormGradeTooLow::GradeTooLowException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade )
-              + " is abnormaly low" ) {
+EFormGradeTooLow::GradeTooLowException( size_t const grade )
+  : _message( "Error: Grade " + std::to_string( grade ) + " too low" ) {
   return;
 }
 

@@ -14,15 +14,15 @@ class Bureaucrat;
 class Form {
  public:
   Form( std::string const& name = "basic form",
-        bool const&        s = false,
-        size_t const&      signGrade = Form::_topGrade,
-        size_t const&      execGrade = Form::_topGrade );
+        bool const         s = false,
+        size_t const       signGrade = Form::_topGrade,
+        size_t const       execGrade = Form::_topGrade );
   Form( Form const& src );
   virtual ~Form( void );
   Form&        operator=( Form const& rhs );
   virtual void print( std::ostream& o ) const;
 
-  void checkGradeLimits( size_t const& grade ) const;
+  void checkGradeLimits( size_t const grade ) const;
   void beSigned( Bureaucrat const& b );
   bool isSigned( void ) const;
 
@@ -32,8 +32,8 @@ class Form {
   size_t      getExecGrade( void ) const;
 
  private:
-  static const size_t _topGrade;
-  static const size_t _botGrade;
+  static size_t const _topGrade;
+  static size_t const _botGrade;
 
   std::string const _name;
   bool              _signed;
@@ -43,7 +43,7 @@ class Form {
  public:  // EXCEPTIONS
   class GradeTooHighException : public std::exception {
    public:
-    explicit GradeTooHighException( size_t grade );
+    explicit GradeTooHighException( size_t const grade );
     virtual ~GradeTooHighException( void ) throw();
     virtual char const* what( void ) const throw();
 
@@ -53,7 +53,7 @@ class Form {
 
   class GradeTooLowException : public std::exception {
    public:
-    explicit GradeTooLowException( size_t grade );
+    explicit GradeTooLowException( size_t const grade );
     virtual ~GradeTooLowException( void ) throw();
     virtual char const* what( void ) const throw();
 

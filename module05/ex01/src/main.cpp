@@ -5,6 +5,14 @@
 /**
  * Bureaucrat throws EGradeTooHigh and EGradeTooLow as "temporary", they are
  * created and thrown at once like: throw EGradeTooLow ( _grade );
+ *
+ * Bureaucrat::giveGrade is exactly the same as Bureaucrat::getGrade but unlike
+ * the latter it does respect encapsulation principle.
+ *
+ * Attempting to sign a contract at too high a level will not interrupt the
+ * program as catch() is in a member function in the middle of the program,
+ * conversely if the grade of a Bureaucrat is not legal then the program will
+ * end as the catch() is at the end of the program in the main.
  */
 
 int main( void ) {
@@ -12,8 +20,6 @@ int main( void ) {
     Bureaucrat henry = Bureaucrat( "Henry", 5 );
     Form       f1 = Form( "Organ Donation", false, 10, 1 );
     Form       f2 = Form( "Time Donation", false, 1, 10 );
-
-    // TODO why this one stops the program unstack wind etc. unlike prev ones
     /* Form f3 = Form( "Time Donation", false, 0, 0 ); */
 
     henry.signForm( f1 );
@@ -30,7 +36,7 @@ int main( void ) {
     std::cerr << e.what() << std::endl;
   } catch( ... ) {
     std::cerr << "Error occurred during what() message formatting";
+    std::cout << std::endl;
   }
-
   return 0;
 }

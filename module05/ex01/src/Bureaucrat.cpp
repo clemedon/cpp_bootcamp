@@ -15,7 +15,7 @@ size_t const Bureaucrat::_botGrade = 150;
  * @brief       Default Constructor
  */
 
-Bureaucrat::Bureaucrat( std::string const& name, size_t const& grade )
+Bureaucrat::Bureaucrat( std::string const& name, size_t const grade )
   : _name( name ),
     _grade( grade ) {
   checkGradeLimits( _grade );
@@ -100,7 +100,7 @@ std::ostream& operator<<( std::ostream& o, Bureaucrat const& i ) {
 
 /* ---------------------------------------------- */
 
-void Bureaucrat::checkGradeLimits( size_t const& grade ) const {
+void Bureaucrat::checkGradeLimits( size_t const grade ) const {
   if( grade < Bureaucrat::_topGrade ) {
     throw EBureaucratGradeTooHigh( grade );
   } else if( grade > Bureaucrat::_botGrade ) {
@@ -129,28 +129,27 @@ void Bureaucrat::downGrade( void ) {
   return;
 }
 
-void Bureaucrat::signForm( Form& f ) {
+void Bureaucrat::signForm( Form& f ) const {
   if( f.getSigned() ) {
     std::cout << *this << " form already signed." << std::endl;
   } else {
     try {
       f.beSigned( *this );
-      std::cout << *this << " signed " << f << std::endl;
-    } catch( EBureaucratGradeTooLow const& e ) { // TODO should be a Form::EGrade
+      std::cout << *this << " signed " << f;
+      std::cout << std::endl;
+    } catch( EFormGradeTooLow const& e ) {
       std::cout << *this << " couldn't sign " << f << ", grade too low.";
       std::cout << std::endl;
     } catch( ... ) {
       std::cerr << "Error occurred during what() message formatting";
+      std::cout << std::endl;
     }
     return;
   }
 }
 
-void Bureaucrat::isAccredited( size_t const& grade ) const {
-  if( _grade > grade ) {
-    throw EBureaucratGradeTooLow( _grade );
-  }
-  return;
+size_t Bureaucrat::giveGrade( void ) const {
+  return _grade;
 }
 
 /*  GETTERS SETTERS
@@ -160,16 +159,15 @@ std::string Bureaucrat::getName( void ) const {
   return _name;
 }
 
-std::size_t Bureaucrat::getGrade( void ) const {
+size_t Bureaucrat::getGrade( void ) const {
   return _grade;
 }
 
 /*  EXCEPTIONS
 ------------------------------------------------- */
 
-EBureaucratGradeTooHigh::GradeTooHighException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade )
-              + " grade abnormaly high" ) {
+EBureaucratGradeTooHigh::GradeTooHighException( size_t const grade )
+  : _message( "Error: Grade " + std::to_string( grade ) + " too high" ) {
   return;
 }
 
@@ -181,9 +179,8 @@ char const* EBureaucratGradeTooHigh::what( void ) const throw() {
   return _message.c_str();
 }
 
-EBureaucratGradeTooLow::GradeTooLowException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade )
-              + " is abnormaly low" ) {
+EBureaucratGradeTooLow::GradeTooLowException( size_t const grade )
+  : _message( "Error: Grade " + std::to_string( grade ) + " too low" ) {
   return;
 }
 
