@@ -3,8 +3,8 @@
 
 #include "Bureaucrat.hpp"
 
-size_t const Bureaucrat::_topLevel = 1;
-size_t const Bureaucrat::_botLevel = 150;
+size_t const Bureaucrat::_topGrade = 1;
+size_t const Bureaucrat::_botGrade = 150;
 
 /*  STANDARD
 ------------------------------------------------- */
@@ -99,9 +99,9 @@ std::ostream& operator<<( std::ostream& o, Bureaucrat const& i ) {
 /* ---------------------------------------------- */
 
 void Bureaucrat::checkGradeLimits( size_t const grade ) const {
-  if( grade < Bureaucrat::_topLevel ) {
+  if( grade < Bureaucrat::_topGrade ) {
     throw EGradeTooHigh( grade );
-  } else if( grade > Bureaucrat::_botLevel ) {
+  } else if( grade > Bureaucrat::_botGrade ) {
     throw EGradeTooLow( grade );
   }
   return;

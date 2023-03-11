@@ -7,12 +7,27 @@
 
 /**
  * Bureaucrat
+ *
+ *
+ * Data members
+ *
+ *  _topGrade
+ *    the highest grade
+ *
+ *  _botGrade
+ *    the lowest grade
+ *
+ *  _name
+ *    the Bureaucrat's name
+ *
+ *  _grade
+ *    the Bureaucrat's grade
  */
 
 class Bureaucrat {
  public:
   Bureaucrat( std::string const& name = "bottom bureaucrat",
-              size_t const      grade = Bureaucrat::_botLevel );
+              size_t const       grade = Bureaucrat::_botGrade );
   Bureaucrat( Bureaucrat const& src );
   virtual ~Bureaucrat( void );
   Bureaucrat&  operator=( Bureaucrat const& rhs );
@@ -23,11 +38,11 @@ class Bureaucrat {
   void downGrade( void );
 
   std::string getName( void ) const;
-  size_t getGrade( void ) const;
+  size_t      getGrade( void ) const;
 
  private:
-  static size_t const _topLevel;
-  static size_t const _botLevel;
+  static size_t const _topGrade;
+  static size_t const _botGrade;
 
   std::string const _name;
   size_t            _grade;
