@@ -142,8 +142,7 @@ std::size_t Bureaucrat::getGrade( void ) const {
 ------------------------------------------------- */
 
 EGradeTooHigh::GradeTooHighException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade )
-              + " grade abnormaly high" ) {
+  : _message( "Error: Grade " + std::to_string( grade ) + " too high" ) {
   return;
 }
 
@@ -156,8 +155,7 @@ char const* EGradeTooHigh::what( void ) const throw() {
 }
 
 EGradeTooLow::GradeTooLowException( size_t grade )
-  : _message( "Error: Grade " + std::to_string( grade )
-              + " is abnormaly low" ) {
+  : _message( "Error: Grade " + std::to_string( grade ) + " too low" ) {
   return;
 }
 
