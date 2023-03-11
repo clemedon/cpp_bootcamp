@@ -13,7 +13,7 @@ size_t const Bureaucrat::_botLevel = 150;
  * @brief       Default Constructor
  */
 
-Bureaucrat::Bureaucrat( std::string const& name, size_t const& grade )
+Bureaucrat::Bureaucrat( std::string const& name, size_t const grade )
   : _name( name ),
     _grade( grade ) {
   checkGradeLimits( _grade );
@@ -98,7 +98,7 @@ std::ostream& operator<<( std::ostream& o, Bureaucrat const& i ) {
 
 /* ---------------------------------------------- */
 
-void Bureaucrat::checkGradeLimits( size_t const& grade ) const {
+void Bureaucrat::checkGradeLimits( size_t const grade ) const {
   if( grade < Bureaucrat::_topLevel ) {
     throw EGradeTooHigh( grade );
   } else if( grade > Bureaucrat::_botLevel ) {
@@ -134,14 +134,14 @@ std::string Bureaucrat::getName( void ) const {
   return _name;
 }
 
-std::size_t Bureaucrat::getGrade( void ) const {
+size_t Bureaucrat::getGrade( void ) const {
   return _grade;
 }
 
 /*  EXCEPTIONS
 ------------------------------------------------- */
 
-EGradeTooHigh::GradeTooHighException( size_t grade )
+EGradeTooHigh::GradeTooHighException( size_t const grade )
   : _message( "Error: Grade " + std::to_string( grade ) + " too high" ) {
   return;
 }
@@ -154,7 +154,7 @@ char const* EGradeTooHigh::what( void ) const throw() {
   return _message.c_str();
 }
 
-EGradeTooLow::GradeTooLowException( size_t grade )
+EGradeTooLow::GradeTooLowException( size_t const grade )
   : _message( "Error: Grade " + std::to_string( grade ) + " too low" ) {
   return;
 }

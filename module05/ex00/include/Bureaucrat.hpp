@@ -12,22 +12,22 @@
 class Bureaucrat {
  public:
   Bureaucrat( std::string const& name = "bottom bureaucrat",
-              size_t const&      grade = Bureaucrat::_botLevel );
+              size_t const      grade = Bureaucrat::_botLevel );
   Bureaucrat( Bureaucrat const& src );
   virtual ~Bureaucrat( void );
   Bureaucrat&  operator=( Bureaucrat const& rhs );
   virtual void print( std::ostream& o ) const;
 
-  void checkGradeLimits( size_t const& grade ) const;
+  void checkGradeLimits( size_t const grade ) const;
   void upGrade( void );
   void downGrade( void );
 
   std::string getName( void ) const;
-  std::size_t getGrade( void ) const;
+  size_t getGrade( void ) const;
 
  private:
-  static const size_t _topLevel;
-  static const size_t _botLevel;
+  static size_t const _topLevel;
+  static size_t const _botLevel;
 
   std::string const _name;
   size_t            _grade;
@@ -35,7 +35,7 @@ class Bureaucrat {
  public:  // EXCEPTIONS
   class GradeTooHighException : public std::exception {
    public:
-    explicit GradeTooHighException( size_t grade );
+    explicit GradeTooHighException( size_t const grade );
     virtual ~GradeTooHighException( void ) throw();
     virtual char const* what( void ) const throw();
 
@@ -45,7 +45,7 @@ class Bureaucrat {
 
   class GradeTooLowException : public std::exception {
    public:
-    explicit GradeTooLowException( size_t grade );
+    explicit GradeTooLowException( size_t const grade );
     virtual ~GradeTooLowException( void ) throw();
     virtual char const* what( void ) const throw();
 
