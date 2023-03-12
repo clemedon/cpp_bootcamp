@@ -42,22 +42,21 @@
  */
 
 int main( void ) {
-  Bureaucrat olaf = Bureaucrat( "Olaf", 6 );
+  Bureaucrat olaf = Bureaucrat( "Olaf", 5 );
   AForm*     rrf = NULL;
   Intern     someRandomIntern;
   std::cout << std::endl;
 
   try {
     rrf = someRandomIntern.makeForm( "jump from the window", "Bender" );
-    std::cout << "New form delivered: " << *rrf << std::endl;
     olaf.signForm( *rrf );
     olaf.executeForm( *rrf );
   } catch( EInternFormNotFound const& e ) {
     std::cout << e.what() << std::endl;
   }
+  std::cout << std::endl;
   try {
     rrf = someRandomIntern.makeForm( "robotomy request", "Bender" );
-    std::cout << "New form delivered: " << *rrf << std::endl;
     olaf.signForm( *rrf );
     olaf.executeForm( *rrf );
   } catch( EInternFormNotFound const& e ) {

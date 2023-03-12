@@ -112,6 +112,8 @@ AForm* Intern::makeForm( std::string const& formName,
   }
   if( !newForm )
     throw EInternFormNotFound( formName );
+  else
+    std::cout << *this << " creates " << *newForm << std::endl;
   return newForm;
 }
 
