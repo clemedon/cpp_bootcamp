@@ -6,6 +6,7 @@ LIBS_PATH	:=
 SRC_DIR     := src
 SRCS        := \
 			   Bureaucrat.cpp \
+			   utils.cpp \
 			   main.cpp \
 
 INC_DIR		:= include

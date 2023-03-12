@@ -2,6 +2,7 @@
 #include <string>
 
 #include "Bureaucrat.hpp"
+#include "utils.hpp"
 
 #include "AForm.hpp"
 
@@ -180,7 +181,7 @@ size_t AForm::getExecGrade( void ) const {
 ------------------------------------------------- */
 
 EAFormGradeTooHigh::GradeTooHighException( size_t const grade )
-  : _message( "Error: Grade " + std::to_string( grade ) + " too high" ) {
+  : _message( "Error: Grade " + intToString( grade ) + " too high" ) {
   return;
 }
 
@@ -193,7 +194,7 @@ char const* EAFormGradeTooHigh::what( void ) const throw() {
 }
 
 EAFormGradeTooLow::GradeTooLowException( size_t const grade )
-  : _message( "Error: Grade " + std::to_string( grade ) + " too low" ) {
+  : _message( "Error: Grade " + intToString( grade ) + " too low" ) {
   return;
 }
 

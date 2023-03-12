@@ -78,7 +78,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(
 
 void ShrubberyCreationForm::execute( Bureaucrat const& executor ) const {
   (void)executor;
-  std::string const filename = _target + "_shrubbery";
+  std::string const fname = _target + "_shrubbery";
   std::cout << std::endl;
   std::stringstream ss;
   ss << "                                       \n";
@@ -92,10 +92,10 @@ void ShrubberyCreationForm::execute( Bureaucrat const& executor ) const {
   ss << "     ┃o  ┃   ┃  O┃   ┃o  ┃   ┃  O┃     \n";
   ss << "     ┗━━━┛   ┗━━━┛   ┗━━━┛   ┗━━━┛     \n";
   ss << "                                       \n";
-  std::ofstream ofs( filename, std::ofstream::trunc | std::ofstream::out );
+  std::ofstream ofs( fname.c_str(), std::ofstream::trunc | std::ofstream::out );
   ofs << ss.str();
   ofs.close();
-  std::cout << filename << " has been created";
+  std::cout << fname << " has been created";
   std::cout << std::endl;
   return;
 }

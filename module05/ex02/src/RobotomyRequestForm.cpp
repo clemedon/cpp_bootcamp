@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include <string>
 
@@ -76,7 +78,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(
 
 void RobotomyRequestForm::execute( Bureaucrat const& executor ) const {
   (void)executor;
-  std::srand( std::time( NULL ) );
+  srand( std::time( NULL ) );
   std::cout << "* drilling noise *" << std::endl;
   if( rand() % 2 ) {
     std::cout << _target << " has been robotomized successfully!";

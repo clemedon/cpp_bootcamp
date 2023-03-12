@@ -5,13 +5,14 @@ LIBS_PATH	:=
 
 SRC_DIR     := src
 SRCS        := \
-			   PresidentialPardonForm.cpp \
-			   ShrubberyCreationForm.cpp \
-			   RobotomyRequestForm.cpp \
-			   Bureaucrat.cpp \
-			   Intern.cpp \
-			   AForm.cpp \
-			   main.cpp \
+	PresidentialPardonForm.cpp \
+	ShrubberyCreationForm.cpp \
+	RobotomyRequestForm.cpp \
+	Bureaucrat.cpp \
+	Intern.cpp \
+	AForm.cpp \
+	utils.cpp \
+	main.cpp \
 
 INC_DIR		:= include
 BUILD_DIR   := .build
@@ -24,10 +25,10 @@ OBJS        := $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 
 CXX         := c++
-CXXFLAGS    := $(CXXFLAGS) -Wall -Wextra -Werror -std=c++98 -pedantic -W
-CPPFLAGS    := $(CPPFLAGS) $(addprefix -I,$(INCS)) -MMD -MP
-LDFLAGS     := $(LDFLAGS) $(addprefix -L,$(dir $(LIBS_PATH)))
-LDLIBS      := $(LDLIBS) $(addprefix -l,$(LIBS))
+CXXFLAGS    := -Wall -Wextra -Werror -std=c++98 -pedantic -W
+CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
+LDFLAGS     := $(addprefix -L,$(dir $(LIBS_PATH)))
+LDLIBS      := $(addprefix -l,$(LIBS))
 
 RM          := rm -f
 MAKEFLAGS   := --no-print-directory --jobs -C
@@ -85,14 +86,14 @@ endif
 run-leaks:
 
 ifeq ($(UNAME), Linux)
-	$(MAKE) re CXXFLAGS="-D DEBUG"
+	$(MAKE) re CXXFLAGS="-Wall -Wextra -Werror -std=c++98 -pedantic -W -Og -D DEBUG"
 	clear
 	echo  CREATED $(AGE) AGO
 	echo "--------------------"
-	valgrind -q ./$(NAME)
+	-valgrind -q ./$(NAME)
 endif
 ifeq ($(UNAME), Darwin)
-	$(MAKE) re CXXFLAGS="-D DEBUG"
+	$(MAKE) re CXXFLAGS="-Wall -Wextra -Werror -std=c++98 -pedantic -W -Og -D DEBUG"
 	clear
 	echo  CREATED $(AGE) AGO
 	echo "--------------------"

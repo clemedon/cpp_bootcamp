@@ -7,6 +7,7 @@ SRC_DIR     := src
 SRCS        := \
 			   Bureaucrat.cpp \
 			   Form.cpp \
+			   utils.cpp \
 			   main.cpp \
 
 INC_DIR		:= include
