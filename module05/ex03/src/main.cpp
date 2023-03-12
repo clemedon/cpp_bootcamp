@@ -8,8 +8,12 @@
 #include "ShrubberyCreationForm.hpp"
 
 /**
+ * ex00
+ *
  * Bureaucrat throws EGradeTooHigh and EGradeTooLow as "temporary", they are
  * created and thrown at once like: throw EGradeTooLow ( _grade );
+ *
+ * ex01
  *
  * Bureaucrat::giveGrade is exactly the same as Bureaucrat::getGrade but unlike
  * the latter it does respect encapsulation principle.
@@ -18,6 +22,8 @@
  * program as catch() is in a member function in the middle of the program,
  * conversely if the grade of a Bureaucrat is not legal then the program will
  * end as the catch() is at the end of the program in the main.
+ *
+ * ex02
  *
  * In my quest for my non-use of getters I was confronted with a problem when
  * implementing the copy constructor of AForm derived classes, indeed, how to
@@ -36,27 +42,27 @@
  */
 
 int main( void ) {
+  Bureaucrat olaf = Bureaucrat( "Olaf", 6 );
+  AForm*     rrf = NULL;
+  Intern     someRandomIntern;
   std::cout << std::endl;
-  std::cout << "------------------------------" << std::endl;
-
-  Intern someRandomIntern;
-  AForm* rrf;
 
   try {
-    rrf = someRandomIntern.makeForm( "robotomy request", "Bender" );
-    std::cout << "new form>> " << *rrf << std::endl;
-
-    std::cout << "------------------------------" << std::endl;
-    std::cout << std::endl;
-  } catch( EBureaucratGradeTooHigh const& e ) {
-    /* delete rrf; */
-    return 1;
-  } catch( ... ) {
-    /* delete rrf; */
-    std::cout << "Error occurred during what() message formatting";
-    std::cout << std::endl;
-    return 1;
+    rrf = someRandomIntern.makeForm( "jump from the window", "Bender" );
+    std::cout << "New form delivered: " << *rrf << std::endl;
+    olaf.signForm( *rrf );
+    olaf.executeForm( *rrf );
+  } catch( EInternFormNotFound const& e ) {
+    std::cout << e.what() << std::endl;
   }
-  /* delete rrf; */
+  try {
+    rrf = someRandomIntern.makeForm( "robotomy request", "Bender" );
+    std::cout << "New form delivered: " << *rrf << std::endl;
+    olaf.signForm( *rrf );
+    olaf.executeForm( *rrf );
+  } catch( EInternFormNotFound const& e ) {
+    std::cout << e.what() << std::endl;
+  }
+  std::cout << std::endl;
   return 0;
 }

@@ -93,35 +93,40 @@ std::ostream& operator<<( std::ostream& o, Intern const& i ) {
 AForm* Intern::makeForm( std::string const& formName,
                          std::string const& formTarget ) {
   size_t i;
-  /* size_t newFormId; */
   AForm* newForm = NULL;
 
   struct Forms {
     std::string const name;
     AForm*            form;
   };
-
-  // TODO why static
   static const Forms forms[] = {
     { "shrubbery creation", new ShrubberyCreationForm( formTarget ) },
     { "robotomy request", new RobotomyRequestForm( formTarget ) },
     { "presidential pardon", new PresidentialPardonForm( formTarget ) },
   };
-
   for( i = 0; i < sizeof( forms ) / sizeof( *forms ); ++i ) {
-    // TODO tolower
     if( formName == forms[i].name ) {
       newForm = forms[i].form;
-
-      /* newFormId = i; */
-      /* for( i = 0; i < sizeof( forms ) / sizeof( *forms ); ++i ) { */
-      /*   if( i != newFormId ) */
-      /*     delete forms[i]; */
-      /* } */
       break;
     }
   }
   if( !newForm )
-    std::cout << "throw Form::InexistantFormException()" << std::endl;
+    throw EInternFormNotFound( formName );
   return newForm;
+}
+
+/*  EXCEPTIONS
+------------------------------------------------- */
+
+EInternFormNotFound::FormNotFoundException( std::string const& formName )
+  : _message( "Error: could not find any form called \"" + formName + "\"" ) {
+  return;
+}
+
+EInternFormNotFound::~FormNotFoundException( void ) throw() {
+  return;
+}
+
+char const* EInternFormNotFound::what( void ) const throw() {
+  return _message.c_str();
 }

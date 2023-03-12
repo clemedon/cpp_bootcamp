@@ -2,6 +2,8 @@
 #include "Bureaucrat.hpp"
 
 /**
+ * ex00
+ *
  * Bureaucrat throws EGradeTooHigh and EGradeTooLow as "temporary", they are
  * created and thrown at once like: throw EGradeTooLow ( _grade );
  */
