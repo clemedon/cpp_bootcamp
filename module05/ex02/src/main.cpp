@@ -7,8 +7,12 @@
 #include "ShrubberyCreationForm.hpp"
 
 /**
+ * ex00
+ *
  * Bureaucrat throws EGradeTooHigh and EGradeTooLow as "temporary", they are
  * created and thrown at once like: throw EGradeTooLow ( _grade );
+ *
+ * ex01
  *
  * Bureaucrat::giveGrade is exactly the same as Bureaucrat::getGrade but unlike
  * the latter it does respect encapsulation principle.
@@ -17,6 +21,8 @@
  * program as catch() is in a member function in the middle of the program,
  * conversely if the grade of a Bureaucrat is not legal then the program will
  * end as the catch() is at the end of the program in the main.
+ *
+ * ex02
  *
  * In my quest for my non-use of getters I was confronted with a problem when
  * implementing the copy constructor of AForm derived classes, indeed, how to
@@ -35,31 +41,31 @@
  */
 
 int main( void ) {
-  Bureaucrat henry = Bureaucrat( "Olaf", 6 );
+  Bureaucrat olaf = Bureaucrat( "Olaf", 6 );
   AForm*     f1 = new PresidentialPardonForm( "Vadim" );
   AForm*     f2 = new ShrubberyCreationForm( "Kitchen" );
   AForm*     f3 = new RobotomyRequestForm( "Vadim" );
   std::cout << std::endl;
   try {
-    henry.signForm( *f1 );
-    henry.executeForm( *f1 );
-    henry.upGrade();
-    henry.executeForm( *f1 );
+    olaf.signForm( *f1 );
+    olaf.executeForm( *f1 );
+    olaf.upGrade();
+    olaf.executeForm( *f1 );
     std::cout << std::endl;
 
-    henry.signForm( *f2 );
-    henry.executeForm( *f2 );
+    olaf.signForm( *f2 );
+    olaf.executeForm( *f2 );
     std::cout << std::endl;
 
-    henry.signForm( *f3 );
-    henry.executeForm( *f3 );
+    olaf.signForm( *f3 );
+    olaf.executeForm( *f3 );
     std::cout << std::endl;
 
-    henry.upGrade();
-    henry.upGrade();
-    henry.upGrade();
-    henry.upGrade();
-    henry.upGrade();
+    olaf.upGrade();
+    olaf.upGrade();
+    olaf.upGrade();
+    olaf.upGrade();
+    olaf.upGrade();
     std::cout << std::endl;
 
   } catch( EBureaucratGradeTooHigh const& e ) {
