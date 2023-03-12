@@ -43,7 +43,6 @@ Form::Form( Form const& src )
     _signed( src._signed ),
     _signGrade( src._signGrade ),
     _execGrade( src._execGrade ) {
-  *this = src;
   checkGradeLimits( _signGrade );
   checkGradeLimits( _execGrade );
 #if defined( DEBUG )
@@ -84,7 +83,6 @@ Form& Form::operator=( Form const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  *this = rhs;
   return *this;
 }
 

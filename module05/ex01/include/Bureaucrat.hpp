@@ -9,6 +9,21 @@ class Form;
 
 /**
  * Bureaucrat
+ *
+ *
+ * Data members
+ *
+ *  _topGrade
+ *    the highest grade
+ *
+ *  _botGrade
+ *    the lowest grade
+ *
+ *  _name
+ *    the Bureaucrat's name
+ *
+ *  _grade
+ *    the Bureaucrat's grade
  */
 
 class Bureaucrat {

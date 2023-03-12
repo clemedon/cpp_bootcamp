@@ -8,7 +8,28 @@
 class Bureaucrat;
 
 /**
- * Form
+ * AForm
+ *
+ *
+ * Data members
+ *
+ *  _topGrade
+ *    the highest grade
+ *
+ *  _botGrade
+ *    the lowest grade
+ *
+ *  _name
+ *    the name of the form
+ *
+ *  _signed
+ *    indicate if the form is signed or not
+ *
+ *  _signGrade
+ *    the grade required for a Bureaucrat to sign the form
+ *
+ *  _execGrade
+ *    the grade required for a Bureaucrat to execute the form
  */
 
 class Form {
