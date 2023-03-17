@@ -5,17 +5,16 @@
 #
 ############ PROJECT
 
-NAME        := castor
+NAME        := convert
 
 LIBS		:=
 LIBS_PATH	:=
 
-SRC_DIR     := .
+SRC_DIR     := src
 SRCS        := \
-			   tests.cpp \
 			   print.cpp \
-			   cast.cpp \
 			   detect.cpp \
+			   convert.cpp \
 			   main.cpp \
 
 INC_DIR		:= include
@@ -86,9 +85,9 @@ re:
 sure: CXXFLAGS	:= -Wno-everything -Wno-unused
 sure: all
 
-asan: CXXFLAGS	+= -fsanitize=address,undefined,integer,nullability,vptr #
+asan: CXXFLAGS	+= -fsanitize=address,undefined,vptr # integer,nullability
 asan: CXXFLAGS	+= -fno-optimize-sibling-calls $(DEBUG_FLAGS)
-asan: LDFLAGS	+= -g -fsanitize=address,undefined,integer,nullability,vptr #
+asan: LDFLAGS	+= -g -fsanitize=address,undefined,vptr # integer,nullability
 asan: all
 
 run:
@@ -101,8 +100,8 @@ ifneq ("$(wildcard $(NAME))","")
 endif
 
 leaks:
-leaks: CXXFLAGS	+= $(DEBUG_FLAGS)
-leaks: re
+leaks: CXXFLAGS += $(DEBUG_FLAGS)
+leaks: all
 
 ifeq ($(UNAME), Linux)
 	clear
