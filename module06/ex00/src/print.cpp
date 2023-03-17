@@ -7,7 +7,7 @@
 #include <string>
 
 /**
- * @brief       Cast and print a double as another type.
+ * Cast and print a double as another type.
  */
 
 /**

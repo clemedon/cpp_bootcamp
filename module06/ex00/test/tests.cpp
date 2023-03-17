@@ -4,8 +4,14 @@
 #include <string>
 
 #include "convert.hpp"
-#define FLOAT_UNDERFLOW  std::numeric_limits<float>::min()
+
+#define FLOAT_MIN       -std::numeric_limits<float>::max()
+#define FLOAT_UNDERFLOW std::numeric_limits<float>::min()
+#define FLOAT_MAX       std::numeric_limits<float>::max()
+
+#define DOUBLE_MIN       -std::numeric_limits<double>::max()
 #define DOUBLE_UNDERFLOW std::numeric_limits<double>::min()
+#define DOUBLE_MAX       std::numeric_limits<double>::max()
 
 std::string floatToString( float num ) {
   std::stringstream ss;

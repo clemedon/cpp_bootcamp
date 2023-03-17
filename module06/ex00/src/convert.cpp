@@ -2,7 +2,7 @@
 #include <string>
 
 /**
- * @brief       Convert a string into its corresponding type's value.
+ * Convert a string into its corresponding type's value.
  */
 
 /**

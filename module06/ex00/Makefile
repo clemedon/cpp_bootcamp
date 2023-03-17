@@ -12,10 +12,10 @@ LIBS_PATH	:=
 
 SRC_DIR     := src
 SRCS        := \
-			   print.cpp \
-			   detect.cpp \
-			   convert.cpp \
-			   main.cpp \
+	print.cpp \
+	detect.cpp \
+	convert.cpp \
+	main.cpp \
 
 INC_DIR		:= include
 BUILD_DIR   := .build
@@ -42,14 +42,8 @@ LDLIBS      := $(addprefix -l,$(LIBS))
 RM          := rm -f
 MAKEFLAGS   := --no-print-directory --jobs -C
 UNAME		:= $(shell uname)
+FILE_AGE	:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
 DIR_DUP     = mkdir -p $(@D)
-
-ifeq ($(UNAME), Darwin)
-	AGE			:= $$(printf "%08d" $$(( $$(date +%s) - $$(stat -f "%m" $(NAME)) )))
-endif
-ifeq ($(UNAME), Linux)
-	AGE			:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
-endif
 
 ## GENERAL RULES
 
@@ -82,41 +76,46 @@ re:
 
 ## EXTRA RULES
 
+info:
+	$(info  make sure - compile without any warning or errors)
+	$(info  make asan - compile with fsanitize)
+	$(info  make leak - make and execute via valgrind)
+	$(info  make exec - make and execute)
+	$(info  make test - make and run tests)
+
 sure: CXXFLAGS	:= -Wno-everything -Wno-unused
 sure: all
 
-asan: CXXFLAGS	+= -fsanitize=address,undefined,vptr # integer,nullability
+asan: CXXFLAGS	+= -fsanitize=address,undefined,vptr
 asan: CXXFLAGS	+= -fno-optimize-sibling-calls $(DEBUG_FLAGS)
-asan: LDFLAGS	+= -g -fsanitize=address,undefined,vptr # integer,nullability
+asan: LDFLAGS	+= -g -fsanitize=address,undefined,vptr
 asan: all
 
-run:
+leak:
+leak: CXXFLAGS += $(DEBUG_FLAGS)
+leak: all
 
 ifneq ("$(wildcard $(NAME))","")
 	clear
-	echo  CREATED $(AGE) AGO
-	echo "--------------------"
-	./$(NAME)
-endif
-
-leaks:
-leaks: CXXFLAGS += $(DEBUG_FLAGS)
-leaks: all
-
-ifeq ($(UNAME), Linux)
-	clear
-	echo  CREATED $(AGE) AGO
+	echo  CREATED $(FILE_AGE) AGO
 	echo "--------------------"
 	-valgrind -q ./$(NAME)
 endif
-ifeq ($(UNAME), Darwin)
+
+exec:
+exec: all
+
+ifneq ("$(wildcard $(NAME))","")
 	clear
-	echo  CREATED $(AGE) AGO
+	echo  CREATED $(FILE_AGE) AGO
 	echo "--------------------"
-	-leaks -q -atExit -- ./$(NAME)
+	-./$(NAME)
 endif
+
+test: re
+	-bash test/tests.sh
 
 ## OPTIONS
 
-.PHONY: clean re run
+.PHONY: clean re exec test
 .SILENT:

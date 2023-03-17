@@ -4,12 +4,6 @@
 #include <limits>
 #include <string>
 
-#define FLOAT_MIN -std::numeric_limits<float>::max()
-#define FLOAT_MAX std::numeric_limits<float>::max()
-
-#define DOUBLE_MIN -std::numeric_limits<double>::max()
-#define DOUBLE_MAX std::numeric_limits<double>::max()
-
 /* print.cpp */
 
 void printChar( double doubleVal );

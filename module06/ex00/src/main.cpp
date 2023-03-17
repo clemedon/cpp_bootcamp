@@ -5,9 +5,9 @@
 #include "convert.hpp"
 
 /**
- * @brief       Detect if a string represents a valid char, int, float or double
- *              value, convert this string into the matching type's value,
- *              finally cast this value into each of those types and print them.
+ * Detect if a string represents a valid char, int, float or double value,
+ * convert this string into the matching type's value, finally cast this value
+ * into each of those types and print them.
  */
 
 int main( int argc, char* argv[] ) {
@@ -15,7 +15,7 @@ int main( int argc, char* argv[] ) {
   std::cout << std::fixed << std::setprecision( 1 );
 
 #ifdef DEBUG
-  std::string str = "salut"; // TODO
+  std::string str = "fillme";
 #else
   if( argc != 2 ) {
     std::cerr << "Usage: " << argv[0] << " <literal>\n";
@@ -31,6 +31,14 @@ int main( int argc, char* argv[] ) {
     convertFloat( str, doubleVal );
   } else if( detectDouble( str ) ) {
     convertDouble( str, doubleVal );
+  } else {
+    std::cout << "Input \"" << str;
+    std::cout << "\" did not match any of the supported types:";
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << " char, int, float, double";
+    std::cout << std::endl;
+    return 1;
   }
   printChar( doubleVal );
   printInt( doubleVal );
