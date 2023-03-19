@@ -1,10 +1,9 @@
 #include <climits>
 #include <cmath>
-
-#include "convert.hpp"
-
 #include <iostream>
 #include <string>
+
+#include "convert.hpp"
 
 /**
  * Cast and print a double as another type.

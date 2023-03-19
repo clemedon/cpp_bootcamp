@@ -1,8 +1,7 @@
 #ifndef CONVERT_HPP_
 #define CONVERT_HPP_
 
-#include <limits>
-#include <string>
+class string;
 
 /* print.cpp */
 
