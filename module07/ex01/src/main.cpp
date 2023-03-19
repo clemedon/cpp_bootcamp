@@ -23,5 +23,6 @@ int main( void ) {
   std::cout << "Test 3, <char> :" << std::endl;
   len = sizeof( test3 ) / sizeof( test3[0] );
   iter( test3, len, print<char> );
+  std::cout << std::endl;
   return 0;
 }

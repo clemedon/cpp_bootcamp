@@ -97,6 +97,8 @@ ifneq ("$(wildcard $(NAME))","")
 	echo  CREATED $(FILE_AGE) AGO
 	echo "--------------------"
 	-valgrind -q ./$(NAME)
+else
+	$(info $(NAME) not found)
 endif
 
 exec:
@@ -107,6 +109,8 @@ ifneq ("$(wildcard $(NAME))","")
 	echo  CREATED $(FILE_AGE) AGO
 	echo "--------------------"
 	-./$(NAME)
+else
+	$(info $(NAME) not found)
 endif
 
 test: re
