@@ -5,7 +5,7 @@
 #
 ############ PROJECT
 
-NAME        := whichtype
+NAME        := whatever
 
 LIBS		:=
 LIBS_PATH	:=
