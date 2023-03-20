@@ -2,6 +2,7 @@
 #define CONTACT_HPP_
 
 #include <string>
+
 #include "phonebook.h"
 
 /**

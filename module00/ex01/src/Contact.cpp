@@ -1,7 +1,8 @@
-#include "Contact.hpp"
+#include <string>
+
 #include "phonebook.h"
 
-#include <string>
+#include "Contact.hpp"
 
 Contact::Contact( void ) {
   this->_firstname = "";

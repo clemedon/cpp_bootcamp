@@ -1,10 +1,10 @@
-#include "PhoneBook.hpp"
-#include "phonebook.h"
-
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <string>
+
+#include "PhoneBook.hpp"
+#include "phonebook.h"
 
 int PhoneBook::_count = -1;
 
@@ -25,8 +25,8 @@ PhoneBook::~PhoneBook( void ) {
  * @return      a new string
  */
 
-std::string PhoneBook::_format_tab_str( std::string str, int colsize ) {
-  int len;
+std::string PhoneBook::format_tab_str( std::string str, size_t colsize ) {
+  size_t len;
 
   len = str.length();
   if( len >= colsize ) {
@@ -43,7 +43,7 @@ std::string PhoneBook::_format_tab_str( std::string str, int colsize ) {
  * @return      true or fasle
  */
 
-bool PhoneBook::_isnum( std::string const& str ) {
+bool PhoneBook::isnum( std::string const& str ) {
   return str.find_first_not_of( "0123456789" ) == std::string::npos;
 }
 
@@ -54,7 +54,7 @@ bool PhoneBook::_isnum( std::string const& str ) {
  * @return      a string
  */
 
-std::string PhoneBook::_itos( int num ) {
+std::string PhoneBook::itos( int num ) {
   std::stringstream ss;
   std::string       str;
 
@@ -70,7 +70,7 @@ std::string PhoneBook::_itos( int num ) {
  * @return      an integer
  */
 
-int PhoneBook::_stoi( std::string const& str ) {
+int PhoneBook::stoi( std::string const& str ) {
   std::stringstream ss;
   int               num;
 
@@ -83,7 +83,7 @@ int PhoneBook::_stoi( std::string const& str ) {
  * @brief       Print 'new contact' banner
  */
 
-void PhoneBook::_new_contact_banner( void ) {
+void PhoneBook::new_contact_banner( void ) {
   CLEAR;
   std::cout << std::endl;
   std::cout << "      ******************" << std::endl;
@@ -99,9 +99,9 @@ void PhoneBook::_new_contact_banner( void ) {
  * @param[i/o]  input the secret storage
  */
 
-void PhoneBook::_add_secret( std::string& input ) {
+void PhoneBook::add_secret( std::string& input ) {
   while( true ) {
-    this->_new_contact_banner();
+    this->new_contact_banner();
     std::cout << "  Contact Darkest Secret 5/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (50 characters max)" << std::endl;
@@ -126,9 +126,9 @@ void PhoneBook::_add_secret( std::string& input ) {
  * @param[i/o]  input the phone number storage
  */
 
-void PhoneBook::_add_phonenum( std::string& input ) {
+void PhoneBook::add_phonenum( std::string& input ) {
   while( true ) {
-    this->_new_contact_banner();
+    this->new_contact_banner();
     std::cout << "  Contact Phone Number   4/5" << std::endl;
     std::cout << std::endl;
     std::cout << "       (15 digits max)" << std::endl;
@@ -139,7 +139,7 @@ void PhoneBook::_add_phonenum( std::string& input ) {
       std::cerr << "Failure: " << __FILE__ << ": " << __LINE__ << std::endl;
       exit( 1 );
     }
-    if( input.empty() || input.length() > 15 || !this->_isnum( input ) ) {
+    if( input.empty() || input.length() > 15 || !this->isnum( input ) ) {
       continue;
     }
     break;
@@ -152,9 +152,9 @@ void PhoneBook::_add_phonenum( std::string& input ) {
  * @param[i/o]  input the nick name storage
  */
 
-void PhoneBook::_add_nickname( std::string& input ) {
+void PhoneBook::add_nickname( std::string& input ) {
   while( true ) {
-    this->_new_contact_banner();
+    this->new_contact_banner();
     std::cout << "  Contact Nick Name      3/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (20 characters max)" << std::endl;
@@ -178,9 +178,9 @@ void PhoneBook::_add_nickname( std::string& input ) {
  * @param[i/o]  input the last name storage
  */
 
-void PhoneBook::_add_lastname( std::string& input ) {
+void PhoneBook::add_lastname( std::string& input ) {
   while( true ) {
-    this->_new_contact_banner();
+    this->new_contact_banner();
     std::cout << "  Contact Last Name      2/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (20 characters max)" << std::endl;
@@ -204,9 +204,9 @@ void PhoneBook::_add_lastname( std::string& input ) {
  * @param[i/o]  input the first name storage
  */
 
-void PhoneBook::_add_firstname( std::string& input ) {
+void PhoneBook::add_firstname( std::string& input ) {
   while( true ) {
-    this->_new_contact_banner();
+    this->new_contact_banner();
     std::cout << "  Contact First Name     1/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (20 characters max)" << std::endl;
@@ -240,11 +240,11 @@ void PhoneBook::add_contact( void ) {
   while( --i > 0 ) {
     this->_contact[i] = this->_contact[i - 1];
   }
-  _add_firstname( firstname );
-  _add_lastname( lastname );
-  _add_nickname( nickname );
-  _add_phonenum( phonenum );
-  _add_secret( secret );
+  add_firstname( firstname );
+  add_lastname( lastname );
+  add_nickname( nickname );
+  add_phonenum( phonenum );
+  add_secret( secret );
   this->_contact[0].set_firstname( firstname );
   this->_contact[0].set_lastname( lastname );
   this->_contact[0].set_nickname( nickname );
@@ -257,7 +257,7 @@ void PhoneBook::add_contact( void ) {
  * @brief       Display all the phonebook contacts
  */
 
-void PhoneBook::_display_contacts( void ) {
+void PhoneBook::display_contacts( void ) {
   int      id;
   Contact* contact = this->_contact;
 
@@ -276,19 +276,19 @@ void PhoneBook::_display_contacts( void ) {
     if( !contact[id].get_firstname().empty() ) {
       std::cout << "  |";
       std::cout.width( 10 );
-      std::cout << std::right << this->_format_tab_str( _itos( id + 1 ), 10 );
+      std::cout << std::right << this->format_tab_str( itos( id + 1 ), 10 );
       std::cout << "|";
       std::cout.width( 10 );
       std::cout << std::right
-                << this->_format_tab_str( contact[id].get_firstname(), 10 );
+                << this->format_tab_str( contact[id].get_firstname(), 10 );
       std::cout << "|";
       std::cout.width( 10 );
       std::cout << std::right
-                << this->_format_tab_str( contact[id].get_lastname(), 10 );
+                << this->format_tab_str( contact[id].get_lastname(), 10 );
       std::cout << "|";
       std::cout.width( 10 );
       std::cout << std::right
-                << this->_format_tab_str( contact[id].get_nickname(), 10 );
+                << this->format_tab_str( contact[id].get_nickname(), 10 );
       std::cout << "|" << std::endl;
     }
     ++id;
@@ -301,7 +301,7 @@ void PhoneBook::_display_contacts( void ) {
  * @brief       Display a contact
  */
 
-void PhoneBook::_display_contact( int id ) {
+void PhoneBook::display_contact( int id ) {
   CLEAR;
   std::cout << std::endl;
   std::cout << "      ******************" << std::endl;
@@ -329,7 +329,7 @@ void PhoneBook::_display_contact( int id ) {
  * @brief       Display zero contact
  */
 
-void PhoneBook::_display_none( void ) {
+void PhoneBook::display_none( void ) {
   CLEAR;
   std::cout << std::endl;
   std::cout << "      ******************" << std::endl;
@@ -352,13 +352,13 @@ void PhoneBook::_display_none( void ) {
  * @return      true or false
  */
 
-bool PhoneBook::_check_input_id( std::string const& input ) {
+bool PhoneBook::check_input_id( std::string const& input ) {
   int id;
 
-  if( input.length() != 1 || !_isnum( input ) ) {
+  if( input.length() != 1 || !isnum( input ) ) {
     return false;
   }
-  id = this->_stoi( input ) - 1;
+  id = this->stoi( input ) - 1;
   if( id < 0 || id > this->_count ) {
     return false;
   }
@@ -374,12 +374,12 @@ void PhoneBook::search_contact( void ) {
   int         id;
 
   if( this->_count == -1 ) {
-    this->_display_none();
+    this->display_none();
   } else if( this->_count == 0 ) {
-    this->_display_contact( 0 );
+    this->display_contact( 0 );
   } else {
     while( true ) {
-      this->_display_contacts();
+      this->display_contacts();
       std::cout << "  Enter an Index" << std::endl;
       std::cout << std::endl;
       std::cout << "> ";
@@ -392,11 +392,11 @@ void PhoneBook::search_contact( void ) {
       if( input.empty() ) {
         break;
       }
-      if( !_check_input_id( input ) ) {
+      if( !check_input_id( input ) ) {
         continue;
       }
-      id = this->_stoi( input );
-      this->_display_contact( id - 1 );
+      id = this->stoi( input );
+      this->display_contact( id - 1 );
       break;
     }
   }

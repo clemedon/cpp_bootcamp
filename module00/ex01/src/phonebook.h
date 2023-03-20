@@ -1,9 +1,7 @@
 #ifndef PHONEBOOK_H_
 #define PHONEBOOK_H_
 
-#define DEBUG 0
-
-#if DEBUG
+#ifdef DEV
 #  define MAX_CONTACT 3
 #  define CLEAR       std::cout << ""
 #else

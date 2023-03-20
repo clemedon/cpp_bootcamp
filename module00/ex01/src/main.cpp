@@ -1,9 +1,9 @@
-#include "PhoneBook.hpp"
-#include "phonebook.h"
-
 #include <cstdlib>
 #include <iostream>
 #include <string>
+
+#include "PhoneBook.hpp"
+#include "phonebook.h"
 
 /**
  * @brief      PhoneBook is a small contact book
@@ -39,6 +39,17 @@ int main( void ) {
     if( input.empty() || input.length() > 6 ) {
       continue;
     }
+#ifdef DEV
+    if( input == "a" ) {
+      pb.add_contact();
+    }
+    if( input == "s" ) {
+      pb.search_contact();
+    }
+    if( input == "e" ) {
+      return 0;
+    }
+#else
     if( input == "ADD" ) {
       pb.add_contact();
     }
@@ -48,6 +59,7 @@ int main( void ) {
     if( input == "EXIT" ) {
       return 0;
     }
+#endif
   }
   return 0;
 }
