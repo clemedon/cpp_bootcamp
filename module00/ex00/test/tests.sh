@@ -1,17 +1,45 @@
 #!/bin/bash
 
-echo -n "produce: "
-./megaphone "shhhhh... I think the students are asleep..."
-echo "excpect: SHHHHH... I THINK THE STUDENTS ARE ASLEEP..."
-echo ""
+r='\033[0;31m'
+g='\033[0;32m'
+b='\033[0;34m'
+y='\033[0;33m'
+c='\033[0;36m'
+m='\033[0;35m'
+x='\033[0m'
 
-echo -n "produce: "
-./megaphone Damnit " ! " "Sorry students, I thought this thing was off."
-echo "excpect: DAMNIT ! SORRY STUDENTS, I THOUGHT THIS THING WAS OFF."
-echo ""
+tests() {
+    echo -n "produce: "
+    $1 "shhhhh... I think the students are asleep..."
+    echo "excpect: SHHHHH... I THINK THE STUDENTS ARE ASLEEP..."
 
-echo -n "produce: "
-./megaphone
-echo "excpect: * LOUD AND UNBEARABLE FEEDBACK NOISE *"
-echo ""
+    echo -n "produce: "
+    $1 Damnit " ! " "Sorry students, I thought this thing was off."
+    echo "excpect: DAMNIT ! SORRY STUDENTS, I THOUGHT THIS THING WAS OFF."
 
+    echo -n "produce: "
+    $1
+    echo "excpect: * LOUD AND UNBEARABLE FEEDBACK NOISE *"
+}
+
+next() {
+    echo -en "${g}Please press enter to continue...${x}"
+    printf "%s"
+    read ans
+}
+
+run() {
+    make clean
+    make $1
+    clear
+    echo -e "${g}Testing $3...${x}"
+    tests "$2"
+    next
+}
+
+# make / exec / msg
+
+program="$1"
+run "asan"  "./$program"                "a dev build with fsanitize"
+run "all"   "valgrind -q ./$program"    "a prod build with valgrind"
+make clean

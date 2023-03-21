@@ -40,13 +40,13 @@ int main( void ) {
       continue;
     }
 #ifdef DEV
-    if( input == "a" ) {
+    if( input == "ADD" || input == "a" ) {
       pb.add_contact();
     }
-    if( input == "s" ) {
+    if( input == "SEARCH" || input == "s" ) {
       pb.search_contact();
     }
-    if( input == "e" ) {
+    if( input == "EXIT" || input == "e" ) {
       return 0;
     }
 #else
