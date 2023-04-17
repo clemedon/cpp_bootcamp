@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230417 14:57:06  by  clem@spectre
-// @modified  230417 14:57:06  by  clem@spectre
+// @modified  230417 16:47:39  by  clem@spectre
 // @filename  main.cpp
 
 #include <iostream>
@@ -64,6 +64,7 @@ int main( void ) {
     rrf = someRandomIntern.makeForm( "robotomy request", "Bender" );
     olaf.signForm( *rrf );
     olaf.executeForm( *rrf );
+    delete rrf;
   } catch( EInternFormNotFound const& e ) {
     std::cout << e.what() << std::endl;
   }

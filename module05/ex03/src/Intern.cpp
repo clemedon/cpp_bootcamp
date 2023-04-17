@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230417 14:48:35  by  clem@spectre
-// @modified  230417 14:48:35  by  clem@spectre
+// @modified  230417 16:47:54  by  clem@spectre
 // @filename  Intern.cpp
 
 #include <iostream>
@@ -104,7 +104,7 @@ AForm* Intern::makeForm( std::string const& formName,
     std::string const name;
     AForm*            form;
   };
-  static const Forms forms[] = {
+  const Forms forms[] = {
     { "shrubbery creation", new ShrubberyCreationForm( formTarget ) },
     { "robotomy request", new RobotomyRequestForm( formTarget ) },
     { "presidential pardon", new PresidentialPardonForm( formTarget ) },
@@ -112,7 +112,8 @@ AForm* Intern::makeForm( std::string const& formName,
   for( i = 0; i < sizeof( forms ) / sizeof( *forms ); ++i ) {
     if( formName == forms[i].name ) {
       newForm = forms[i].form;
-      break;
+    } else {
+      delete forms[i].form;
     }
   }
   if( !newForm )

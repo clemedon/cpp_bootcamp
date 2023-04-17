@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230417 14:48:41  by  clem@spectre
-// @modified  230417 14:48:41  by  clem@spectre
+// @modified  230417 16:23:48  by  clem@spectre
 // @filename  Intern.hpp
 
 #ifndef INTERN_HPP_
