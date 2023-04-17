@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:41:23  by  clem@spectre
+// @modified  230417 15:41:23  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
 #include <string>
 

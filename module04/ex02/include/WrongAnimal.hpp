@@ -1,7 +1,12 @@
+// @author    Clément Vidon
+// @created   230324 15:36:18  by  clem@spectre
+// @modified  230324 15:36:30  by  clem@spectre
+// @filename  WrongAnimal.hpp
+
 #ifndef WRONGANIMAL_HPP_
 #define WRONGANIMAL_HPP_
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
 
 /**
@@ -10,7 +15,7 @@
 
 class WrongAnimal {
  public:
-  WrongAnimal( std::string const& type = "WrongAnimal" );
+  explicit WrongAnimal( std::string const& type = "WrongAnimal" );
   WrongAnimal( WrongAnimal const& src );
   virtual ~WrongAnimal( void );
   WrongAnimal& operator=( WrongAnimal const& rhs );

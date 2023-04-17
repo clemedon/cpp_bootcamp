@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:46:03  by  clem@spectre
+// @modified  230324 15:48:31  by  clem@spectre
+// @filename  Cure.cpp
+
 #include <iostream>
 #include <string>
 
@@ -14,7 +19,7 @@
  */
 
 Cure::Cure( std::string const& type ) : AMateria( type ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -28,7 +33,7 @@ Cure::Cure( std::string const& type ) : AMateria( type ) {
  */
 
 Cure::Cure( AMateria const& src ) : AMateria( src.getType() ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -44,7 +49,7 @@ Cure::Cure( AMateria const& src ) : AMateria( src.getType() ) {
  */
 
 Cure::~Cure( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -58,7 +63,7 @@ Cure::~Cure( void ) {
  */
 
 Cure& Cure::operator=( Cure const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << rhs;
   std::cerr << " ASSIGNED TO " << *this;
   std::cerr << std::endl;

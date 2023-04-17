@@ -1,6 +1,10 @@
+// @author    Clément Vidon
+// @created   230323 20:16:58  by  clem@spectre
+// @modified  230324 12:13:49  by  clem@spectre
+// @filename  Point.cpp
+
 #include <iostream>
-#include <sstream>
-#include <string>
+
 #include "Point.hpp"
 
 /*  STANDARD
@@ -74,9 +78,9 @@ std::ostream& operator<<( std::ostream& o, Point const& i ) {
 ------------------------------------------------- */
 
 Fixed Point::get_x( void ) const {
-  return ( this->_x );
+  return ( _x );
 }
 
 Fixed Point::get_y( void ) const {
-  return ( this->_y );
+  return ( _y );
 }

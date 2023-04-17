@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:30:01  by  clem@spectre
+// @modified  230417 15:30:01  by  clem@spectre
+// @filename  Data.hpp
+
 #ifndef DATA_HPP_
 #define DATA_HPP_
 

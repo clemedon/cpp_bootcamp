@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:48:46  by  clem@spectre
+// @modified  230417 10:06:19  by  clem@spectre
+// @filename  MateriaSource.cpp
+
 #include <iostream>
 #include <string>
 
@@ -17,10 +22,10 @@ extern const int g_knowledgeSize;
 MateriaSource::MateriaSource( void ) {
   int i;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_knowledgeSize; ++i ) {
     _knowledge[i] = NULL;
   }
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -37,7 +42,7 @@ MateriaSource::MateriaSource( IMateriaSource const& src ) {
   int       i;
   AMateria* materia;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_knowledgeSize; ++i ) {
     materia = src.getKnowledge( i );
     if( materia ) {
       _knowledge[i] = materia->clone();
@@ -45,7 +50,7 @@ MateriaSource::MateriaSource( IMateriaSource const& src ) {
       _knowledge[i] = NULL;
     }
   }
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -61,12 +66,21 @@ MateriaSource::MateriaSource( IMateriaSource const& src ) {
  */
 
 MateriaSource::~MateriaSource( void ) {
-#if defined( DEBUG )
+  int i;
+
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTROYED ";
   std::cerr << *this;
   std::cerr << std::endl;
 #endif
+  //TODO added this for-delete that call AMateria destructor
+  for( i = 0; i < g_knowledgeSize; ++i ) {
+    if( _knowledge[i] ) {
+      delete _knowledge[i];
+      _knowledge[i] = NULL;
+    }
+  }
   return;
 }
 
@@ -77,7 +91,7 @@ MateriaSource::~MateriaSource( void ) {
 IMateriaSource& MateriaSource::operator=( IMateriaSource const& rhs ) {
   int i;
 
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << rhs;
   std::cerr << " ASSIGNED TO " << *this;
   std::cerr << std::endl;
@@ -85,7 +99,7 @@ IMateriaSource& MateriaSource::operator=( IMateriaSource const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_knowledgeSize; ++i ) {
     if( _knowledge[i] ) {
       delete _knowledge[i];
     }
@@ -130,7 +144,7 @@ void MateriaSource::learnMateria( AMateria* m ) {
   if( m == NULL ) {
     return;
   }
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_knowledgeSize; ++i ) {
     if( _knowledge[i] == NULL ) {
       _knowledge[i] = m;
       std::cout << *this;
@@ -158,7 +172,7 @@ AMateria* MateriaSource::createMateria( std::string const& type ) {
   int       i;
   AMateria* newMateria;
 
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_knowledgeSize; ++i ) {
     if( _knowledge[i] && _knowledge[i]->compareType( type ) ) {
       newMateria = _knowledge[i]->clone();
       std::cout << *this << " has successfully created a Materia ";
@@ -181,7 +195,7 @@ void MateriaSource::displayKnowledge( void ) const {
   int i;
 
   std::cout << *this << "'s knowledge:" << std::endl;
-  for( i = 0; i < g_knowledgeSize; i++ ) {
+  for( i = 0; i < g_knowledgeSize; ++i ) {
     if( _knowledge[i] ) {
       std::cout << " - space " << i + 1 << " contains " << *_knowledge[i]
                 << std::endl;

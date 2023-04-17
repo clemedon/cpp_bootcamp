@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:05:56  by  clem@spectre
+// @modified  230324 15:07:37  by  clem@spectre
+// @filename  ClapTrap.cpp
+
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -54,10 +59,10 @@ ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_name = rhs._name;
-  this->_healthPoints = rhs._healthPoints;
-  this->_energyPoints = rhs._energyPoints;
-  this->_attackDamage = rhs._attackDamage;
+  _name = rhs._name;
+  _healthPoints = rhs._healthPoints;
+  _energyPoints = rhs._energyPoints;
+  _attackDamage = rhs._attackDamage;
   return *this;
 }
 
@@ -67,11 +72,11 @@ ClapTrap& ClapTrap::operator=( ClapTrap const& rhs ) {
 
 void ClapTrap::print( std::ostream& o ) const {
   o << "[";
-  o << " health = " << this->_healthPoints;
-  o << " energy = " << this->_energyPoints;
-  o << " attack = " << this->_attackDamage;
+  o << " health = " << _healthPoints;
+  o << " energy = " << _energyPoints;
+  o << " attack = " << _attackDamage;
   o << "\t] ";
-  o << "ClapTrap " << this->_name << " ";
+  o << "ClapTrap " << _name << " ";
   return;
 }
 
@@ -93,8 +98,8 @@ std::ostream& operator<<( std::ostream& o, ClapTrap const& i ) {
  */
 
 bool ClapTrap::isAble() const {
-  int hp = this->_healthPoints;
-  int ep = this->_energyPoints;
+  unsigned int hp = _healthPoints;
+  unsigned int ep = _energyPoints;
 
   if( hp <= 0 && ep <= 0 ) {
     std::cout << *this << "is DEAD !!!" << std::endl;
@@ -119,10 +124,10 @@ bool ClapTrap::isAble() const {
  */
 
 void ClapTrap::attack( std::string const& target ) {
-  if( this->isAble() ) {
-    this->_energyPoints -= 1;
+  if( isAble() ) {
+    _energyPoints -= 1;
     std::cout << *this << "ATTACKED " << target << " with a mutex, causing "
-              << this->_attackDamage << " points of damage !" << std::endl;
+              << _attackDamage << " points of damage !" << std::endl;
   }
   return;
 }
@@ -136,8 +141,8 @@ void ClapTrap::attack( std::string const& target ) {
  */
 
 void ClapTrap::takeDamage( unsigned int const& amount ) {
-  if( this->isAble() ) {
-    this->_healthPoints -= amount;
+  if( isAble() ) {
+    _healthPoints -= amount;
     std::cout << *this << "TOOK " << amount << " points of damage !"
               << std::endl;
   }
@@ -154,9 +159,9 @@ void ClapTrap::takeDamage( unsigned int const& amount ) {
  */
 
 void ClapTrap::beRepaired( unsigned int const& amount ) {
-  if( this->isAble() ) {
-    this->_energyPoints -= 1;
-    this->_healthPoints += amount;
+  if( isAble() ) {
+    _energyPoints -= 1;
+    _healthPoints += amount;
     std::cout << *this << "REPAIRED itself up to " << amount
               << " health points." << std::endl;
   }
@@ -170,14 +175,14 @@ std::string ClapTrap::getName( void ) const {
   return _name;
 }
 
-int ClapTrap::getHealthPoints( void ) const {
+unsigned int ClapTrap::getHealthPoints( void ) const {
   return _healthPoints;
 }
 
-int ClapTrap::getEnergyPoints( void ) const {
+unsigned int ClapTrap::getEnergyPoints( void ) const {
   return _energyPoints;
 }
 
-int ClapTrap::getAttackDamage( void ) const {
+unsigned int ClapTrap::getAttackDamage( void ) const {
   return _attackDamage;
 }

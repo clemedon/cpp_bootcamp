@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:56:05  by  clem@spectre
+// @modified  230417 15:56:05  by  clem@spectre
+// @filename  Span.hpp
+
 #ifndef SPAN_HPP_
 #define SPAN_HPP_
 

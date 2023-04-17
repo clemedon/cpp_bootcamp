@@ -1,7 +1,12 @@
+// @author    Clément Vidon
+// @created   230324 15:35:31  by  clem@spectre
+// @modified  230324 15:35:31  by  clem@spectre
+// @filename  Brain.hpp
+
 #ifndef BRAIN_HPP_
 #define BRAIN_HPP_
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
 
 /**

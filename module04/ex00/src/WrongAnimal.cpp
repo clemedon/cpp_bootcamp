@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:21:59  by  clem@spectre
+// @modified  230324 15:21:59  by  clem@spectre
+// @filename  WrongAnimal.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "WrongAnimal.hpp"
 
 /*  STANDARD
@@ -13,7 +18,7 @@
 WrongAnimal::WrongAnimal( std::string const& type ) : _type( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -37,7 +42,7 @@ WrongAnimal::WrongAnimal( WrongAnimal const& src ) : _type( src._type ) {
 WrongAnimal::~WrongAnimal( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -53,7 +58,7 @@ WrongAnimal& WrongAnimal::operator=( WrongAnimal const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ WrongAnimal& WrongAnimal::operator=( WrongAnimal const& rhs ) {
  */
 
 void WrongAnimal::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   std::cout << " (via " << __FILE__ << ")";
   return;
 }
@@ -79,7 +84,7 @@ std::ostream& operator<<( std::ostream& o, WrongAnimal const& i ) {
 /* ---------------------------------------------- */
 
 void WrongAnimal::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound‥ silence*";
+  std::cout << "*" << _type << " sound‥ silence*";
   std::cout << std::endl;
   return;
 }
@@ -88,5 +93,5 @@ void WrongAnimal::makeSound( void ) const {
 ------------------------------------------------- */
 
 std::string WrongAnimal::getType( void ) const {
-  return this->_type;
+  return _type;
 }

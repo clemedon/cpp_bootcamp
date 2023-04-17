@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:44:49  by  clem@spectre
+// @modified  230417 10:22:27  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
 
 #include "AMateria.hpp"
@@ -20,7 +25,7 @@ void t_next( void ) {
   return;
 }
 
-void t_default() {
+void t_default( void ) {
   std::cerr << "  ---> " << __func__ << "( all tests )";
   std::cout << std::endl << std::endl;
 
@@ -45,7 +50,7 @@ void t_default() {
   return;
 }
 
-void t_custom() {
+void t_custom( void ) {
   int i;
 
   std::cerr << " ---> " << __func__ << "( Character default constructor )";
@@ -128,7 +133,7 @@ void t_custom() {
   m1->use( *c2 );
   t_next();
 
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << " ---> " << __func__ << "( Materia displayFreeMaterias )";
   std::cout << std::endl << std::endl;
   m1->displayFreeMaterias();
@@ -146,7 +151,7 @@ void t_custom() {
   m2 = s1->createMateria( "cure" );
   t_next();
 
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << " ---> " << __func__ << "( MateriaSource displayKnowledge )";
   std::cout << std::endl << std::endl;
   s1->displayKnowledge();
@@ -156,21 +161,21 @@ void t_custom() {
   std::cerr << " ---> " << __func__ << "( Character equip / unequip )";
   std::cout << std::endl << std::endl;
   c2->equip( NULL );
-  for( i = 0; i < tg_inventorySize + 1; i++ ) {
+  for( i = 0; i < tg_inventorySize + 1; ++i ) {
     c2->equip( m1 );
     c1->equip( s1->createMateria( "ice" ) );
   }
   c1->equip( m1 );
   c1->equip( m2 );
   c2->unequip( 0 );
-  for( i = 0 - 1; i < tg_inventorySize + 1; i++ ) {
+  for( i = 0 - 1; i < tg_inventorySize + 1; ++i ) {
     c2->unequip( i );
     c1->unequip( i );
   }
   c1->unequip( 0 );
   c1->equip( m1 );
   c2->equip( m2 );
-  for( i = 0 - 1; i < tg_inventorySize + 1; i++ ) {
+  for( i = 0 - 1; i < tg_inventorySize + 1; ++i ) {
     c2->equip( m1 );
     c2->equip( m2 );
   }
@@ -178,11 +183,11 @@ void t_custom() {
 
   std::cerr << " ---> " << __func__ << "( Character use )";
   std::cout << std::endl << std::endl;
-#if defined( DEBUG )
+#if defined( DEV )
   c1->displayInventory();
   c2->displayInventory();
 #endif
-  for( i = 0; i < tg_inventorySize + 1; i++ ) {
+  for( i = 0; i < tg_inventorySize + 1; ++i ) {
     c1->use( i, *c2 );
   }
   c1->use( 0, *c2 );
@@ -197,19 +202,19 @@ void t_custom() {
 
   std::cerr << " ---> " << __func__ << "( Character copy assignment )";
   std::cout << std::endl << std::endl;
-#if defined( DEBUG )
+#if defined( DEV )
   c1->displayInventory();
   c2->displayInventory();
 #endif
   *c2 = *c1;
-#if defined( DEBUG )
+#if defined( DEV )
   c1->displayInventory();
   c2->displayInventory();
 #endif
   std::cerr << " ---> " << __func__ << "( Character copy constructor )";
   std::cout << std::endl << std::endl;
   ICharacter* c3 = new Character( *c2 );
-#if defined( DEBUG )
+#if defined( DEV )
   c3->displayInventory();
 #endif
   t_next();
@@ -256,8 +261,27 @@ int main( void ) {
   (void)tg_inventorySize;
   (void)tg_knowledgeSize;
   t_next();
-  t_default();
-  t_custom();
+  /* t_default(); // NO LEAKS */
+  t_custom();  // LEAKS
+
+  IMateriaSource* src = new MateriaSource();
+
+  // TODO LEAK
+
+  AMateria* m = new Ice();
+  AMateria* i = new Ice();
+  src->learnMateria( m );
+  src->learnMateria( i );
+  std::cout << "---------" << std::endl;
+  src->displayKnowledge();
+
+  ICharacter* me = new Character( "me" );
+  AMateria*   tmp;
+  tmp = src->createMateria( "ice" );
+  me->equip( tmp );
+
+  delete me;
+  delete src;
 
   return 0;
 }

@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 14:48:40  by  clem@spectre
+// @modified  230417 14:48:40  by  clem@spectre
+// @filename  AForm.hpp
+
 #ifndef FORM_HPP_
 #define FORM_HPP_
 

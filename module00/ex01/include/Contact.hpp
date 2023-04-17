@@ -15,6 +15,7 @@ class Contact {
  public:
   Contact( void );
   ~Contact( void );
+
   std::string get_firstname( void ) const;
   std::string get_lastname( void ) const;
   std::string get_nickname( void ) const;

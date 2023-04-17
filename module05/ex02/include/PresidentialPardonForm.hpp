@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 14:39:20  by  clem@spectre
+// @modified  230417 14:39:20  by  clem@spectre
+// @filename  PresidentialPardonForm.hpp
+
 #ifndef PRESIDENTIALPARDONFORM_HPP_
 #define PRESIDENTIALPARDONFORM_HPP_
 

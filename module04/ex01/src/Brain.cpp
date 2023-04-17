@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:30:25  by  clem@spectre
+// @modified  230417 10:05:02  by  clem@spectre
+// @filename  Brain.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Brain.hpp"
 
 /*  STANDARD
@@ -10,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-Brain::Brain() : _size( 100 ), _ideas( new std::string[this->_size] ) {
+Brain::Brain() : _size( 100 ), _ideas( new std::string[_size] ) {
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;
@@ -26,8 +31,8 @@ Brain::Brain( Brain const& src )
   : _size( src._size ),
     _ideas( new std::string[src._size] ) {
   size_t i;
-  for( i = 0; i < this->_size; i++ ) {
-    this->_ideas[i] = src._ideas[i];
+  for( i = 0; i < _size; ++i ) {
+    _ideas[i] = src._ideas[i];
   }
   std::cout << src;
   std::cout << " COPIED AS " << *this;
@@ -40,7 +45,7 @@ Brain::Brain( Brain const& src )
  */
 
 Brain::~Brain( void ) {
-  delete[] this->_ideas;
+  delete[] _ideas;
   std::cout << __FILE__;
   std::cout << " DESTROYED ";
   std::cout << *this;
@@ -60,10 +65,10 @@ Brain& Brain::operator=( Brain const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  delete[] this->_ideas;
-  this->_ideas = new std::string[this->_size];
-  for( i = 0; i < this->_size; i++ ) {
-    this->_ideas[i] = rhs._ideas[i];
+  delete[] _ideas;
+  _ideas = new std::string[_size];
+  for( i = 0; i < _size; ++i ) {
+    _ideas[i] = rhs._ideas[i];
   }
   return *this;
 }
@@ -89,16 +94,16 @@ std::ostream& operator<<( std::ostream& o, Brain const& i ) {
 /* ---------------------------------------------- */
 
 void Brain::printIdea( size_t index ) const {
-  if( index < this->_size ) {
-    std::cout << "(idea nᵒ" << index << ") " << this->_ideas[index];
+  if( index < _size ) {
+    std::cout << "(idea nᵒ" << index << ") " << _ideas[index];
     std::cout << std::endl;
   }
   return;
 }
 
 void Brain::saveIdea( size_t index, std::string const& idea ) {
-  if( index < this->_size ) {
-    this->_ideas[index] = idea;
+  if( index < _size ) {
+    _ideas[index] = idea;
   }
   return;
 }

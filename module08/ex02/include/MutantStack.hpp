@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:59:37  by  clem@spectre
+// @modified  230417 16:02:19  by  clem@spectre
+// @filename  MutantStack.hpp
+
 #ifndef MUTANTSTACK_HPP_
 #define MUTANTSTACK_HPP_
 

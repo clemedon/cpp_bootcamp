@@ -1,22 +1,37 @@
-NAME        := a.out
+# @author    Clément Vidon
+# @created   230320 00:00:00  by  clem@spectre
+# @modified  230324 15:34:04  by  clem@spectre
+# @filename  Makefile
 
-LIBS		:=
-LIBS_PATH	:=
+############ PROJECT
+####################
+
+NAME        := animal
+
+LIBS        :=
+LIBS_PATH   :=
 
 SRC_DIR     := src
 SRCS        := \
-	AAnimal.cpp \
-	Brain.cpp \
 	Cat.cpp \
-	Dog.cpp \
-	WrongAnimal.cpp \
 	WrongCat.cpp \
 	main.cpp \
+	Dog.cpp \
+	AAnimal.cpp \
+	WrongAnimal.cpp \
+	Brain.cpp \
 
-INC_DIR		:= include
+INC_DIR     := include
 BUILD_DIR   := .build
 
-############
+LEAKS		:= valgrind -q --leak-check=yes --show-leak-kinds=all
+TESTS		:= bash test/tests.sh $(NAME) "$(LEAKS)"
+
+############ GENERIC
+####################
+
+## compilation vars
+###################
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 INCS        := $(INC_DIR) $(dir $(SRCS))
@@ -24,15 +39,25 @@ OBJS        := $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 
 CXX         := c++
-CXXFLAGS    := -Wall -Wextra -Werror -std=c++98 -pedantic -W
+CXXFLAGS    := -Wall -Wextra -Werror -std=c++98
+DEVFLAGS    := -Wconversion -Wsign-conversion -pedantic
+DEVFLAGS    += -fno-omit-frame-pointer -Og -D DEV
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBS_PATH)))
 LDLIBS      := $(addprefix -l,$(LIBS))
 
+## utils vars
+#############
+
 RM          := rm -f
 MAKEFLAGS   := --no-print-directory --jobs -C
-AGE			:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
 DIR_DUP     = mkdir -p $(@D)
+
+FILE_AGE    := $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
+EXEC_MSG    := clear && echo  CREATED $(FILE_AGE) AGO && echo "--------------------"
+
+## prod rules
+#############
 
 all: $(NAME)
 
@@ -61,23 +86,82 @@ re:
 	$(MAKE) clean
 	$(MAKE) all
 
-asan: CXXFLAGS	+= -O -g -fsanitize=address,undefined -fno-optimize-sibling-calls
-asan: LDFLAGS   += -g -fsanitize=address,undefined
+## dev builds
+#############
+
+sure: CXXFLAGS  := -Wno-everything -Wno-unused
+sure: all
+
+asan: CXXFLAGS  += $(DEVFLAGS)
+asan: CXXFLAGS  += -fsanitize=address,undefined,vptr
+asan: CXXFLAGS  += -fno-optimize-sibling-calls
+asan: LDFLAGS   += -g -fsanitize=address,undefined,vptr
 asan: all
 
-run:
-ifneq ("$(wildcard $(NAME))","")
-	clear
-	echo BINARY CREATED $(AGE) AGO
-	echo "---------------------------"
-	./$(NAME)
+## dev utils
+############
+
+exec: $(NAME)
+	$(EXEC_MSG)
+	-./$(NAME)
+
+leak:
+	$(MAKE) re CXXFLAGS="$(CXXFLAGS) $(DEVFLAGS)"
+	-$(LEAKS) ./$(NAME)
+
+test:
+	-$(TESTS)
+
+############
+
+init:
+	-[ -d "src" ] && [ -d "include" ] && [ -d "test" ] && echo "Already done."
+	-[ -d "src" ] || (mkdir "src" && echo "CREATED src")
+	-[ -d "include" ] || (mkdir "include" && echo "CREATED include")
+	-[ -d "test" ] || (mkdir "test" && echo "CREATED test")
+
+ifeq ("$(SRCS)","")
+
+srcs:
+	find src -type f -name "*.cpp" | awk -F/ '{print "\t" $$NF " \\"}' > .SRCS
+	sed -i '/^SRCS        := \\/ r .SRCS' Makefile
+	echo "Sources added."
+	rm .SRCS
+
+else
+
+srcs:
+	echo "Find source files…"
+	sed -i '/\w\.cpp \\/d' Makefile
+	find src -type f -name "*.cpp" | awk -F/ '{print "\t" $$NF " \\"}' > .SRCS
+	sed -i '/^SRCS        := \\/ r .SRCS' Makefile
+	echo "Sources updated."
+	rm .SRCS
+
 endif
 
-run-valgrind:
-	clear
-	echo BINARY CREATED $(AGE) AGO
-	echo "---------------------------"
-	valgrind -q ./$(NAME)
+help:
+	$(info  PROD RULES:)
+	$(info  make all - production build, default rule)
+	$(info  make clean - remove all build files)
+	$(info  make re - clean + all)
+	$(info  )
+	$(info  DEV BUILDS:)
+	$(info  make sure - compile without any warning or errors)
+	$(info  make asan - compile with fsanitize)
+	$(info  )
+	$(info  DEV UTILS:)
+	$(info  make leak - re make + exec via valgrind/leaks)
+	$(info  make exec - execute)
+	$(info  make test - execute tests)
+	$(info  )
+	$(info  make init - set the project structure)
+	$(info  make srcs - init / update sources)
+	$(info  make help - rules documentation)
 
-.PHONY: clean re run
+## options
+##########
+
+.PHONY: clean re
+.PHONY: help leak exec test srcs init
 .SILENT:

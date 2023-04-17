@@ -1,10 +1,17 @@
-#include <stdlib.h>
+// @author    Clément Vidon
+// @created   230324 15:04:56  by  clem@spectre
+// @modified  230324 15:04:56  by  clem@spectre
+// @filename  main.cpp
+
+#include <cstdlib>
 #include <iostream>
+
 #include "DiamondTrap.hpp"
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
-/** XXX My approach to initialization differs from the previous exercises.
+/**
+ * My approach to initialization differs from the previous exercises.
  * Rather than cascading the parameters of the derived class that I instantiate
  * to the base class so that it is directly initialized with the derived class
  * wanted values, I create the base class with its default values then I
@@ -47,7 +54,5 @@ int main( void ) {
 
   std::cout << std::endl;
   std::cout << ">>> DESTRUCTION OF XAV COPY AND XAV <<<" << std::endl;
-  (void)a;
-  (void)b;
   return 0;
 }

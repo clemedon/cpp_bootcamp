@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:30:02  by  clem@spectre
+// @modified  230417 15:30:02  by  clem@spectre
+// @filename  Serializer.hpp
+
 #ifndef SERIALIZE_HPP_
 #define SERIALIZE_HPP_
 

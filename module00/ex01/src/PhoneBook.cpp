@@ -1,19 +1,39 @@
+// @author    Clément Vidon
+// @created   230324 11:42:14  by  clem@spectre
+// @modified  230324 11:42:16  by  clem@spectre
+// @filename  PhoneBook.cpp
+
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <string>
 
-#include "PhoneBook.hpp"
 #include "phonebook.h"
+
+#include "PhoneBook.hpp"
 
 int PhoneBook::_count = -1;
 
-PhoneBook::PhoneBook( void ) {
-  this->_id = -1;
+/*  STANDARD
+------------------------------------------------- */
+
+/**
+ * @brief       Default Constructor
+ */
+
+PhoneBook::PhoneBook( void ) : _id( -1 ) {
+  return;
 }
 
+/**
+ * @brief       Default Destructor
+ */
+
 PhoneBook::~PhoneBook( void ) {
+  return;
 }
+
+/* ---------------------------------------------- */
 
 /**
  * @brief       Format a string so that it fits a table column
@@ -91,6 +111,7 @@ void PhoneBook::new_contact_banner( void ) {
   std::cout << "      * CONTACT    NEW *" << std::endl;
   std::cout << "      ******************" << std::endl;
   std::cout << std::endl;
+  return;
 }
 
 /**
@@ -101,7 +122,7 @@ void PhoneBook::new_contact_banner( void ) {
 
 void PhoneBook::add_secret( std::string& input ) {
   while( true ) {
-    this->new_contact_banner();
+    new_contact_banner();
     std::cout << "  Contact Darkest Secret 5/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (50 characters max)" << std::endl;
@@ -128,7 +149,7 @@ void PhoneBook::add_secret( std::string& input ) {
 
 void PhoneBook::add_phonenum( std::string& input ) {
   while( true ) {
-    this->new_contact_banner();
+    new_contact_banner();
     std::cout << "  Contact Phone Number   4/5" << std::endl;
     std::cout << std::endl;
     std::cout << "       (15 digits max)" << std::endl;
@@ -139,7 +160,7 @@ void PhoneBook::add_phonenum( std::string& input ) {
       std::cerr << "Failure: " << __FILE__ << ": " << __LINE__ << std::endl;
       exit( 1 );
     }
-    if( input.empty() || input.length() > 15 || !this->isnum( input ) ) {
+    if( input.empty() || input.length() > 15 || !isnum( input ) ) {
       continue;
     }
     break;
@@ -154,7 +175,7 @@ void PhoneBook::add_phonenum( std::string& input ) {
 
 void PhoneBook::add_nickname( std::string& input ) {
   while( true ) {
-    this->new_contact_banner();
+    new_contact_banner();
     std::cout << "  Contact Nick Name      3/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (20 characters max)" << std::endl;
@@ -180,7 +201,7 @@ void PhoneBook::add_nickname( std::string& input ) {
 
 void PhoneBook::add_lastname( std::string& input ) {
   while( true ) {
-    this->new_contact_banner();
+    new_contact_banner();
     std::cout << "  Contact Last Name      2/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (20 characters max)" << std::endl;
@@ -206,7 +227,7 @@ void PhoneBook::add_lastname( std::string& input ) {
 
 void PhoneBook::add_firstname( std::string& input ) {
   while( true ) {
-    this->new_contact_banner();
+    new_contact_banner();
     std::cout << "  Contact First Name     1/5" << std::endl;
     std::cout << std::endl;
     std::cout << "     (20 characters max)" << std::endl;
@@ -238,19 +259,20 @@ void PhoneBook::add_contact( void ) {
 
   i = MAX_CONTACT;
   while( --i > 0 ) {
-    this->_contact[i] = this->_contact[i - 1];
+    _contact[i] = _contact[i - 1];
   }
   add_firstname( firstname );
   add_lastname( lastname );
   add_nickname( nickname );
   add_phonenum( phonenum );
   add_secret( secret );
-  this->_contact[0].set_firstname( firstname );
-  this->_contact[0].set_lastname( lastname );
-  this->_contact[0].set_nickname( nickname );
-  this->_contact[0].set_phonenum( phonenum );
-  this->_contact[0].set_secret( secret );
-  this->_count += ( this->_count < MAX_CONTACT - 1 );
+  _contact[0].set_firstname( firstname );
+  _contact[0].set_lastname( lastname );
+  _contact[0].set_nickname( nickname );
+  _contact[0].set_phonenum( phonenum );
+  _contact[0].set_secret( secret );
+  _count += ( _count < MAX_CONTACT - 1 );
+  return;
 }
 
 /**
@@ -259,7 +281,7 @@ void PhoneBook::add_contact( void ) {
 
 void PhoneBook::display_contacts( void ) {
   int      id;
-  Contact* contact = this->_contact;
+  Contact* contact = _contact;
 
   CLEAR;
   std::cout << std::endl;
@@ -276,25 +298,26 @@ void PhoneBook::display_contacts( void ) {
     if( !contact[id].get_firstname().empty() ) {
       std::cout << "  |";
       std::cout.width( 10 );
-      std::cout << std::right << this->format_tab_str( itos( id + 1 ), 10 );
+      std::cout << std::right << format_tab_str( itos( id + 1 ), 10 );
       std::cout << "|";
       std::cout.width( 10 );
       std::cout << std::right
-                << this->format_tab_str( contact[id].get_firstname(), 10 );
+                << format_tab_str( contact[id].get_firstname(), 10 );
       std::cout << "|";
       std::cout.width( 10 );
       std::cout << std::right
-                << this->format_tab_str( contact[id].get_lastname(), 10 );
+                << format_tab_str( contact[id].get_lastname(), 10 );
       std::cout << "|";
       std::cout.width( 10 );
       std::cout << std::right
-                << this->format_tab_str( contact[id].get_nickname(), 10 );
+                << format_tab_str( contact[id].get_nickname(), 10 );
       std::cout << "|" << std::endl;
     }
     ++id;
   }
   std::cout << "  +----------+----------+----------+----------+" << std::endl;
   std::cout << std::endl;
+  return;
 }
 
 /**
@@ -310,15 +333,15 @@ void PhoneBook::display_contact( int id ) {
   std::cout << "      ******************" << std::endl;
   std::cout << std::endl;
   std::cout << "  First Name     → ";
-  std::cout << this->_contact[id].get_firstname() << std::endl;
+  std::cout << _contact[id].get_firstname() << std::endl;
   std::cout << "  Last Name      → ";
-  std::cout << this->_contact[id].get_lastname() << std::endl;
+  std::cout << _contact[id].get_lastname() << std::endl;
   std::cout << "  Nick Name      → ";
-  std::cout << this->_contact[id].get_nickname() << std::endl;
+  std::cout << _contact[id].get_nickname() << std::endl;
   std::cout << "  Phone Number   → ";
-  std::cout << this->_contact[id].get_phonenum() << std::endl;
+  std::cout << _contact[id].get_phonenum() << std::endl;
   std::cout << "  Darkest Secret → ";
-  std::cout << this->_contact[id].get_secret() << std::endl;
+  std::cout << _contact[id].get_secret() << std::endl;
   std::cout << std::endl;
   std::cout << "Press ENTER to continue";
   std::cin.ignore();
@@ -343,6 +366,7 @@ void PhoneBook::display_none( void ) {
   std::cout << std::endl;
   std::cout << "Press ENTER to continue";
   std::cin.ignore();
+  return;
 }
 
 /**
@@ -358,8 +382,8 @@ bool PhoneBook::check_input_id( std::string const& input ) {
   if( input.length() != 1 || !isnum( input ) ) {
     return false;
   }
-  id = this->stoi( input ) - 1;
-  if( id < 0 || id > this->_count ) {
+  id = stoi( input ) - 1;
+  if( id < 0 || id > _count ) {
     return false;
   }
   return true;
@@ -373,13 +397,13 @@ void PhoneBook::search_contact( void ) {
   std::string input;
   int         id;
 
-  if( this->_count == -1 ) {
-    this->display_none();
-  } else if( this->_count == 0 ) {
-    this->display_contact( 0 );
+  if( _count == -1 ) {
+    display_none();
+  } else if( _count == 0 ) {
+    display_contact( 0 );
   } else {
     while( true ) {
-      this->display_contacts();
+      display_contacts();
       std::cout << "  Enter an Index" << std::endl;
       std::cout << std::endl;
       std::cout << "> ";
@@ -395,8 +419,8 @@ void PhoneBook::search_contact( void ) {
       if( !check_input_id( input ) ) {
         continue;
       }
-      id = this->stoi( input );
-      this->display_contact( id - 1 );
+      id = stoi( input );
+      display_contact( id - 1 );
       break;
     }
   }

@@ -1,4 +1,10 @@
+// @author    Clément Vidon
+// @created   230324 12:11:46  by  clem@spectre
+// @modified  230324 12:11:46  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
+
 #include "Fixed.hpp"
 
 int main( void ) {

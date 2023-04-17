@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 14:48:44  by  clem@spectre
+// @modified  230417 14:48:44  by  clem@spectre
+// @filename  ShrubberyCreationForm.hpp
+
 #ifndef SHRUBBERYCREATIONFORM_HPP_
 #define SHRUBBERYCREATIONFORM_HPP_
 

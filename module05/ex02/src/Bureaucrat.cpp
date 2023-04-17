@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 10:30:48  by  clem@spectre
+// @modified  230417 14:39:13  by  clem@spectre
+// @filename  Bureaucrat.cpp
+
 #include <iostream>
 #include <string>
 
@@ -20,7 +25,7 @@ Bureaucrat::Bureaucrat( std::string const& name, size_t const grade )
   : _name( name ),
     _grade( grade ) {
   checkGradeLimits( _grade );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;
@@ -37,7 +42,7 @@ Bureaucrat::Bureaucrat( Bureaucrat const& src )
   : _name( src._name ),
     _grade( src._grade ) {
   checkGradeLimits( _grade );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << __FILE__;
   std::cout << " COPY CONSTRUCTED ";
   std::cout << *this;
@@ -53,7 +58,7 @@ Bureaucrat::Bureaucrat( Bureaucrat const& src )
  */
 
 Bureaucrat::~Bureaucrat( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << __FILE__;
   std::cout << " DESTRUCTED ";
   std::cout << *this;
@@ -67,7 +72,7 @@ Bureaucrat::~Bureaucrat( void ) {
  */
 
 Bureaucrat& Bureaucrat::operator=( Bureaucrat const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
   std::cout << std::endl;
@@ -111,7 +116,7 @@ void Bureaucrat::checkGradeLimits( size_t const grade ) const {
 }
 
 void Bureaucrat::upGrade( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << *this << " is up graded to " << _grade - 1;
   std::cout << std::endl;
 #endif
@@ -121,7 +126,7 @@ void Bureaucrat::upGrade( void ) {
 }
 
 void Bureaucrat::downGrade( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << *this << " is down graded to " << _grade + 1;
   std::cout << std::endl;
 #endif
@@ -179,7 +184,8 @@ size_t Bureaucrat::getGrade( void ) const {
 ------------------------------------------------- */
 
 EBureaucratGradeTooHigh::GradeTooHighException( size_t const grade )
-  : _message( "Error: Grade " + intToString( grade ) + " too high" ) {
+  : _message( "Error: Grade " + intToString( static_cast<int>( grade ) )
+              + " too high" ) {
   return;
 }
 
@@ -192,7 +198,8 @@ char const* EBureaucratGradeTooHigh::what( void ) const throw() {
 }
 
 EBureaucratGradeTooLow::GradeTooLowException( size_t const grade )
-  : _message( "Error: Grade " + intToString( grade ) + " too low" ) {
+  : _message( "Error: Grade " + intToString( static_cast<int>( grade ) )
+              + " too low" ) {
   return;
 }
 

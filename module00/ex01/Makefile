@@ -1,9 +1,8 @@
-#
 # @author    Clément Vidon
-# @date      230320
-# @file      Makefile
-# @os        Debian
-#
+# @created   230324 11:41:42  by  clem@spectre
+# @modified  230324 11:42:00  by  clem@spectre
+# @filename  Makefile
+
 ############ PROJECT
 ####################
 
@@ -21,9 +20,8 @@ SRCS        := \
 INC_DIR     := include
 BUILD_DIR   := .build
 
-
-TESTS		:= bash test/tests.sh $(NAME)
-LEAKS		:= valgrind -q
+LEAKS		:= valgrind -q --leak-check=yes --show-leak-kinds=all
+TESTS		:= bash test/tests.sh $(NAME) "$(LEAKS)"
 
 ############ GENERIC
 ####################
@@ -110,6 +108,14 @@ leak:
 test:
 	-$(TESTS)
 
+############
+
+init:
+	-[ -d "src" ] && [ -d "include" ] && [ -d "test" ] && echo "Already done."
+	-[ -d "src" ] || (mkdir "src" && echo "CREATED src")
+	-[ -d "include" ] || (mkdir "include" && echo "CREATED include")
+	-[ -d "test" ] || (mkdir "test" && echo "CREATED test")
+
 ifeq ("$(SRCS)","")
 
 srcs:
@@ -129,12 +135,6 @@ srcs:
 	rm .SRCS
 
 endif
-
-init:
-	-[ -d "src" ] && [ -d "include" ] && [ -d "test" ] && echo "Already done."
-	-[ -d "src" ] || (mkdir "src" && echo "CREATED src")
-	-[ -d "include" ] || (mkdir "include" && echo "CREATED include")
-	-[ -d "test" ] || (mkdir "test" && echo "CREATED test")
 
 help:
 	$(info  PROD RULES:)

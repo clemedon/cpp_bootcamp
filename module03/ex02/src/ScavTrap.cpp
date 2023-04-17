@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 14:33:38  by  clem@spectre
+// @modified  230324 14:49:18  by  clem@spectre
+// @filename  ScavTrap.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "ScavTrap.hpp"
 
 /*  STANDARD MEMBER FUNCTIONS
@@ -10,10 +15,10 @@
  * @brief       Default Constructor
  */
 
-ScavTrap::ScavTrap( std::string const& name,
-                    int const&         healthPoints,
-                    int const&         energyPoints,
-                    int const&         attackDamage )
+ScavTrap::ScavTrap( std::string const&  name,
+                    unsigned int const& healthPoints,
+                    unsigned int const& energyPoints,
+                    unsigned int const& attackDamage )
   : ClapTrap( name, healthPoints, energyPoints, attackDamage ) {
   std::cout << *this;
   std::cout << "IS BORN !" << std::endl;
@@ -54,10 +59,10 @@ ScavTrap& ScavTrap::operator=( ScavTrap const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_name = rhs._name;
-  this->_healthPoints = rhs._healthPoints;
-  this->_energyPoints = rhs._energyPoints;
-  this->_attackDamage = rhs._attackDamage;
+  _name = rhs._name;
+  _healthPoints = rhs._healthPoints;
+  _energyPoints = rhs._energyPoints;
+  _attackDamage = rhs._attackDamage;
   return *this;
 }
 
@@ -67,11 +72,11 @@ ScavTrap& ScavTrap::operator=( ScavTrap const& rhs ) {
 
 void ScavTrap::print( std::ostream& o ) const {
   o << "[";
-  o << " health = " << this->_healthPoints;
-  o << " energy = " << this->_energyPoints;
-  o << " attack = " << this->_attackDamage;
+  o << " health = " << _healthPoints;
+  o << " energy = " << _energyPoints;
+  o << " attack = " << _attackDamage;
   o << "\t] ";
-  o << "ScavTrap " << this->_name << " ";
+  o << "ScavTrap " << _name << " ";
   return;
 }
 
@@ -96,10 +101,10 @@ std::ostream& operator<<( std::ostream& o, ScavTrap const& i ) {
  */
 
 void ScavTrap::attack( std::string const& target ) {
-  if( this->isAble() ) {
-    this->_energyPoints -= 1;
+  if( isAble() ) {
+    _energyPoints -= 1;
     std::cout << *this << "ATTACKED " << target << " with a fork, causing "
-              << this->_attackDamage << " points of damage !" << std::endl;
+              << _attackDamage << " points of damage !" << std::endl;
   }
   return;
 }
@@ -114,7 +119,7 @@ void ScavTrap::attack( std::string const& target ) {
  */
 
 void ScavTrap::guardGate( void ) {
-  if( this->isAble() ) {
+  if( isAble() ) {
     std::cout << *this << "is now in gate keeper mode" << std::endl;
   }
   return;

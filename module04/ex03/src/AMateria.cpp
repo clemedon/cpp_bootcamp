@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:47:25  by  clem@spectre
+// @modified  230324 16:31:20  by  clem@spectre
+// @filename  AMateria.cpp
+
 #include <iostream>
 #include <string>
 
@@ -19,7 +24,7 @@ AMateria::AMateria( std::string const& type )
   : _type( type ),
     _lockStatus( false ) {
   _freeMaterias.addBack( this );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -36,7 +41,7 @@ AMateria::AMateria( AMateria const& src )
   : _type( src._type ),
     _lockStatus( false ) {
   _freeMaterias.addBack( this );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -52,12 +57,14 @@ AMateria::AMateria( AMateria const& src )
  */
 
 AMateria::~AMateria( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
   std::cerr << std::endl;
 #endif
+  // TODO remove itself from the linked list
+  _freeMaterias.delFirst( this );
   return;
 }
 
@@ -66,7 +73,7 @@ AMateria::~AMateria( void ) {
  */
 
 AMateria& AMateria::operator=( AMateria const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << rhs;
   std::cerr << " ASSIGNED TO " << *this;
   std::cerr << std::endl;
@@ -84,7 +91,7 @@ AMateria& AMateria::operator=( AMateria const& rhs ) {
 
 void AMateria::print( std::ostream& o ) const {
   o << _type;
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "{";
   if( _lockStatus ) {
     std::cerr << "busy";

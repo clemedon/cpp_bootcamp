@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:48:29  by  clem@spectre
+// @modified  230417 10:06:08  by  clem@spectre
+// @filename  Character.cpp
+
 #include <iostream>
 #include <string>
 
@@ -18,10 +23,10 @@ extern const int g_inventorySize;
 Character::Character( std::string const& name )
   : _name( new std::string( name ) ) {
   int i;
-  for( i = 0; i < g_inventorySize; i++ ) {
+  for( i = 0; i < g_inventorySize; ++i ) {
     _inventory[i] = NULL;
   }
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;
@@ -35,7 +40,7 @@ Character::Character( std::string const& name )
  */
 
 Character::Character( ICharacter const& src )
-#if defined( DEBUG )
+#if defined( DEV )
   : _name( new std::string( src.getName() + "_copy" ) ) {
 #else
   : _name( new std::string( src.getName() ) ) {
@@ -43,7 +48,7 @@ Character::Character( ICharacter const& src )
   int       i;
   AMateria* materia;
 
-  for( i = 0; i < g_inventorySize; i++ ) {
+  for( i = 0; i < g_inventorySize; ++i ) {
     materia = src.getInventory( i );
     if( materia ) {
       _inventory[i] = materia->clone();
@@ -52,7 +57,7 @@ Character::Character( ICharacter const& src )
       _inventory[i] = NULL;
     }
   }
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << __FILE__;
   std::cout << " COPY CONSTRUCTED ";
   std::cout << *this;
@@ -70,14 +75,14 @@ Character::Character( ICharacter const& src )
 Character::~Character( void ) {
   int i;
 
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << __FILE__;
   std::cout << " DESTRUCTED ";
   std::cout << *this;
   std::cout << std::endl;
 #endif
   delete _name;
-  for( i = 0; i < g_inventorySize; i++ ) {
+  for( i = 0; i < g_inventorySize; ++i ) {
     if( _inventory[i] ) {
       delete _inventory[i];
       _inventory[i] = NULL;
@@ -93,7 +98,7 @@ Character::~Character( void ) {
 ICharacter& Character::operator=( ICharacter const& rhs ) {
   int i;
 
-#if defined( DEBUG )
+#if defined( DEV )
   std::cout << rhs;
   std::cout << " ASSIGNED TO " << *this;
   std::cout << std::endl;
@@ -104,12 +109,12 @@ ICharacter& Character::operator=( ICharacter const& rhs ) {
   if( _name ) {
     delete _name;
   }
-#if defined( DEBUG )
+#if defined( DEV )
   _name = new std::string( rhs.getName() + "_assigned" );
 #else
   _name = new std::string( rhs.getName() );
 #endif
-  for( i = 0; i < g_inventorySize; i++ ) {
+  for( i = 0; i < g_inventorySize; ++i ) {
     if( _inventory[i] ) {
       delete _inventory[i];
     }
@@ -156,7 +161,7 @@ void Character::equip( AMateria* m ) {
   if( m->checkLockStatus() ) {
     std::cout << "Materia " << *m << " is already in ";
 
-    for( i = 0; i < g_inventorySize; i++ ) {
+    for( i = 0; i < g_inventorySize; ++i ) {
       if( _inventory[i] == m ) {
         std::cout << *this << " inventory…";
         break;
@@ -169,7 +174,7 @@ void Character::equip( AMateria* m ) {
     std::cout << std::endl;
     return;
   }
-  for( i = 0; i < g_inventorySize; i++ ) {
+  for( i = 0; i < g_inventorySize; ++i ) {
     if( _inventory[i] == NULL ) {
       _inventory[i] = m;
       m->delFreeMaterias();
@@ -242,7 +247,7 @@ void Character::displayInventory( void ) const {
   int i;
 
   std::cout << "* " << *this << " take a look at its inventory *" << std::endl;
-  for( i = 0; i < g_inventorySize; i++ ) {
+  for( i = 0; i < g_inventorySize; ++i ) {
     if( _inventory[i] ) {
       std::cout << " Compartments " << i + 1 << ": ";
       std::cout << "Materia " << *_inventory[i];

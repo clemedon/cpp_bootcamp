@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:29:57  by  clem@spectre
+// @modified  230417 15:46:16  by  clem@spectre
+// @filename  Data.cpp
+
 #include <iostream>
 #include <string>
 
@@ -11,10 +16,13 @@
  */
 
 Data::Data( int a, float b, char c ) : a_( a ), b_( b ), c_( c ) {
-#if defined( DEBUG )
-  std::cerr << __FILE__ << " CONSTRUCTED " << *this;
+#if defined( DEV )
+  std::cerr << __FILE__ << " CONSTRUCTED ";
+  std::cerr << std::endl;
+  std::cerr << *this;
   std::cerr << std::endl;
 #endif
+  return;
 }
 
 /**
@@ -22,8 +30,10 @@ Data::Data( int a, float b, char c ) : a_( a ), b_( b ), c_( c ) {
  */
 
 Data::~Data( void ) {
-#if defined( DEBUG )
-  std::cerr << __FILE__ << " DESTRUCTED " << *this;
+#if defined( DEV )
+  std::cerr << __FILE__ << " DESTRUCTED ";
+  std::cerr << std::endl;
+  std::cerr << *this;
   std::cerr << std::endl;
 #endif
   return;

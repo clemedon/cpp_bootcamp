@@ -1,10 +1,17 @@
+// @author    Clément Vidon
+// @created   230324 15:35:51  by  clem@spectre
+// @modified  230324 15:36:00  by  clem@spectre
+// @filename  Cat.hpp
+
 #ifndef CAT_HPP_
 #define CAT_HPP_
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
-#include "AAnimal.hpp"
+
 #include "Brain.hpp"
+
+#include "AAnimal.hpp"
 
 /**
  * Cat
@@ -12,7 +19,7 @@
 
 class Cat : public AAnimal {
  public:
-  Cat( std::string const& type = "Cat" );
+  explicit Cat( std::string const& type = "Cat" );
   Cat( Cat const& src );
   ~Cat( void );
   Cat& operator=( Cat const& rhs );

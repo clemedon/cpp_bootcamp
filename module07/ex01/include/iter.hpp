@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:42:47  by  clem@spectre
+// @modified  230417 15:42:47  by  clem@spectre
+// @filename  iter.hpp
+
 #ifndef ITER_HPP_
 #define ITER_HPP_
 

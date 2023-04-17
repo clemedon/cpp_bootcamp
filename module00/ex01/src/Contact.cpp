@@ -1,56 +1,80 @@
+// @author    Clément Vidon
+// @created   230324 11:42:05  by  clem@spectre
+// @modified  230324 11:42:08  by  clem@spectre
+// @filename  Contact.cpp
+
 #include <string>
 
 #include "phonebook.h"
 
 #include "Contact.hpp"
 
-Contact::Contact( void ) {
-  this->_firstname = "";
-  this->_lastname = "";
-  this->_nickname = "";
-  this->_phonenum = "";
-  this->_secret = "";
+/*  STANDARD
+------------------------------------------------- */
+
+/**
+ * @brief       Default Constructor
+ */
+
+Contact::Contact( void )
+  : _firstname( "" ),
+    _lastname( "" ),
+    _phonenum( "" ),
+    _secret( "" ) {
+  return;
 }
+
+/**
+ * @brief       Default Destructor
+ */
 
 Contact::~Contact( void ) {
+  return;
 }
 
+/* ---------------------------------------------- */
+
 std::string Contact::get_firstname( void ) const {
-  return this->_firstname;
+  return _firstname;
 }
 
 std::string Contact::get_lastname( void ) const {
-  return this->_lastname;
+  return _lastname;
 }
 
 std::string Contact::get_nickname( void ) const {
-  return this->_nickname;
+  return _nickname;
 }
 
 std::string Contact::get_phonenum( void ) const {
-  return this->_phonenum;
+  return _phonenum;
 }
 
 std::string Contact::get_secret( void ) const {
-  return this->_secret;
+  return _secret;
 }
 
 void Contact::set_firstname( std::string firstname ) {
-  this->_firstname = firstname;
+  _firstname = firstname;
+  return;
 }
 
 void Contact::set_lastname( std::string lastname ) {
-  this->_lastname = lastname;
+  _lastname = lastname;
+  return;
 }
 
 void Contact::set_nickname( std::string nickname ) {
-  this->_nickname = nickname;
+  _nickname = nickname;
+  return;
 }
 
 void Contact::set_phonenum( std::string phonenum ) {
-  this->_phonenum = phonenum;
+  _phonenum = phonenum;
+  return;
 }
 
 void Contact::set_secret( std::string secret ) {
-  this->_secret = secret;
+  _secret = secret;
+  return;
 }

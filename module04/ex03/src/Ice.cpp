@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:45:48  by  clem@spectre
+// @modified  230324 15:48:35  by  clem@spectre
+// @filename  Ice.cpp
+
 #include <iostream>
 #include <string>
 
@@ -14,7 +19,7 @@
  */
 
 Ice::Ice( std::string const& type ) : AMateria( type ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -28,7 +33,7 @@ Ice::Ice( std::string const& type ) : AMateria( type ) {
  */
 
 Ice::Ice( AMateria const& src ) : AMateria( src.getType() ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -44,7 +49,7 @@ Ice::Ice( AMateria const& src ) : AMateria( src.getType() ) {
  */
 
 Ice::~Ice( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTROYED ";
   std::cerr << *this;
@@ -58,7 +63,7 @@ Ice::~Ice( void ) {
  */
 
 Ice& Ice::operator=( Ice const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << rhs;
   std::cerr << " ASSIGNED TO " << *this;
   std::cerr << std::endl;

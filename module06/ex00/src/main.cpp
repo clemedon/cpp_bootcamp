@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:27:30  by  clem@spectre
+// @modified  230417 15:27:45  by  clem@spectre
+// @filename  main.cpp
+
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -14,7 +19,10 @@ int main( int argc, char* argv[] ) {
   double doubleVal = 0.0;
   std::cout << std::fixed << std::setprecision( 1 );
 
-#ifdef DEBUG
+  (void)argv;
+  (void)argc;
+
+#ifdef DEV
   std::string str = "fillme";
 #else
   if( argc != 2 ) {
@@ -23,6 +31,7 @@ int main( int argc, char* argv[] ) {
   }
   std::string str( argv[1] );
 #endif
+
   if( detectChar( str ) ) {
     convertChar( str, doubleVal );
   } else if( detectInt( str ) ) {

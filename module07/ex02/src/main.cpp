@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:47:05  by  clem@spectre
+// @modified  230417 15:47:50  by  clem@spectre
+// @filename  main.cpp
+
 #include "Array.hpp"
 
 #include <cstdlib>
@@ -85,6 +90,7 @@ void myTests() {
   } catch( const std::exception& e ) {
     std::cerr << e.what() << '\n';
   }
+  return;
 }
 
 int main( void ) {

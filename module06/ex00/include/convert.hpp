@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:27:51  by  clem@spectre
+// @modified  230417 15:27:51  by  clem@spectre
+// @filename  convert.hpp
+
 #ifndef CONVERT_HPP_
 #define CONVERT_HPP_
 

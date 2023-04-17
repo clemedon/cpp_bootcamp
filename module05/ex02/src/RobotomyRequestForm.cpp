@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 11:46:17  by  clem@spectre
+// @modified  230417 14:44:07  by  clem@spectre
+// @filename  RobotomyRequestForm.cpp
+
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -18,7 +23,7 @@
 RobotomyRequestForm::RobotomyRequestForm( std::string const& target )
   : AForm( "Robotomy Request", false, 72, 45 ),
     _target( target ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -34,7 +39,7 @@ RobotomyRequestForm::RobotomyRequestForm( std::string const& target )
 RobotomyRequestForm::RobotomyRequestForm( RobotomyRequestForm const& src )
   : AForm( src ),
     _target( src._target ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -50,7 +55,7 @@ RobotomyRequestForm::RobotomyRequestForm( RobotomyRequestForm const& src )
  */
 
 RobotomyRequestForm::~RobotomyRequestForm( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -65,7 +70,7 @@ RobotomyRequestForm::~RobotomyRequestForm( void ) {
 
 RobotomyRequestForm& RobotomyRequestForm::operator=(
   RobotomyRequestForm const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY ASSIGNMENT OPERATOR DISABLED";
   std::cerr << std::endl;
@@ -78,7 +83,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(
 
 void RobotomyRequestForm::execute( Bureaucrat const& executor ) const {
   (void)executor;
-  srand( std::time( NULL ) );
+  srand( static_cast<unsigned int>( std::time( NULL ) ) );
   std::cout << "* drilling noise *" << std::endl;
   if( rand() % 2 ) {
     std::cout << _target << " has been robotomized successfully!";

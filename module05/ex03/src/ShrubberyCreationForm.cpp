@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 14:48:39  by  clem@spectre
+// @modified  230417 14:48:39  by  clem@spectre
+// @filename  ShrubberyCreationForm.cpp
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -18,7 +23,7 @@
 ShrubberyCreationForm::ShrubberyCreationForm( std::string const& target )
   : AForm( "Shrubbery Creation", false, 145, 137 ),
     _target( target ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -34,7 +39,7 @@ ShrubberyCreationForm::ShrubberyCreationForm( std::string const& target )
 ShrubberyCreationForm::ShrubberyCreationForm( ShrubberyCreationForm const& src )
   : AForm( src ),
     _target( src._target ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -50,7 +55,7 @@ ShrubberyCreationForm::ShrubberyCreationForm( ShrubberyCreationForm const& src )
  */
 
 ShrubberyCreationForm::~ShrubberyCreationForm( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -65,7 +70,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm( void ) {
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(
   ShrubberyCreationForm const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY ASSIGNMENT OPERATOR DISABLED";
   std::cerr << std::endl;

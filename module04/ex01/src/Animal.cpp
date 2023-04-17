@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:30:01  by  clem@spectre
+// @modified  230324 15:30:10  by  clem@spectre
+// @filename  Animal.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Animal.hpp"
 
 /*  STANDARD
@@ -53,7 +58,7 @@ Animal& Animal::operator=( Animal const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ Animal& Animal::operator=( Animal const& rhs ) {
  */
 
 void Animal::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   return;
 }
 
@@ -87,5 +92,5 @@ void Animal::makeSound( void ) const {
 ------------------------------------------------- */
 
 std::string Animal::getType( void ) const {
-  return this->_type;
+  return _type;
 }

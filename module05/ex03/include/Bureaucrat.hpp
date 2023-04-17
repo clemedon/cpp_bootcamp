@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 14:48:41  by  clem@spectre
+// @modified  230417 14:48:41  by  clem@spectre
+// @filename  Bureaucrat.hpp
+
 #ifndef BUREAUCRAT_HPP_
 #define BUREAUCRAT_HPP_
 

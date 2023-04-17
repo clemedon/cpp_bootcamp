@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:39:10  by  clem@spectre
+// @modified  230324 15:39:10  by  clem@spectre
+// @filename  AAnimal.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "AAnimal.hpp"
 
 /*  STANDARD
@@ -53,7 +58,7 @@ AAnimal& AAnimal::operator=( AAnimal const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ AAnimal& AAnimal::operator=( AAnimal const& rhs ) {
  */
 
 void AAnimal::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   return;
 }
 
@@ -81,5 +86,5 @@ std::ostream& operator<<( std::ostream& o, AAnimal const& i ) {
 ------------------------------------------------- */
 
 std::string AAnimal::getType( void ) const {
-  return this->_type;
+  return _type;
 }

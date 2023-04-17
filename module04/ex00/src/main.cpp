@@ -1,4 +1,10 @@
+// @author    Clément Vidon
+// @created   230324 15:21:48  by  clem@spectre
+// @modified  230417 10:10:04  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
+
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
@@ -39,7 +45,7 @@ int main( void ) {
   std::cout << std::endl;
   animal->makeSound();
   dog->makeSound();
-  cat->makeSound();  // will output the cat sound!
+  cat->makeSound();  // will output the cat sound
   std::cout << std::endl;
 
   delete animal;
@@ -54,7 +60,7 @@ int main( void ) {
   std::cout << wrongCat->getType() << " " << std::endl;
   std::cout << std::endl;
   wrongAnimal->makeSound();
-  wrongCat->makeSound();  // will output the wrong cat sound!
+  wrongCat->makeSound();  // will output the wrong cat sound
   std::cout << std::endl;
 
   delete wrongAnimal;

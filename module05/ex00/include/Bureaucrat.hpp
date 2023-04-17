@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 10:31:46  by  clem@spectre
+// @modified  230417 10:35:24  by  clem@spectre
+// @filename  Bureaucrat.hpp
+
 #ifndef BUREAUCRAT_HPP_
 #define BUREAUCRAT_HPP_
 
@@ -47,7 +52,7 @@ class Bureaucrat {
   std::string const _name;
   size_t            _grade;
 
- public:  // EXCEPTIONS
+ public:  // exceptions
   class GradeTooHighException : public std::exception {
    public:
     explicit GradeTooHighException( size_t const grade );

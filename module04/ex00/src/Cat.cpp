@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:20:53  by  clem@spectre
+// @modified  230324 15:21:23  by  clem@spectre
+// @filename  Cat.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Cat.hpp"
 
 /*  STANDARD
@@ -13,7 +18,7 @@
 Cat::Cat( std::string const& type ) : Animal( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -37,7 +42,7 @@ Cat::Cat( Cat const& src ) : Animal( src._type ) {
 Cat::~Cat( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -53,7 +58,7 @@ Cat& Cat::operator=( Cat const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ Cat& Cat::operator=( Cat const& rhs ) {
  */
 
 void Cat::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   std::cout << " (via " << __FILE__ << ")";
   return;
 }
@@ -79,7 +84,7 @@ std::ostream& operator<<( std::ostream& o, Cat const& i ) {
 /* ---------------------------------------------- */
 
 void Cat::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound*";
+  std::cout << "*" << _type << " sound*";
   std::cout << std::endl;
   return;
 }

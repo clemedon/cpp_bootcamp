@@ -1,18 +1,23 @@
-#include <stdlib.h>
+// @author    Clément Vidon
+// @created   230324 14:04:49  by  clem@spectre
+// @modified  230324 14:51:41  by  clem@spectre
+// @filename  main.cpp
+
+#include <cstdlib>
 #include <iostream>
+
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
 int main( void ) {
-  int      random;
-  FragTrap ft0( "Xavier" );
-  ScavTrap st0( "Charly" );
+  unsigned int random;
+  FragTrap     ft0( "Xavier" );
+  ScavTrap     st0( "Charly" );
 
-  /* srand( time( NULL ) ); */
-  srand( 166328311 );
+  srand( static_cast<unsigned int>( time( NULL ) ) );
   std::cout << ">> Start <<" << std::endl;
   while( 1 ) {
-    random = rand() % 100 + 1;
+    random = static_cast<unsigned int>( rand() % 100 + 1 );
 
     if( ft0.isAble() && st0.isAble() ) {
       if( random <= 50 ) {
@@ -27,13 +32,13 @@ int main( void ) {
     }
 
     if( ft0.isAble() && st0.isAble() ) {
-      random = rand() % 100 + 1;
+      random = static_cast<unsigned int>( rand() % 100 + 1 );
       if( random <= 50 ) {
         ft0.beRepaired( random % 10 );
       } else {
         st0.beRepaired( random % 10 );
       }
-      random = rand() % 100 + 1;
+      random = static_cast<unsigned int>( rand() % 100 + 1 );
     } else {
       break;
     }

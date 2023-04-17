@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:41:21  by  clem@spectre
+// @modified  230417 15:41:21  by  clem@spectre
+// @filename  whatever.hpp
+
 #ifndef WHATEVER_HPP_
 #define WHATEVER_HPP_
 

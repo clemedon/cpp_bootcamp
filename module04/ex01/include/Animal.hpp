@@ -1,7 +1,12 @@
+// @author    Clément Vidon
+// @created   230324 15:26:34  by  clem@spectre
+// @modified  230324 15:26:34  by  clem@spectre
+// @filename  Animal.hpp
+
 #ifndef ANIMAL_HPP_
 #define ANIMAL_HPP_
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
 
 /**
@@ -10,7 +15,7 @@
 
 class Animal {
  public:
-  Animal( std::string const& type = "Animal" );
+  explicit Animal( std::string const& type = "Animal" );
   Animal( Animal const& src );
   virtual ~Animal( void );
   Animal&      operator=( Animal const& rhs );

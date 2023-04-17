@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 11:22:18  by  clem@spectre
+// @modified  230417 11:44:04  by  clem@spectre
+// @filename  Form.cpp
+
 #include <iostream>
 #include <string>
 
@@ -26,7 +31,7 @@ Form::Form( std::string const& name,
     _execGrade( execGrade ) {
   checkGradeLimits( _signGrade );
   checkGradeLimits( _execGrade );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -46,7 +51,7 @@ Form::Form( Form const& src )
     _execGrade( src._execGrade ) {
   checkGradeLimits( _signGrade );
   checkGradeLimits( _execGrade );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -62,7 +67,7 @@ Form::Form( Form const& src )
  */
 
 Form::~Form( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -76,7 +81,7 @@ Form::~Form( void ) {
  */
 
 Form& Form::operator=( Form const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << rhs;
   std::cerr << " ASSIGNED TO " << *this;
   std::cerr << std::endl;
@@ -168,7 +173,8 @@ size_t Form::getExecGrade( void ) const {
 ------------------------------------------------- */
 
 EFormGradeTooHigh::GradeTooHighException( size_t const grade )
-  : _message( "Error: Grade " + intToString( grade ) + " too high" ) {
+  : _message( "Error: Grade " + intToString( static_cast<int>( grade ) )
+              + " too high" ) {
   return;
 }
 
@@ -181,7 +187,8 @@ char const* EFormGradeTooHigh::what( void ) const throw() {
 }
 
 EFormGradeTooLow::GradeTooLowException( size_t const grade )
-  : _message( "Error: Grade " + intToString( grade ) + " too low" ) {
+  : _message( "Error: Grade " + intToString( static_cast<int>( grade ) )
+              + " too low" ) {
   return;
 }
 

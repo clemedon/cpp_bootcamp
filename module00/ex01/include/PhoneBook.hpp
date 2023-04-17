@@ -21,26 +21,27 @@ class PhoneBook {
   void search_contact( void );
 
  private:
-  Contact    _contact[MAX_CONTACT];
-  static int _count;
-  int        _id;
-  /* utils */
   std::string format_tab_str( std::string str, size_t colsize );
   bool        isnum( std::string const& str );
   std::string itos( int num );
   int         stoi( std::string const& str );
-  /* ADD */
+
   void new_contact_banner( void );
   void add_secret( std::string& input );
   void add_phonenum( std::string& input );
   void add_nickname( std::string& input );
   void add_lastname( std::string& input );
   void add_firstname( std::string& input );
-  /* SEARCH */
+
   void display_contacts( void );
   bool check_input_id( std::string const& id );
   void display_contact( int id );
   void display_none( void );
+
+ private:
+  Contact    _contact[MAX_CONTACT];
+  static int _count;
+  int        _id;
 };
 
 #endif

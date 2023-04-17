@@ -1,22 +1,20 @@
-/**
- * @author    Clément Vidon
- * @brief     Array custom template.
- * @date      230319
- * @file      Array.hpp
- */
+// @author    Clément Vidon
+// @created   230417 15:47:03  by  clem@spectre
+// @modified  230417 15:48:30  by  clem@spectre
+// @filename  Array.hpp
 
 #ifndef ARRAY_HPP_
-#  define ARRAY_HPP_
+#define ARRAY_HPP_
 
-#  include <cstddef>
-#  include <iostream>
-#  include <string>
+#include <cstddef>
+#include <iostream>
+#include <string>
 
 /**
  *  Generic Array
  */
 
-template <class T>
+template <typename T>
 class Array {
  public:
   Array( void );
@@ -27,7 +25,7 @@ class Array {
   virtual void print( std::ostream& o ) const;
 
   T&       operator[]( size_t index );
-  const T& operator[]( size_t index ) const;
+  T const& operator[]( size_t index ) const;
   size_t   size( void ) const;
 
  private:
@@ -39,13 +37,8 @@ class Array {
  * @brief       Output Operator Handling
  */
 
-template <class T>
-std::ostream& operator<<( std::ostream& o, Array<T> const& i ) {
-  i.print( o );
-  return o;
-}
-
-#endif  // ARRAY_HPP_
+template <typename T>
+std::ostream& operator<<( std::ostream& o, Array<T> const& i );
 
 /*  STANDARD
 ------------------------------------------------- */
@@ -54,7 +47,7 @@ std::ostream& operator<<( std::ostream& o, Array<T> const& i ) {
  * @brief       Default Constructor
  */
 
-template <class T>
+template <typename T>
 Array<T>::Array( void ) : _data( new T[0] ),
                           _size( 0 ) {
 #if defined( DEBUG )
@@ -67,7 +60,7 @@ Array<T>::Array( void ) : _data( new T[0] ),
  * @brief       Parametric Constructor
  */
 
-template <class T>
+template <typename T>
 Array<T>::Array( size_t size ) : _data( new T[size] ),
                                  _size( size ) {
   size_t i;
@@ -85,7 +78,7 @@ Array<T>::Array( size_t size ) : _data( new T[size] ),
  * @brief       Copy Constructor
  */
 
-template <class T>
+template <typename T>
 Array<T>::Array( Array<T> const& src )
   : _data( new T[src._size] ),
     _size( src._size ) {
@@ -104,7 +97,7 @@ Array<T>::Array( Array<T> const& src )
  * @brief       Destructor
  */
 
-template <class T>
+template <typename T>
 Array<T>::~Array( void ) {
 #if defined( DEBUG )
   std::cerr << "ARRAY DESTRUCTOR" << std::endl;
@@ -117,7 +110,7 @@ Array<T>::~Array( void ) {
  * @brief       Copy Assignment Operator
  */
 
-template <class T>
+template <typename T>
 Array<T>& Array<T>::operator=( Array<T> const& rhs ) {
   size_t i;
 
@@ -138,7 +131,7 @@ Array<T>& Array<T>::operator=( Array<T> const& rhs ) {
  * @brief       Print State
  */
 
-template <class T>
+template <typename T>
 void Array<T>::print( std::ostream& o ) const {
   size_t i;
 
@@ -156,8 +149,11 @@ void Array<T>::print( std::ostream& o ) const {
  * @brief       Output Operator Handling
  */
 
-template <class T>
-std::ostream& operator<<( std::ostream& o, Array<T> const& i );
+template <typename T>
+std::ostream& operator<<( std::ostream& o, Array<T> const& i ) {
+  i.print( o );
+  return o;
+}
 
 /* ---------------------------------------------- */
 
@@ -165,7 +161,7 @@ std::ostream& operator<<( std::ostream& o, Array<T> const& i );
  * @brief       Access an element of the array using subscript operator
  */
 
-template <class T>
+template <typename T>
 T& Array<T>::operator[]( size_t index ) {
   if( index >= _size ) {
     throw std::exception();
@@ -173,7 +169,7 @@ T& Array<T>::operator[]( size_t index ) {
   return _data[index];
 }
 
-template <class T>
+template <typename T>
 const T& Array<T>::operator[]( size_t index ) const {
   if( index >= _size ) {
     throw std::exception();
@@ -185,7 +181,9 @@ const T& Array<T>::operator[]( size_t index ) const {
  * @brief       Return the size of the array.
  */
 
-template <class T>
+template <typename T>
 size_t Array<T>::size( void ) const {
   return _size;
 }
+
+#endif  // ARRAY_HPP_

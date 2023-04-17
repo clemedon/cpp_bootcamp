@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:43:19  by  clem@spectre
+// @modified  230324 15:45:22  by  clem@spectre
+// @filename  Character.hpp
+
 #ifndef CHARACTER_HPP_
 #define CHARACTER_HPP_
 

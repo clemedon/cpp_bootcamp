@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 14:48:35  by  clem@spectre
+// @modified  230417 14:48:35  by  clem@spectre
+// @filename  Intern.cpp
+
 #include <iostream>
 #include <string>
 
@@ -16,7 +21,7 @@
  */
 
 Intern::Intern( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -31,7 +36,7 @@ Intern::Intern( void ) {
 
 Intern::Intern( Intern const& src ) {
   *this = src;
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -47,7 +52,7 @@ Intern::Intern( Intern const& src ) {
  */
 
 Intern::~Intern( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -61,7 +66,7 @@ Intern::~Intern( void ) {
  */
 
 Intern& Intern::operator=( Intern const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY ASSIGNMENT OPERATOR DISABLED";
   std::cerr << std::endl;

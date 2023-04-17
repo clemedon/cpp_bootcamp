@@ -1,10 +1,17 @@
+// @author    Clément Vidon
+// @created   230324 15:35:54  by  clem@spectre
+// @modified  230324 15:36:21  by  clem@spectre
+// @filename  Dog.hpp
+
 #ifndef DOG_HPP_
 #define DOG_HPP_
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
-#include "AAnimal.hpp"
+
 #include "Brain.hpp"
+
+#include "AAnimal.hpp"
 
 /**
  * Dog
@@ -12,7 +19,7 @@
 
 class Dog : public AAnimal {
  public:
-  Dog( std::string const& type = "Dog" );
+  explicit Dog( std::string const& type = "Dog" );
   Dog( Dog const& src );
   ~Dog( void );
   Dog& operator=( Dog const& rhs );

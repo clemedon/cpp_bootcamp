@@ -1,7 +1,11 @@
-#include <algorithm>  // TODO
+// @author    Clément Vidon
+// @created   230324 15:40:00  by  clem@spectre
+// @modified  230324 15:40:00  by  clem@spectre
+// @filename  Cat.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Cat.hpp"
 
 /*  STANDARD
@@ -37,7 +41,7 @@ Cat::Cat( Cat const& src )
  */
 
 Cat::~Cat( void ) {
-  delete this->_brain;
+  delete _brain;
   std::cout << __FILE__;
   std::cout << " DESTROYED ";
   std::cout << *this;
@@ -56,9 +60,9 @@ Cat& Cat::operator=( Cat const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  delete this->_brain;
-  this->_brain = new Brain( *rhs._brain );
-  this->_type = rhs._type;
+  delete _brain;
+  _brain = new Brain( *rhs._brain );
+  _type = rhs._type;
   return *this;
 }
 
@@ -67,7 +71,7 @@ Cat& Cat::operator=( Cat const& rhs ) {
  */
 
 void Cat::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   return;
 }
 

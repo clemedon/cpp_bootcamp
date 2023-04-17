@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:20:50  by  clem@spectre
+// @modified  230324 15:21:16  by  clem@spectre
+// @filename  Animal.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Animal.hpp"
 
 /*  STANDARD
@@ -13,7 +18,7 @@
 Animal::Animal( std::string const& type ) : _type( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -37,7 +42,7 @@ Animal::Animal( Animal const& src ) : _type( src._type ) {
 Animal::~Animal( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -53,7 +58,7 @@ Animal& Animal::operator=( Animal const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ Animal& Animal::operator=( Animal const& rhs ) {
  */
 
 void Animal::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   std::cout << " (via " << __FILE__ << ")";
   return;
 }
@@ -79,7 +84,7 @@ std::ostream& operator<<( std::ostream& o, Animal const& i ) {
 /* ---------------------------------------------- */
 
 void Animal::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound‥ silence*";
+  std::cout << "*" << _type << " sound‥ silence*";
   std::cout << std::endl;
   return;
 }
@@ -88,5 +93,5 @@ void Animal::makeSound( void ) const {
 ------------------------------------------------- */
 
 std::string Animal::getType( void ) const {
-  return this->_type;
+  return _type;
 }

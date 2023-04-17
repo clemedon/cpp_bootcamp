@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:56:01  by  clem@spectre
+// @modified  230417 15:57:48  by  clem@spectre
+// @filename  Span.cpp
+
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -114,6 +119,7 @@ void Span::addNumber( int num ) {
     throw std::overflow_error( "error: maximum number of elements reached" );
   }
   _v.push_back( num );
+  return;
 }
 
 /**
@@ -126,6 +132,7 @@ void Span::addRange( std::vector<int>::iterator begin,
     addNumber( *begin );
     begin++;
   }
+  return;
 }
 
 /**

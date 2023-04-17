@@ -1,10 +1,15 @@
+// @author    Clément Vidon
+// @created   230324 15:21:34  by  clem@spectre
+// @modified  230324 15:21:34  by  clem@spectre
+// @filename  Dog.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Dog.hpp"
 
 /*  STANDARD
-    ------------------------------------------------- */
+------------------------------------------------- */
 
 /**
  * @brief       Default Constructor
@@ -13,7 +18,7 @@
 Dog::Dog( std::string const& type ) : Animal( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -37,7 +42,7 @@ Dog::Dog( Dog const& src ) : Animal( src._type ) {
 Dog::~Dog( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -53,7 +58,7 @@ Dog& Dog::operator=( Dog const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ Dog& Dog::operator=( Dog const& rhs ) {
  */
 
 void Dog::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   std::cout << " (via " << __FILE__ << ")";
   return;
 }
@@ -79,7 +84,7 @@ std::ostream& operator<<( std::ostream& o, Dog const& i ) {
 /* ---------------------------------------------- */
 
 void Dog::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound*";
+  std::cout << "*" << _type << " sound*";
   std::cout << std::endl;
   return;
 }

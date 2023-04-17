@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:43:11  by  clem@spectre
+// @modified  230324 15:46:30  by  clem@spectre
+// @filename  AMateria.hpp
+
 #ifndef AMATERIA_HPP_
 #define AMATERIA_HPP_
 

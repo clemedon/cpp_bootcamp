@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 11:42:10  by  clem@spectre
+// @modified  230324 11:42:13  by  clem@spectre
+// @filename  main.cpp
+
 #include <cstdlib>
 #include <iostream>
 #include <string>

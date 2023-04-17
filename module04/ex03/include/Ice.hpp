@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:43:52  by  clem@spectre
+// @modified  230324 15:45:28  by  clem@spectre
+// @filename  Ice.hpp
+
 #ifndef ICE_HPP_
 #define ICE_HPP_
 

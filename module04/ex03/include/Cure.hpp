@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:46:38  by  clem@spectre
+// @modified  230324 15:46:38  by  clem@spectre
+// @filename  Cure.hpp
+
 #ifndef CURE_HPP_
 #define CURE_HPP_
 

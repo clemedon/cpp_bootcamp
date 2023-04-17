@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:59:40  by  clem@spectre
+// @modified  230417 16:00:26  by  clem@spectre
+// @filename  main.cpp
+
 #include <cassert>
 #include <iostream>
 #include <list>
@@ -26,6 +31,7 @@ void subjectTest( void ) {
     ++it;
   }
   std::stack<int> s( mstack );
+  return;
 }
 
 void verify( void ) {
@@ -50,6 +56,7 @@ void verify( void ) {
     ++it;
   }
   std::stack<int, std::list<int> > s( lstack );
+  return;
 }
 
 void myTest( void ) {
@@ -93,6 +100,7 @@ void myTest( void ) {
   assert( *( --stack4.rend() ) == 1 );
 
   std::cout << ">> OK <<" << std::endl;
+  return;
 }
 
 /**

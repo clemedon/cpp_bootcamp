@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:27:44  by  clem@spectre
+// @modified  230417 15:27:44  by  clem@spectre
+// @filename  convert.cpp
+
 #include <cstdlib>
 #include <string>
 

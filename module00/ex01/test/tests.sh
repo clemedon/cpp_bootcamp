@@ -1,3 +1,8 @@
+# @author    Clément Vidon
+# @created   230324 11:42:33  by  clem@spectre
+# @modified  230324 11:42:33  by  clem@spectre
+# @filename  tests.sh
+
 #!/bin/bash
 
 r='\033[0;31m'
@@ -28,6 +33,9 @@ run() {
 }
 
 program="$1"
+leaks="$2"
+
 run "asan" "./$program" "a dev build with fsanitize"
-run "all" "valgrind -q ./$program" "a prod build with valgrind"
+run "all" "$leaks ./$program" "a prod build with valgrind"
 make clean
+

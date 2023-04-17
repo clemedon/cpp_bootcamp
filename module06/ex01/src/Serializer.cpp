@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:29:59  by  clem@spectre
+// @modified  230417 15:29:59  by  clem@spectre
+// @filename  Serializer.cpp
+
 #include <iostream>
 
 #include "Data.hpp"
@@ -12,7 +17,7 @@
  */
 
 Serializer::Serializer( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__ << " CONSTRUCTED";
   std::cerr << std::endl;
 #endif
@@ -25,7 +30,7 @@ Serializer::Serializer( void ) {
 
 Serializer::Serializer( Serializer const& src ) {
   *this = src;
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__ << " COPY CONSTRUCTED";
   std::cerr << std::endl;
 #endif
@@ -37,7 +42,7 @@ Serializer::Serializer( Serializer const& src ) {
  */
 
 Serializer::~Serializer( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__ << " DESTRUCTED";
   std::cerr << std::endl;
 #endif

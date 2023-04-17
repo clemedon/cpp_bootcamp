@@ -1,4 +1,10 @@
+// @author    Clément Vidon
+// @created   230417 10:34:58  by  clem@spectre
+// @modified  230417 11:04:12  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
+
 #include "Bureaucrat.hpp"
 
 /**

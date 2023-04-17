@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 11:46:32  by  clem@spectre
+// @modified  230417 14:43:00  by  clem@spectre
+// @filename  AForm.cpp
+
 #include <iostream>
 #include <string>
 
@@ -26,7 +31,7 @@ AForm::AForm( std::string const& name,
     _execGrade( execGrade ) {
   checkGradeLimits( _signGrade );
   checkGradeLimits( _execGrade );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -46,7 +51,7 @@ AForm::AForm( AForm const& src )
     _execGrade( src._execGrade ) {
   checkGradeLimits( _signGrade );
   checkGradeLimits( _execGrade );
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -62,7 +67,7 @@ AForm::AForm( AForm const& src )
  */
 
 AForm::~AForm( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -76,7 +81,7 @@ AForm::~AForm( void ) {
  */
 
 AForm& AForm::operator=( AForm const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY ASSIGNMENT OPERATOR DISABLED";
   std::cerr << std::endl;
@@ -181,7 +186,8 @@ size_t AForm::getExecGrade( void ) const {
 ------------------------------------------------- */
 
 EAFormGradeTooHigh::GradeTooHighException( size_t const grade )
-  : _message( "Error: Grade " + intToString( grade ) + " too high" ) {
+  : _message( "Error: Grade " + intToString( static_cast<int>( grade ) )
+              + " too high" ) {
   return;
 }
 
@@ -194,7 +200,8 @@ char const* EAFormGradeTooHigh::what( void ) const throw() {
 }
 
 EAFormGradeTooLow::GradeTooLowException( size_t const grade )
-  : _message( "Error: Grade " + intToString( grade ) + " too low" ) {
+  : _message( "Error: Grade " + intToString( static_cast<int>( grade ) )
+              + " too low" ) {
   return;
 }
 

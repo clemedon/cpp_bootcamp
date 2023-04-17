@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 11:22:22  by  clem@spectre
+// @modified  230417 11:22:22  by  clem@spectre
+// @filename  utils.cpp
+
 #include <sstream>
 #include <string>
 

@@ -1,25 +1,31 @@
-#
 # @author    Clément Vidon
-# @date      230319
-# @file      Makefile
-#
+# @created   230320 00:00:00  by  clem@spectre
+# @modified  230417 15:42:01  by  clem@spectre
+# @filename  Makefile
+
 ############ PROJECT
+####################
 
 NAME        := iter
 
-LIBS		:=
-LIBS_PATH	:=
+LIBS        :=
+LIBS_PATH   :=
 
 SRC_DIR     := src
 SRCS        := \
 	main.cpp \
 
-INC_DIR		:= include
+INC_DIR     := include
 BUILD_DIR   := .build
 
-############ GENERIC
+LEAKS		:= valgrind -q --leak-check=yes --show-leak-kinds=all
+TESTS		:= bash test/tests.sh $(NAME) "$(LEAKS)"
 
-## COMPILATION VARIABLES
+############ GENERIC
+####################
+
+## compilation vars
+###################
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 INCS        := $(INC_DIR) $(dir $(SRCS))
@@ -28,21 +34,24 @@ DEPS        := $(OBJS:.o=.d)
 
 CXX         := c++
 CXXFLAGS    := -Wall -Wextra -Werror -std=c++98
-CXXFLAGS	+= -Wconversion -Wsign-conversion -pedantic
-DEBUG_FLAGS	:= -Wno-unused -fno-omit-frame-pointer -Og -D DEBUG
+DEVFLAGS    := -Wconversion -Wsign-conversion -pedantic
+DEVFLAGS    += -fno-omit-frame-pointer -Og -D DEV
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBS_PATH)))
 LDLIBS      := $(addprefix -l,$(LIBS))
 
-## MAKE VARIABLES
+## utils vars
+#############
 
 RM          := rm -f
 MAKEFLAGS   := --no-print-directory --jobs -C
-UNAME		:= $(shell uname)
-FILE_AGE	:= $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
 DIR_DUP     = mkdir -p $(@D)
 
-## GENERAL RULES
+FILE_AGE    := $$(date -d@$$(($$(date +%s) - $$(date -r $(NAME) +%s))) -u +%H:%M:%S)
+EXEC_MSG    := clear && echo  CREATED $(FILE_AGE) AGO && echo "--------------------"
+
+## prod rules
+#############
 
 all: $(NAME)
 
@@ -71,52 +80,82 @@ re:
 	$(MAKE) clean
 	$(MAKE) all
 
-## EXTRA RULES
+## dev builds
+#############
 
-info:
-	$(info  make sure - compile without any warning or errors)
-	$(info  make asan - compile with fsanitize)
-	$(info  make leak - make and execute via valgrind)
-	$(info  make exec - make and execute)
-	$(info  make test - make and run tests)
-
-sure: CXXFLAGS	:= -Wno-everything -Wno-unused
+sure: CXXFLAGS  := -Wno-everything -Wno-unused
 sure: all
 
-asan: CXXFLAGS	+= -fsanitize=address,undefined,vptr
-asan: CXXFLAGS	+= -fno-optimize-sibling-calls $(DEBUG_FLAGS)
-asan: LDFLAGS	+= -g -fsanitize=address,undefined,vptr
+asan: CXXFLAGS  += $(DEVFLAGS)
+asan: CXXFLAGS  += -fsanitize=address,undefined,vptr
+asan: CXXFLAGS  += -fno-optimize-sibling-calls
+asan: LDFLAGS   += -g -fsanitize=address,undefined,vptr
 asan: all
 
-leak:
-leak: CXXFLAGS += $(DEBUG_FLAGS)
-leak: all
+## dev utils
+############
 
-ifneq ("$(wildcard $(NAME))","")
-	clear
-	echo  CREATED $(FILE_AGE) AGO
-	echo "--------------------"
-	-valgrind -q ./$(NAME)
-else
-	$(info $(NAME) not found)
-endif
-
-exec:
-exec:
-
-ifneq ("$(wildcard $(NAME))","")
-	clear
-	echo  CREATED $(FILE_AGE) AGO
-	echo "--------------------"
+exec: $(NAME)
+	$(EXEC_MSG)
 	-./$(NAME)
+
+leak:
+	$(MAKE) re CXXFLAGS="$(CXXFLAGS) $(DEVFLAGS)"
+	-$(LEAKS) ./$(NAME)
+
+test:
+	-$(TESTS)
+
+############
+
+init:
+	-[ -d "src" ] && [ -d "include" ] && [ -d "test" ] && echo "Already done."
+	-[ -d "src" ] || (mkdir "src" && echo "CREATED src")
+	-[ -d "include" ] || (mkdir "include" && echo "CREATED include")
+	-[ -d "test" ] || (mkdir "test" && echo "CREATED test")
+
+ifeq ("$(SRCS)","")
+
+srcs:
+	find src -type f -name "*.cpp" | awk -F/ '{print "\t" $$NF " \\"}' > .SRCS
+	sed -i '/^SRCS        := \\/ r .SRCS' Makefile
+	echo "Sources added."
+	rm .SRCS
+
 else
-	$(info $(NAME) not found)
+
+srcs:
+	echo "Find source files…"
+	sed -i '/\w\.cpp \\/d' Makefile
+	find src -type f -name "*.cpp" | awk -F/ '{print "\t" $$NF " \\"}' > .SRCS
+	sed -i '/^SRCS        := \\/ r .SRCS' Makefile
+	echo "Sources updated."
+	rm .SRCS
+
 endif
 
-test: re
-	-bash test/tests.sh
+help:
+	$(info  PROD RULES:)
+	$(info  make all - production build, default rule)
+	$(info  make clean - remove all build files)
+	$(info  make re - clean + all)
+	$(info  )
+	$(info  DEV BUILDS:)
+	$(info  make sure - compile without any warning or errors)
+	$(info  make asan - compile with fsanitize)
+	$(info  )
+	$(info  DEV UTILS:)
+	$(info  make leak - re make + exec via valgrind/leaks)
+	$(info  make exec - execute)
+	$(info  make test - execute tests)
+	$(info  )
+	$(info  make init - set the project structure)
+	$(info  make srcs - init / update sources)
+	$(info  make help - rules documentation)
 
-## OPTIONS
+## options
+##########
 
-.PHONY: clean re exec test
+.PHONY: clean re
+.PHONY: help leak exec test srcs init
 .SILENT:

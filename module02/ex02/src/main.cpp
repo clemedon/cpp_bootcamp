@@ -1,5 +1,12 @@
+// @author    Clément Vidon
+// @created   230324 12:12:20  by  clem@spectre
+// @modified  230324 12:12:20  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
+
 #include "Fixed.hpp"
+
 int main( void ) {
   Fixed       a;
   Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
@@ -62,9 +69,9 @@ int main( void ) {
             << std::endl;
   std::cout << " max is " << foo.max( Fixed( 5.01f ), Fixed( 5.49f ).toInt() )
             << std::endl;
-  std::cout << "foo.max( Fixed( 5.01f ), Fixed( 5.49f ).toInt() );"
+  std::cout << "foo.min( Fixed( 6 ), Fixed( 66 ).toInt() );"
             << std::endl;
-  std::cout << " max is " << foo.max( 5, 44 ) << std::endl;
+  std::cout << " min is " << foo.min( 6, 66 ) << std::endl;
   std::cout << std::endl;
 
   Fixed i( 3.2f );
@@ -72,4 +79,5 @@ int main( void ) {
 
   std::cout << "foo.max( Fixed( 42f ), Fixed( -42 ) );" << std::endl;
   std::cout << " max is " << foo.max( i, j ) << std::endl;
+  return 0;
 }

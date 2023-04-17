@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:29:58  by  clem@spectre
+// @modified  230417 15:36:12  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
 #include "Data.hpp"
 #include "Serializer.hpp"
@@ -18,7 +23,7 @@
  *  information that comes without its type.
  */
 
-int main() {
+int main( void ) {
   Data      data( 42, 42.0f, '*' );
   uintptr_t s;
   Data*     d;

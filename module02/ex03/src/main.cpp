@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 12:13:47  by  clem@spectre
+// @modified  230324 12:13:47  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
 #include "Point.hpp"
 
@@ -7,9 +12,9 @@ int main( void ) {
   Point const a;
   Point const b( 10, 30 );
   Point const c( 20, 0 );
-  Point const p1( 15.0, 14.999 );
+  Point const p1( 15.0f, 14.999f );
   Point const p2( 10, 3 );
-  Point const p3( 0, 15.9 );
+  Point const p3( 0, 15.9f );
 
   std::cout << "                          " << std::endl;
   std::cout << "           b(10,30)       " << std::endl;

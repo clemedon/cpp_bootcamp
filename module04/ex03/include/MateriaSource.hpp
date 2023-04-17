@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:44:34  by  clem@spectre
+// @modified  230324 15:47:02  by  clem@spectre
+// @filename  MateriaSource.hpp
+
 #ifndef MATERIASOURCE_HPP_
 #define MATERIASOURCE_HPP_
 

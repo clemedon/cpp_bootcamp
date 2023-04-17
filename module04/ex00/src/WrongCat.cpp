@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:22:10  by  clem@spectre
+// @modified  230324 15:22:10  by  clem@spectre
+// @filename  WrongCat.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "WrongCat.hpp"
 
 /*  STANDARD
@@ -13,7 +18,7 @@
 WrongCat::WrongCat( std::string const& type ) : WrongAnimal( type ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -37,7 +42,7 @@ WrongCat::WrongCat( WrongCat const& src ) : WrongAnimal( src._type ) {
 WrongCat::~WrongCat( void ) {
   std::cout << *this;
   std::cout << " DESTROYED ";
-  std::cout << this->_type;
+  std::cout << _type;
   std::cout << std::endl;
   return;
 }
@@ -53,7 +58,7 @@ WrongCat& WrongCat::operator=( WrongCat const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_type = rhs._type;
+  _type = rhs._type;
   return *this;
 }
 
@@ -62,7 +67,7 @@ WrongCat& WrongCat::operator=( WrongCat const& rhs ) {
  */
 
 void WrongCat::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   std::cout << " (via " << __FILE__ << ")";
   return;
 }
@@ -79,7 +84,7 @@ std::ostream& operator<<( std::ostream& o, WrongCat const& i ) {
 /* ---------------------------------------------- */
 
 void WrongCat::makeSound( void ) const {
-  std::cout << "*" << this->_type << " sound*";
+  std::cout << "*" << _type << " sound*";
   std::cout << std::endl;
   return;
 }

@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 12:13:44  by  clem@spectre
+// @modified  230324 12:50:36  by  clem@spectre
+// @filename  bsp.cpp
+
 #include <iostream>
 #include "Point.hpp"
 
@@ -25,7 +30,7 @@ float area( Point const& a, Point const& b, Point const& c ) {
   y2 = b.get_y().toFloat();
   x3 = c.get_x().toFloat();
   y3 = c.get_y().toFloat();
-  area = ( x1 * ( y2 - y3 ) + x2 * ( y3 - y1 ) + x3 * ( y1 - y2 ) ) / 2.0;
+  area = ( x1 * ( y2 - y3 ) + x2 * ( y3 - y1 ) + x3 * ( y1 - y2 ) ) / 2.0f;
   if( area < 0 )
     area *= -1;
   return ( area );

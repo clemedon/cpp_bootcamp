@@ -1,11 +1,16 @@
+// @author    Clément Vidon
+// @created   230417 15:49:39  by  clem@spectre
+// @modified  230417 15:51:05  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
 #include <vector>
 
 #include "easyfind.hpp"
 
 /**
- * std::distance( InputIt first, InputIt last ); is an iterator operation that
- * calculates the number of elements between two iterators
+ * "std::distance( InputIt first, InputIt last ); is an iterator operation that
+ * calculates the number of elements between two iterators"
  */
 
 int main() {

@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 11:46:26  by  clem@spectre
+// @modified  230417 14:39:15  by  clem@spectre
+// @filename  PresidentialPardonForm.cpp
+
 #include <iostream>
 #include <string>
 
@@ -16,7 +21,7 @@
 PresidentialPardonForm::PresidentialPardonForm( std::string const& target )
   : AForm( "Presidential Pardon", false, 25, 5 ),
     _target( target ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
   std::cerr << *this;
@@ -33,7 +38,7 @@ PresidentialPardonForm::PresidentialPardonForm(
   PresidentialPardonForm const& src )
   : AForm( src ),
     _target( src._target ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
   std::cerr << *this;
@@ -49,7 +54,7 @@ PresidentialPardonForm::PresidentialPardonForm(
  */
 
 PresidentialPardonForm::~PresidentialPardonForm( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " DESTRUCTED ";
   std::cerr << *this;
@@ -64,7 +69,7 @@ PresidentialPardonForm::~PresidentialPardonForm( void ) {
 
 PresidentialPardonForm& PresidentialPardonForm::operator=(
   PresidentialPardonForm const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY ASSIGNMENT OPERATOR DISABLED";
   std::cerr << std::endl;

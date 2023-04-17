@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:05:17  by  clem@spectre
+// @modified  230324 15:05:17  by  clem@spectre
+// @filename  ScavTrap.cpp
+
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -11,9 +16,9 @@
  */
 
 ScavTrap::ScavTrap( std::string const& name ) : ClapTrap( name ) {
-  this->_healthPoints = 100;
-  this->_energyPoints = 50;
-  this->_attackDamage = 20;
+  _healthPoints = 100;
+  _energyPoints = 50;
+  _attackDamage = 20;
   std::cout << *this;
   std::cout << "IS BORN !" << std::endl;
   return;
@@ -24,9 +29,9 @@ ScavTrap::ScavTrap( std::string const& name ) : ClapTrap( name ) {
  */
 
 ScavTrap::ScavTrap( ScavTrap const& src ) : ClapTrap( src._name ) {
-  this->_healthPoints = src._healthPoints;
-  this->_energyPoints = src._energyPoints;
-  this->_attackDamage = src._attackDamage;
+  _healthPoints = src._healthPoints;
+  _energyPoints = src._energyPoints;
+  _attackDamage = src._attackDamage;
   std::cout << *this;
   std::cout << "IS BORN as a clone of " << src << std::endl;
   return;
@@ -52,10 +57,10 @@ ScavTrap& ScavTrap::operator=( ScavTrap const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  this->_name = rhs._name;
-  this->_healthPoints = rhs._healthPoints;
-  this->_energyPoints = rhs._energyPoints;
-  this->_attackDamage = rhs._attackDamage;
+  _name = rhs._name;
+  _healthPoints = rhs._healthPoints;
+  _energyPoints = rhs._energyPoints;
+  _attackDamage = rhs._attackDamage;
   return *this;
 }
 
@@ -65,11 +70,11 @@ ScavTrap& ScavTrap::operator=( ScavTrap const& rhs ) {
 
 void ScavTrap::print( std::ostream& o ) const {
   o << "[";
-  o << " health = " << this->_healthPoints;
-  o << " energy = " << this->_energyPoints;
-  o << " attack = " << this->_attackDamage;
+  o << " health = " << _healthPoints;
+  o << " energy = " << _energyPoints;
+  o << " attack = " << _attackDamage;
   o << "\t] ";
-  o << "ScavTrap " << this->_name << " ";
+  o << "ScavTrap " << _name << " ";
   return;
 }
 
@@ -94,10 +99,10 @@ std::ostream& operator<<( std::ostream& o, ScavTrap const& i ) {
  */
 
 void ScavTrap::attack( std::string const& target ) {
-  if( this->isAble() ) {
-    this->_energyPoints -= 1;
+  if( isAble() ) {
+    _energyPoints -= 1;
     std::cout << *this << "ATTACKED " << target << " with a fork, causing "
-              << this->_attackDamage << " points of damage !" << std::endl;
+              << _attackDamage << " points of damage !" << std::endl;
   }
   return;
 }
@@ -112,7 +117,7 @@ void ScavTrap::attack( std::string const& target ) {
  */
 
 void ScavTrap::guardGate( void ) {
-  if( this->isAble() ) {
+  if( isAble() ) {
     std::cout << *this << "is now in gate keeper mode" << std::endl;
   }
   return;

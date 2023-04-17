@@ -1,31 +1,25 @@
+// @author    Clément Vidon
+// @created   230324 15:40:23  by  clem@spectre
+// @modified  230417 10:13:13  by  clem@spectre
+// @filename  main.cpp
+
 #include <iostream>
+
 #include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
-/* Cat* a = new Cat(); */
-/* Cat* b = new Cat(); */
-/* Cat *c = new Cat(*b); */
-
-/* std::cout << "00A" << std::endl; */
-/* *b = *a = *c; */
-/* std::cout << "salut" << std::endl; */
-
-/* delete a; */
-/* delete b; */
-/* delete c; */
-
 int main( void ) {
-  size_t        i;
+  size_t         i;
   const AAnimal* animals[4];
 
   std::cout << std::endl;
   std::cout << "          [BIRTH]" << std::endl;
   std::cout << std::endl;
 
-  for( i = 0; i < 4; i++ ) {
+  for( i = 0; i < 4; ++i ) {
     if( i < 2 ) {
       animals[i] = new Cat();
     } else {
@@ -37,7 +31,7 @@ int main( void ) {
   std::cout << "          [LIVE]" << std::endl;
   std::cout << std::endl;
 
-  for( i = 0; i < 4; i++ ) {
+  for( i = 0; i < 4; ++i ) {
     std::cout << "AAnimal nᵒ" << i << ", a " << *animals[i] << " says: ";
     animals[i]->makeSound();
   }
@@ -46,7 +40,7 @@ int main( void ) {
   std::cout << "          [DEATH]" << std::endl;
   std::cout << std::endl;
 
-  for( i = 0; i < 4; i++ ) {
+  for( i = 0; i < 4; ++i ) {
     delete animals[i];
     std::cout << std::endl;
   }

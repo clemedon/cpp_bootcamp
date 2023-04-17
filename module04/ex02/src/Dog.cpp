@@ -1,6 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 15:40:11  by  clem@spectre
+// @modified  230324 15:40:11  by  clem@spectre
+// @filename  Dog.cpp
+
 #include <iostream>
-#include <sstream>
 #include <string>
+
 #include "Dog.hpp"
 
 /*  STANDARD
@@ -36,7 +41,7 @@ Dog::Dog( Dog const& src )
  */
 
 Dog::~Dog( void ) {
-  delete this->_brain;
+  delete _brain;
   std::cout << __FILE__;
   std::cout << " DESTROYED ";
   std::cout << *this;
@@ -55,9 +60,9 @@ Dog& Dog::operator=( Dog const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  delete this->_brain;
-  this->_brain = new Brain( *rhs._brain );
-  this->_type = rhs._type;
+  delete _brain;
+  _brain = new Brain( *rhs._brain );
+  _type = rhs._type;
   return *this;
 }
 
@@ -66,7 +71,7 @@ Dog& Dog::operator=( Dog const& rhs ) {
  */
 
 void Dog::print( std::ostream& o ) const {
-  o << this->_type;
+  o << _type;
   return;
 }
 

@@ -1,7 +1,11 @@
+// @author    Clément Vidon
+// @created   230324 12:12:20  by  clem@spectre
+// @modified  230324 12:12:20  by  clem@spectre
+// @filename  Fixed.cpp
+
 #include <cmath>
 #include <iostream>
-#include <sstream>
-#include <string>
+
 #include "Fixed.hpp"
 
 int const Fixed::_fractionalBits = 8;
@@ -33,7 +37,8 @@ Fixed::Fixed( int const& number )
  */
 
 Fixed::Fixed( float const& number )
-  : _rawBits( roundf( number * ( 1 << Fixed::_fractionalBits ) ) ) {
+  : _rawBits(
+    static_cast<int>( roundf( number * ( 1 << Fixed::_fractionalBits ) ) ) ) {
   return;
 }
 
@@ -71,7 +76,7 @@ Fixed::~Fixed( void ) {
 
 Fixed& Fixed::operator=( Fixed const& rhs ) {
   if( this != &rhs ) {
-    this->_rawBits = rhs._rawBits;
+    _rawBits = rhs._rawBits;
   }
   return *this;
 }
@@ -81,27 +86,27 @@ Fixed& Fixed::operator=( Fixed const& rhs ) {
  */
 
 bool Fixed::operator>( const Fixed& rhs ) const {
-  return this->_rawBits > rhs._rawBits;
+  return _rawBits > rhs._rawBits;
 }
 
 bool Fixed::operator<( const Fixed& rhs ) const {
-  return this->_rawBits < rhs._rawBits;
+  return _rawBits < rhs._rawBits;
 }
 
 bool Fixed::operator>=( const Fixed& rhs ) const {
-  return this->_rawBits >= rhs._rawBits;
+  return _rawBits >= rhs._rawBits;
 }
 
 bool Fixed::operator<=( const Fixed& rhs ) const {
-  return this->_rawBits <= rhs._rawBits;
+  return _rawBits <= rhs._rawBits;
 }
 
 bool Fixed::operator==( const Fixed& rhs ) const {
-  return this->_rawBits == rhs._rawBits;
+  return _rawBits == rhs._rawBits;
 }
 
 bool Fixed::operator!=( const Fixed& rhs ) const {
-  return this->_rawBits != rhs._rawBits;
+  return _rawBits != rhs._rawBits;
 }
 
 /**
@@ -109,19 +114,19 @@ bool Fixed::operator!=( const Fixed& rhs ) const {
  */
 
 Fixed Fixed::operator+( Fixed const& rhs ) const {
-  return Fixed( this->toFloat() + rhs.toFloat() );
+  return Fixed( toFloat() + rhs.toFloat() );
 }
 
 Fixed Fixed::operator-( Fixed const& rhs ) const {
-  return Fixed( this->toFloat() - rhs.toFloat() );
+  return Fixed( toFloat() - rhs.toFloat() );
 }
 
 Fixed Fixed::operator*( Fixed const& rhs ) const {
-  return Fixed( this->toFloat() * rhs.toFloat() );
+  return Fixed( toFloat() * rhs.toFloat() );
 }
 
 Fixed Fixed::operator/( Fixed const& rhs ) const {
-  return Fixed( this->toFloat() / rhs.toFloat() );
+  return Fixed( toFloat() / rhs.toFloat() );
 }
 
 /**
@@ -129,7 +134,7 @@ Fixed Fixed::operator/( Fixed const& rhs ) const {
  */
 
 Fixed& Fixed::operator++( void ) {
-  this->_rawBits += 1;
+  _rawBits += 1;
   return ( *this );
 }
 
@@ -141,7 +146,7 @@ Fixed Fixed::operator++( int ) {
 }
 
 Fixed& Fixed::operator--( void ) {
-  this->_rawBits -= 1;
+  _rawBits -= 1;
   return ( *this );
 }
 
@@ -157,11 +162,11 @@ Fixed Fixed::operator--( int ) {
  */
 
 int Fixed::getRawBits( void ) const {
-  return this->_rawBits;
+  return _rawBits;
 }
 
 void Fixed::setRawBits( int const rawBits ) {
-  this->_rawBits = rawBits;
+  _rawBits = rawBits;
   return;
 }
 
@@ -172,7 +177,7 @@ void Fixed::setRawBits( int const rawBits ) {
  */
 
 float Fixed::toFloat( void ) const {
-  return static_cast<float>( this->_rawBits )
+  return static_cast<float>( _rawBits )
          / static_cast<float>( 1 << Fixed::_fractionalBits );
 }
 
@@ -183,7 +188,7 @@ float Fixed::toFloat( void ) const {
  */
 
 float Fixed::toInt( void ) const {
-  return this->_rawBits >> Fixed::_fractionalBits;
+  return static_cast<float>( _rawBits >> Fixed::_fractionalBits );
 }
 
 /**

@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230324 15:44:26  by  clem@spectre
+// @modified  230324 16:39:13  by  clem@spectre
+// @filename  LinkedList.hpp
+
 #ifndef LINKEDLIST_HPP_
 #define LINKEDLIST_HPP_
 
@@ -13,6 +18,10 @@ class Node {
  public:
   T     data;
   Node* next;
+  // TODO
+  // so it is deleted in the end of the program when ll delete itself instead in
+  // AMatria destructor
+  /* ~Node() { delete data; } */
 };
 
 template <class T>
@@ -45,7 +54,7 @@ std::ostream& operator<<( std::ostream& o, LinkedList<T> const& i );
 
 template <class T>
 LinkedList<T>::LinkedList( void ) : _head( NULL ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST CONSTRUCTOR" << std::endl;
 #endif
   return;
@@ -57,7 +66,7 @@ LinkedList<T>::LinkedList( void ) : _head( NULL ) {
 
 template <class T>
 LinkedList<T>::LinkedList( LinkedList const& src ) : _head( NULL ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST COPY CONSTRUCTOR" << std::endl;
 #endif
   Node<T>* current;
@@ -76,9 +85,11 @@ LinkedList<T>::LinkedList( LinkedList const& src ) : _head( NULL ) {
 
 template <class T>
 LinkedList<T>::~LinkedList( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST DESTRUCTOR" << std::endl;
 #endif
+  // TODO
+  /* delAll(); */
   return;
 }
 
@@ -88,7 +99,7 @@ LinkedList<T>::~LinkedList( void ) {
 
 template <class T>
 LinkedList<T>& LinkedList<T>::operator=( LinkedList<T> const& rhs ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
 #endif
   Node<T>* current;
@@ -118,7 +129,7 @@ LinkedList<T>& LinkedList<T>::operator=( LinkedList<T> const& rhs ) {
 
 template <class T>
 void LinkedList<T>::print( std::ostream& o ) const {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
 #endif
   Node<T>* current;
@@ -160,7 +171,7 @@ std::ostream& operator<<( std::ostream& o, LinkedList<T> const& i ) {
 
 template <typename T>
 void LinkedList<T>::addFront( T const& newData ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
 #endif
   Node<T>* newNode;
@@ -178,7 +189,7 @@ void LinkedList<T>::addFront( T const& newData ) {
 
 template <class T>
 void LinkedList<T>::addBack( T const& newData ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
 #endif
   Node<T>* newNode;
@@ -204,7 +215,7 @@ void LinkedList<T>::addBack( T const& newData ) {
 
 template <typename T>
 void LinkedList<T>::delFirst( T const& data ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
 #endif
   Node<T>* current;
@@ -234,7 +245,7 @@ void LinkedList<T>::delFirst( T const& data ) {
 
 template <typename T>
 void LinkedList<T>::delAll( void ) {
-#if defined( DEBUG )
+#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
 #endif
   Node<T>* current;
@@ -243,12 +254,14 @@ void LinkedList<T>::delAll( void ) {
   current = _head;
   while( current != NULL ) {
     next = current->next;
-#if defined( DEBUG )
+#if defined( DEV )
     std::cout << " delete " << current->data << std::endl;
 #endif
     delete current;
     current = next;
   }
+  // TODO added this
+  _head = NULL;
 }
 
 #endif  // LINKEDLIST_HPP_

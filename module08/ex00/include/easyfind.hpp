@@ -1,3 +1,8 @@
+// @author    Clément Vidon
+// @created   230417 15:49:43  by  clem@spectre
+// @modified  230417 15:49:43  by  clem@spectre
+// @filename  easyfind.hpp
+
 #ifndef EASYFIND_HPP_
 #define EASYFIND_HPP_
 
