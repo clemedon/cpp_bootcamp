@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:43:11  by  clem@spectre
-// @modified  230324 15:46:30  by  clem@spectre
+// @modified  230419 15:48:25  by  clem@spectre
 // @filename  AMateria.hpp
 
 #ifndef AMATERIA_HPP_
@@ -47,16 +47,11 @@ class AMateria {
   bool checkLockStatus( void ) const;
   void lock( bool lockStatus );
 
-  void addFreeMaterias( void );
-  void delFreeMaterias( void );
-  void displayFreeMaterias( void ) const;
-
   std::string const& getType( void ) const;
 
  protected:
   std::string                  _type;
   bool                         _lockStatus;
-  static LinkedList<AMateria*> _freeMaterias;
 };
 
 std::ostream& operator<<( std::ostream& o, AMateria const& i );

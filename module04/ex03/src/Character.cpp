@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:48:29  by  clem@spectre
-// @modified  230417 10:06:08  by  clem@spectre
+// @modified  230419 17:39:57  by  clem@spectre
 // @filename  Character.cpp
 
 #include <iostream>
@@ -45,17 +45,9 @@ Character::Character( ICharacter const& src )
 #else
   : _name( new std::string( src.getName() ) ) {
 #endif
-  int       i;
-  AMateria* materia;
-
+  int i;
   for( i = 0; i < g_inventorySize; ++i ) {
-    materia = src.getInventory( i );
-    if( materia ) {
-      _inventory[i] = materia->clone();
-      _inventory[i]->delFreeMaterias();
-    } else {
-      _inventory[i] = NULL;
-    }
+    _inventory[i] = NULL;
   }
 #if defined( DEV )
   std::cout << __FILE__;
@@ -73,7 +65,7 @@ Character::Character( ICharacter const& src )
  */
 
 Character::~Character( void ) {
-  int i;
+  /* int i; */
 
 #if defined( DEV )
   std::cout << __FILE__;
@@ -82,12 +74,12 @@ Character::~Character( void ) {
   std::cout << std::endl;
 #endif
   delete _name;
-  for( i = 0; i < g_inventorySize; ++i ) {
-    if( _inventory[i] ) {
-      delete _inventory[i];
-      _inventory[i] = NULL;
-    }
-  }
+  /* for( i = 0; i < g_inventorySize; ++i ) { */
+  /*   if( _inventory[i] ) { */
+  /*     delete _inventory[i]; */
+  /*     _inventory[i] = NULL; */
+  /*   } */
+  /* } */
   return;
 }
 
@@ -115,15 +107,7 @@ ICharacter& Character::operator=( ICharacter const& rhs ) {
   _name = new std::string( rhs.getName() );
 #endif
   for( i = 0; i < g_inventorySize; ++i ) {
-    if( _inventory[i] ) {
-      delete _inventory[i];
-    }
-    if( rhs.getInventory( i ) ) {
-      _inventory[i] = rhs.getInventory( i )->clone();
-      _inventory[i]->delFreeMaterias();
-    } else {
-      _inventory[i] = NULL;
-    }
+    _inventory[i] = NULL;
   }
   return *this;
 }
@@ -177,7 +161,7 @@ void Character::equip( AMateria* m ) {
   for( i = 0; i < g_inventorySize; ++i ) {
     if( _inventory[i] == NULL ) {
       _inventory[i] = m;
-      m->delFreeMaterias();
+      m->lock( true );
       std::cout << *this;
       std::cout << " has placed a Materia ";
       std::cout << *m;
@@ -198,7 +182,7 @@ void Character::equip( AMateria* m ) {
 
 void Character::unequip( int idx ) {
   if( idx > -1 && idx < g_inventorySize && _inventory[idx] ) {
-    _inventory[idx]->addFreeMaterias();
+    _inventory[idx]->lock( false );
     std::cout << *this;
     std::cout << " carefully lay its Materia ";
     std::cout << *_inventory[idx];

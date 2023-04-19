@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:44:49  by  clem@spectre
-// @modified  230417 10:22:27  by  clem@spectre
+// @modified  230419 16:18:06  by  clem@spectre
 // @filename  main.cpp
 
 #include <iostream>
@@ -19,9 +19,9 @@ const int tg_inventorySize = 4;
 const int tg_knowledgeSize = 4;
 
 void t_next( void ) {
-  std::cout << "Press ENTER to continue";
-  std::cin.ignore();
-  std::cout << "\033[2J\033[1;1H";
+  /* std::cout << "Press ENTER to continue"; */
+  /* std::cin.ignore(); */
+  /* std::cout << "\033[2J\033[1;1H"; */
   return;
 }
 
@@ -136,13 +136,17 @@ void t_custom( void ) {
 #if defined( DEV )
   std::cerr << " ---> " << __func__ << "( Materia displayFreeMaterias )";
   std::cout << std::endl << std::endl;
-  m1->displayFreeMaterias();
 #endif
+
+  delete m0;
+  delete m1;
+  delete m2;
+  delete m3;
 
   std::cerr << " ---> " << __func__ << "( MateriaSource learnMateria )";
   std::cout << std::endl << std::endl;
-  s1->learnMateria( m1 );
-  s2->learnMateria( m2 );
+  s1->learnMateria( new Ice() );
+  s2->learnMateria( new Cure() );
   t_next();
 
   std::cerr << " ---> " << __func__ << "( MateriaSource createMateria )";
@@ -255,33 +259,18 @@ void t_custom( void ) {
  *  Character's copy constructor uses its getName() getter instead of a direct
  *  access to src._name because src is an interface thus it does not have _name
  *  data member.
+ *
+ *  I spent two days to to detect a memory leak which was due to the fact that
+ *  my clear list function did not free the memory of data, a classic which came
+ *  to my mind 30 times but which seemed to me too big to be plausible and so I
+ *  did not give enough of time.
  */
 
 int main( void ) {
   (void)tg_inventorySize;
   (void)tg_knowledgeSize;
   t_next();
-  /* t_default(); // NO LEAKS */
-  t_custom();  // LEAKS
-
-  IMateriaSource* src = new MateriaSource();
-
-  // TODO LEAK
-
-  AMateria* m = new Ice();
-  AMateria* i = new Ice();
-  src->learnMateria( m );
-  src->learnMateria( i );
-  std::cout << "---------" << std::endl;
-  src->displayKnowledge();
-
-  ICharacter* me = new Character( "me" );
-  AMateria*   tmp;
-  tmp = src->createMateria( "ice" );
-  me->equip( tmp );
-
-  delete me;
-  delete src;
-
+  t_default();
+  t_custom();
   return 0;
 }

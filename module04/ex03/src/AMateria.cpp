@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:47:25  by  clem@spectre
-// @modified  230324 16:31:20  by  clem@spectre
+// @modified  230419 15:48:00  by  clem@spectre
 // @filename  AMateria.cpp
 
 #include <iostream>
@@ -10,8 +10,6 @@
 #include "LinkedList.hpp"
 
 #include "AMateria.hpp"
-
-LinkedList<AMateria*> AMateria::_freeMaterias;
 
 /*  STANDARD
 ------------------------------------------------- */
@@ -23,7 +21,6 @@ LinkedList<AMateria*> AMateria::_freeMaterias;
 AMateria::AMateria( std::string const& type )
   : _type( type ),
     _lockStatus( false ) {
-  _freeMaterias.addBack( this );
 #if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " CONSTRUCTED ";
@@ -40,7 +37,6 @@ AMateria::AMateria( std::string const& type )
 AMateria::AMateria( AMateria const& src )
   : _type( src._type ),
     _lockStatus( false ) {
-  _freeMaterias.addBack( this );
 #if defined( DEV )
   std::cerr << __FILE__;
   std::cerr << " COPY CONSTRUCTED ";
@@ -63,8 +59,6 @@ AMateria::~AMateria( void ) {
   std::cerr << *this;
   std::cerr << std::endl;
 #endif
-  // TODO remove itself from the linked list
-  _freeMaterias.delFirst( this );
   return;
 }
 
@@ -156,36 +150,6 @@ bool AMateria::checkLockStatus( void ) const {
 
 void AMateria::lock( bool lockStatus ) {
   _lockStatus = lockStatus;
-  return;
-}
-
-/**
- * @brief       Add the Materia to the list of free Materias
- */
-
-void AMateria::addFreeMaterias( void ) {
-  lock( false );
-  _freeMaterias.addBack( this );
-  return;
-}
-
-/**
- * @brief       Remove the Materia from the list of free Materias
- */
-
-void AMateria::delFreeMaterias( void ) {
-  lock( true );
-  _freeMaterias.delFirst( this );
-  return;
-}
-
-/**
- * @brief       Display the list of free Materias
- */
-
-void AMateria::displayFreeMaterias( void ) const {
-  std::cout << "The following Materias are lying around:" << std::endl;
-  std::cout << " " << _freeMaterias;
   return;
 }
 

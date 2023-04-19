@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:48:46  by  clem@spectre
-// @modified  230417 10:06:19  by  clem@spectre
+// @modified  230419 16:09:04  by  clem@spectre
 // @filename  MateriaSource.cpp
 
 #include <iostream>
@@ -11,6 +11,8 @@
 #include "MateriaSource.hpp"
 
 extern const int g_knowledgeSize;
+
+LinkedList<AMateria*> MateriaSource::_materias;
 
 /*  STANDARD
 ------------------------------------------------- */
@@ -74,7 +76,7 @@ MateriaSource::~MateriaSource( void ) {
   std::cerr << *this;
   std::cerr << std::endl;
 #endif
-  //TODO added this for-delete that call AMateria destructor
+  _materias.clear();
   for( i = 0; i < g_knowledgeSize; ++i ) {
     if( _knowledge[i] ) {
       delete _knowledge[i];
@@ -175,6 +177,7 @@ AMateria* MateriaSource::createMateria( std::string const& type ) {
   for( i = 0; i < g_knowledgeSize; ++i ) {
     if( _knowledge[i] && _knowledge[i]->compareType( type ) ) {
       newMateria = _knowledge[i]->clone();
+      _materias.addBack( newMateria );
       std::cout << *this << " has successfully created a Materia ";
       std::cout << *newMateria << "!";
       std::cout << std::endl;
@@ -203,6 +206,16 @@ void MateriaSource::displayKnowledge( void ) const {
       std::cout << " - space " << i + 1 << " is empty" << std::endl;
     }
   }
+  return;
+}
+
+/**
+ * @brief       Display the list of created Materias
+ */
+
+void MateriaSource::displayMaterias( void ) const {
+  std::cout << "The following Materias are lying around:" << std::endl;
+  std::cout << " " << _materias;
   return;
 }
 

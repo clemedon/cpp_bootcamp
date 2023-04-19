@@ -1,7 +1,14 @@
 // @author    Clément Vidon
-// @created   230324 15:44:26  by  clem@spectre
-// @modified  230324 16:39:13  by  clem@spectre
+// @created   230419 15:52:00  by  clem@spectre
+// @modified  230419 16:29:48  by  clem@spectre
 // @filename  LinkedList.hpp
+
+/**
+ * @author    Clément Vidon
+ * @brief     Singly linked-list custom template.
+ * @date      230301
+ * @file      LinkedList.hpp
+ */
 
 #ifndef LINKEDLIST_HPP_
 #define LINKEDLIST_HPP_
@@ -18,10 +25,6 @@ class Node {
  public:
   T     data;
   Node* next;
-  // TODO
-  // so it is deleted in the end of the program when ll delete itself instead in
-  // AMatria destructor
-  /* ~Node() { delete data; } */
 };
 
 template <class T>
@@ -30,13 +33,13 @@ class LinkedList {
   LinkedList( void );
   LinkedList( LinkedList const& src );
   virtual ~LinkedList( void );
-  virtual LinkedList& operator=( LinkedList const& rhs );
-  virtual void        print( std::ostream& o ) const;
+  LinkedList&  operator=( LinkedList const& rhs );
+  virtual void print( std::ostream& o ) const;
 
   void addFront( T const& newData );
   void addBack( T const& newData );
   void delFirst( T const& data );
-  void delAll( void );
+  void clear( void );
 
  private:
   Node<T>* _head;
@@ -54,9 +57,7 @@ std::ostream& operator<<( std::ostream& o, LinkedList<T> const& i );
 
 template <class T>
 LinkedList<T>::LinkedList( void ) : _head( NULL ) {
-#if defined( DEV )
   std::cerr << "LINKEDLIST CONSTRUCTOR" << std::endl;
-#endif
   return;
 }
 
@@ -66,9 +67,7 @@ LinkedList<T>::LinkedList( void ) : _head( NULL ) {
 
 template <class T>
 LinkedList<T>::LinkedList( LinkedList const& src ) : _head( NULL ) {
-#if defined( DEV )
   std::cerr << "LINKEDLIST COPY CONSTRUCTOR" << std::endl;
-#endif
   Node<T>* current;
 
   current = src._head;
@@ -85,11 +84,8 @@ LinkedList<T>::LinkedList( LinkedList const& src ) : _head( NULL ) {
 
 template <class T>
 LinkedList<T>::~LinkedList( void ) {
-#if defined( DEV )
   std::cerr << "LINKEDLIST DESTRUCTOR" << std::endl;
-#endif
-  // TODO
-  /* delAll(); */
+  clear();
   return;
 }
 
@@ -99,9 +95,6 @@ LinkedList<T>::~LinkedList( void ) {
 
 template <class T>
 LinkedList<T>& LinkedList<T>::operator=( LinkedList<T> const& rhs ) {
-#if defined( DEV )
-  std::cerr << "LINKEDLIST " << __func__ << std::endl;
-#endif
   Node<T>* current;
   Node<T>* next;
 
@@ -129,9 +122,6 @@ LinkedList<T>& LinkedList<T>::operator=( LinkedList<T> const& rhs ) {
 
 template <class T>
 void LinkedList<T>::print( std::ostream& o ) const {
-#if defined( DEV )
-  std::cerr << "LINKEDLIST " << __func__ << std::endl;
-#endif
   Node<T>* current;
 
   current = _head;
@@ -141,7 +131,6 @@ void LinkedList<T>::print( std::ostream& o ) const {
   o << " data preview  ";
   std::cout << std::endl;
   while( current ) {
-    o << " ";
     o << " " << this;
     o << " " << current;
     o << " " << current->data;
@@ -171,9 +160,7 @@ std::ostream& operator<<( std::ostream& o, LinkedList<T> const& i ) {
 
 template <typename T>
 void LinkedList<T>::addFront( T const& newData ) {
-#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
-#endif
   Node<T>* newNode;
 
   newNode = new Node<T>();
@@ -189,9 +176,7 @@ void LinkedList<T>::addFront( T const& newData ) {
 
 template <class T>
 void LinkedList<T>::addBack( T const& newData ) {
-#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
-#endif
   Node<T>* newNode;
   Node<T>* current;
 
@@ -215,9 +200,7 @@ void LinkedList<T>::addBack( T const& newData ) {
 
 template <typename T>
 void LinkedList<T>::delFirst( T const& data ) {
-#if defined( DEV )
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
-#endif
   Node<T>* current;
   Node<T>* previous;
 
@@ -244,23 +227,19 @@ void LinkedList<T>::delFirst( T const& data ) {
 }
 
 template <typename T>
-void LinkedList<T>::delAll( void ) {
-#if defined( DEV )
+void LinkedList<T>::clear( void ) {
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
-#endif
   Node<T>* current;
   Node<T>* next;
 
   current = _head;
   while( current != NULL ) {
+    std::cout << " delete  " << *current->data << current->data << std::endl;
     next = current->next;
-#if defined( DEV )
-    std::cout << " delete " << current->data << std::endl;
-#endif
+    delete current->data;
     delete current;
     current = next;
   }
-  // TODO added this
   _head = NULL;
 }
 

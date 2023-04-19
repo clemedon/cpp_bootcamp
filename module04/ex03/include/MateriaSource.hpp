@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:44:34  by  clem@spectre
-// @modified  230324 15:47:02  by  clem@spectre
+// @modified  230419 15:33:01  by  clem@spectre
 // @filename  MateriaSource.hpp
 
 #ifndef MATERIASOURCE_HPP_
@@ -41,8 +41,12 @@ class MateriaSource : public IMateriaSource {
 
   virtual AMateria* getKnowledge( int idx ) const;
 
+  virtual void displayMaterias( void ) const;
+
  private:
-  AMateria* _knowledge[g_knowledgeSize];
+  AMateria*                    _knowledge[g_knowledgeSize];
+ public:
+  static LinkedList<AMateria*> _materias;
 };
 
 std::ostream& operator<<( std::ostream& o, IMateriaSource const& i );

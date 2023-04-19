@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 15:46:03  by  clem@spectre
-// @modified  230324 15:48:31  by  clem@spectre
+// @modified  230419 15:48:08  by  clem@spectre
 // @filename  Cure.cpp
 
 #include <iostream>
