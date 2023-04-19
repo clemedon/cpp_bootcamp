@@ -1,9 +1,7 @@
-/**
- * @author    Clément Vidon
- * @brief     Singly linked-list custom template.
- * @date      230301
- * @file      LinkedList.hpp
- */
+// @author    Clément Vidon
+// @created   230419 15:55:02  by  clem@spectre
+// @modified  230419 16:51:51  by  clem@spectre
+// @filename  LinkedList.hpp
 
 #ifndef LINKEDLIST_HPP_
 #define LINKEDLIST_HPP_
@@ -35,6 +33,7 @@ class LinkedList {
   void addBack( T const& newData );
   void delFirst( T const& data );
   void delAll( void );
+  void clear( void );
 
  private:
   Node<T>* _head;
@@ -80,7 +79,7 @@ LinkedList<T>::LinkedList( LinkedList const& src ) : _head( NULL ) {
 template <class T>
 LinkedList<T>::~LinkedList( void ) {
   std::cerr << "LINKEDLIST DESTRUCTOR" << std::endl;
-  return;
+  clear();
 }
 
 /**
@@ -220,6 +219,10 @@ void LinkedList<T>::delFirst( T const& data ) {
   return;
 }
 
+/**
+ * @brief       Delete all the element from the list (not their data)
+ */
+
 template <typename T>
 void LinkedList<T>::delAll( void ) {
   std::cerr << "LINKEDLIST " << __func__ << std::endl;
@@ -229,10 +232,30 @@ void LinkedList<T>::delAll( void ) {
   current = _head;
   while( current != NULL ) {
     next = current->next;
-    std::cout << " delete  " << current->data << std::endl;
     delete current;
     current = next;
   }
+}
+
+/**
+ * @brief       Clear the list from all its elements and data
+ */
+
+template <typename T>
+void LinkedList<T>::clear( void ) {
+  std::cerr << "LINKEDLIST " << __func__ << std::endl;
+  Node<T>* current;
+  Node<T>* next;
+
+  current = _head;
+  while( current != NULL ) {
+    next = current->next;
+    delete current->data;
+    delete current;
+    current = next;
+  }
+  _head = NULL;
+  return;
 }
 
 #endif  // LINKEDLIST_HPP_
