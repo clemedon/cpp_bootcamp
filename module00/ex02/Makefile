@@ -1,12 +1,12 @@
 # @author    Clément Vidon
-# @created   230324 11:46:44  by  clem@spectre
-# @modified  230324 11:46:48  by  clem@spectre
+# @created   230320 00:00:00  by  clem@spectre
+# @modified  230419 18:06:28  by  clem@spectre
 # @filename  Makefile
 
 ############ PROJECT
 ####################
 
-NAME        := phonebook
+NAME        := account
 
 LIBS        :=
 LIBS_PATH   :=
@@ -14,6 +14,7 @@ LIBS_PATH   :=
 SRC_DIR     := src
 SRCS        := \
 	tests.cpp \
+	Account.cpp \
 
 INC_DIR     := include
 BUILD_DIR   := .build
