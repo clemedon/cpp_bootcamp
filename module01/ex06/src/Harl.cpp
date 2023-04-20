@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 12:02:28  by  clem@spectre
-// @modified  230324 12:02:30  by  clem@spectre
+// @modified  230420 19:10:40  by  clem@spectre
 // @filename  Harl.cpp
 
 #include <iostream>
@@ -56,20 +56,26 @@ void Harl::error( void ) {
 }
 
 void Harl::complain( std::string level ) {
-  int         i;
-  std::string level_ids[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
-  void ( Harl::*level_functions[4] )( void )
-    = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
+  int i = 0;
 
-  for( i = 0; i < 4; i++ ) {
-    if( level.compare( level_ids[i] ) == 0 ) {
-      for( i = i; i < 4; i++ ) {
-        ( this->*level_functions[i] )();
-      }
-      return;
-    }
+  std::string levels[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
+  void ( Harl::*levelPtr[4] )()
+    = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
+  for( ; i < 4 && level != levels[i]; ++i )
+    ;
+  switch( i ) {
+    case 0:
+      ( this->*levelPtr[i++] )();
+    case 1:
+      ( this->*levelPtr[i++] )();
+    case 2:
+      ( this->*levelPtr[i++] )();
+    case 3:
+      ( this->*levelPtr[i] )();
+      break;
+    default:
+      std::cout << "[ Probably complaining about insignificant problems ]"
+                << std::endl;
+      break;
   }
-  std::cout << "[ Probably complaining about insignificant problems ]";
-  std::cout << std::endl;
-  return;
 }

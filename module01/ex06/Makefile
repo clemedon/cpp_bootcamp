@@ -1,6 +1,6 @@
 # @author    Clément Vidon
 # @created   230324 12:02:02  by  clem@spectre
-# @modified  230324 12:02:18  by  clem@spectre
+# @modified  230420 19:09:17  by  clem@spectre
 # @filename  Makefile
 
 ############ PROJECT
@@ -34,7 +34,7 @@ OBJS        := $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 DEPS        := $(OBJS:.o=.d)
 
 CXX         := c++
-CXXFLAGS    := -Wall -Wextra -Werror -std=c++98
+CXXFLAGS    := -Wno-implicit-fallthrough -Wall -Wextra -Werror -std=c++98
 DEVFLAGS    := -Wconversion -Wsign-conversion -pedantic
 DEVFLAGS    += -fno-omit-frame-pointer -Og -D DEV
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
