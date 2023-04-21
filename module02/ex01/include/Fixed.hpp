@@ -34,7 +34,7 @@ class Fixed {
   int   getRawBits( void ) const;
   void  setRawBits( int const rawBits );
   float toFloat( void ) const;
-  float toInt( void ) const;
+  int   toInt( void ) const;
 
  private:
   int              _rawBits;

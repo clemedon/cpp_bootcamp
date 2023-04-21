@@ -115,8 +115,8 @@ float Fixed::toFloat( void ) const {
  * @return      an int value
  */
 
-float Fixed::toInt( void ) const {
-  return static_cast<float>( _rawBits >> _fractionalBits );
+int Fixed::toInt( void ) const {
+  return _rawBits >> _fractionalBits;
 }
 
 /**
