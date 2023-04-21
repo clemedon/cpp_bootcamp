@@ -26,7 +26,7 @@ class ClapTrap {
   ClapTrap& operator=( ClapTrap const& rhs );
   void      print( std::ostream& o ) const;
 
-  bool isAble() const;
+  bool isAble( void ) const;
   void attack( std::string const& target );
   void takeDamage( unsigned int const& amount );
   void beRepaired( unsigned int const& amount );

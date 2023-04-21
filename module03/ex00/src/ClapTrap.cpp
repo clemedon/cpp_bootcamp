@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 12:52:23  by  clem@spectre
-// @modified  230324 14:53:39  by  clem@spectre
+// @modified  230421 16:32:41  by  clem@spectre
 // @filename  ClapTrap.cpp
 
 #include <iostream>
@@ -97,7 +97,7 @@ std::ostream& operator<<( std::ostream& o, ClapTrap const& i ) {
  * @return      True or false
  */
 
-bool ClapTrap::isAble() const {
+bool ClapTrap::isAble( void ) const {
   unsigned int hp = _healthPoints;
   unsigned int ep = _energyPoints;
 
