@@ -1,6 +1,6 @@
 // @author    Clément Vidon
 // @created   230324 12:12:20  by  clem@spectre
-// @modified  230324 12:12:20  by  clem@spectre
+// @modified  230421 16:16:22  by  clem@spectre
 // @filename  main.cpp
 
 #include <iostream>
@@ -10,13 +10,23 @@
 int main( void ) {
   Fixed       a;
   Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
-  std::cout << a << std::endl;
-  std::cout << ++a << std::endl;
-  std::cout << a << std::endl;
-  std::cout << a++ << std::endl;
-  std::cout << a << std::endl;
-  std::cout << b << std::endl;
-  std::cout << Fixed::max( a, b ) << std::endl;
+  std::cout << "a         " << a << std::endl;
+  std::cout << "b         " << b << std::endl;
+  std::cout << "++a       " << ++a << std::endl;
+  std::cout << "a         " << a << std::endl;
+  std::cout << "a++       " << a++ << std::endl;
+  std::cout << "a         " << a << std::endl;
+  std::cout << "b         " << b << std::endl;
+  std::cout << "max(a, b) " << Fixed::max( a, b ) << std::endl;
+  std::cout << "==================" << std::endl;
+  std::cout << "--a       " << --a << std::endl;
+  std::cout << "b         " << b << std::endl;
+  std::cout << "b <  a    " <<  (b < a) << std::endl;
+  std::cout << "b >  a    " <<  (b > a) << std::endl;
+  std::cout << "b == a    " <<  (b == a) << std::endl;
+  std::cout << "b <= a    " <<  (b <= a) << std::endl;
+  std::cout << "b >= a    " <<  (b >= a) << std::endl;
+  std::cout << "b != a    " <<  (b != a) << std::endl;
   std::cout << "==================" << std::endl;
 
   Fixed foo( .5f );
