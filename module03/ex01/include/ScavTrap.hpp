@@ -21,10 +21,10 @@
 
 class ScavTrap : public ClapTrap {
  public:
-  ScavTrap( std::string const& name = "Derived",
-            unsigned int const&         healthPoints = 100,
-            unsigned int const&         energyPoints = 50,
-            unsigned int const&         attackDamage = 20 );
+  ScavTrap( std::string const&  name = "Derived",
+            unsigned int const& healthPoints = 100,
+            unsigned int const& energyPoints = 50,
+            unsigned int const& attackDamage = 20 );
   ScavTrap( ScavTrap const& src );
   virtual ~ScavTrap( void );
   ScavTrap&    operator=( ScavTrap const& rhs );
