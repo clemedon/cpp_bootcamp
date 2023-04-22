@@ -21,20 +21,20 @@ void replace( std::string& str, std::string const& s1, std::string const& s2 ) {
 }
 
 void info( void ) {
-  std::cerr << ".::::::::::> Search And Replace <:::::::::::." << std::endl;
-  std::cerr << "::                                         ::" << std::endl;
-  std::cerr << "::  Usage: ./replace file old new          ::" << std::endl;
-  std::cerr << "::                                         ::" << std::endl;
-  std::cerr << "::  Where:                                 ::" << std::endl;
-  std::cerr << "::         file is a text file             ::" << std::endl;
-  std::cerr << "::         s1   is the string to replace   ::" << std::endl;
-  std::cerr << "::         s2   is the replacement string  ::" << std::endl;
-  std::cerr << "::                                         ::" << std::endl;
-  std::cerr << "::  Replace all the occurences of s1 with  ::" << std::endl;
-  std::cerr << "::  s2 in the given file, thus s1 and s2   ::" << std::endl;
-  std::cerr << "::  should be two differents strings.      ::" << std::endl;
-  std::cerr << "::                                         ::" << std::endl;
-  std::cerr << "'::::::::::::::::::::::::::::::::::::::::::'" << std::endl;
+  std::cout << ".::::::::::> Search And Replace <:::::::::::." << std::endl;
+  std::cout << "::                                         ::" << std::endl;
+  std::cout << "::  Usage: ./replace file s1 s2            ::" << std::endl;
+  std::cout << "::                                         ::" << std::endl;
+  std::cout << "::  Where:                                 ::" << std::endl;
+  std::cout << "::         file is a text file             ::" << std::endl;
+  std::cout << "::         s1   is the string to replace   ::" << std::endl;
+  std::cout << "::         s2   is the replacement string  ::" << std::endl;
+  std::cout << "::                                         ::" << std::endl;
+  std::cout << "::  Replace all the occurences of s1 with  ::" << std::endl;
+  std::cout << "::  s2 in the given file, thus s1 and s2   ::" << std::endl;
+  std::cout << "::  should be two differents strings.      ::" << std::endl;
+  std::cout << "::                                         ::" << std::endl;
+  std::cout << "'::::::::::::::::::::::::::::::::::::::::::'" << std::endl;
 }
 
 int main( int argc, char** argv ) {
@@ -53,12 +53,12 @@ int main( int argc, char** argv ) {
     }
     ifs.open( argv[1] );
     if( !ifs.is_open() ) {
-      std::cerr << "Failure" << std::endl;
+      std::cout << "Failure" << std::endl;
       return 1;
     }
     ofs.open( strcat( argv[1], ".replace" ) );
     if( !ofs.is_open() ) {
-      std::cerr << "Failure" << std::endl;
+      std::cout << "Failure" << std::endl;
       return 1;
     }
     while( getline( ifs, buf ) ) {
