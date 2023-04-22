@@ -23,7 +23,7 @@ class WrongCat : public WrongAnimal {
   WrongCat&    operator=( WrongCat const& rhs );
   virtual void print( std::ostream& o ) const;
 
-  virtual void makeSound( void ) const;
+  void makeSound( void ) const;
 };
 
 std::ostream& operator<<( std::ostream& o, WrongCat const& i );

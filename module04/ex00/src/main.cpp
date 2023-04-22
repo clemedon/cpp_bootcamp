@@ -43,9 +43,9 @@ int main( void ) {
   std::cout << dog->getType() << " " << std::endl;
   std::cout << cat->getType() << " " << std::endl;
   std::cout << std::endl;
-  animal->makeSound();
-  dog->makeSound();
-  cat->makeSound();  // will output the cat sound
+  animal->makeSound();  // output animal sound
+  dog->makeSound();     // output dog sound
+  cat->makeSound();     // output cat sound
   std::cout << std::endl;
 
   delete animal;
@@ -54,13 +54,16 @@ int main( void ) {
 
   const WrongAnimal* wrongAnimal = new WrongAnimal();
   const WrongAnimal* wrongCat = new WrongCat();
+  WrongCat wc;
 
   std::cout << std::endl;
   std::cout << wrongAnimal->getType() << " " << std::endl;
   std::cout << wrongCat->getType() << " " << std::endl;
+  std::cout << wc.getType() << " " << std::endl;
   std::cout << std::endl;
-  wrongAnimal->makeSound();
-  wrongCat->makeSound();  // will output the wrong cat sound
+  wrongAnimal->makeSound(); // output wrong animal sound
+  wrongCat->makeSound();    // output wrong animal sound
+  wc.makeSound();           // output wrong cat    sound
   std::cout << std::endl;
 
   delete wrongAnimal;
