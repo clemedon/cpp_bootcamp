@@ -41,7 +41,6 @@ class PhoneBook {
  private:
   Contact    _contact[MAX_CONTACT];
   static int _count;
-  int        _id;
 };
 
 #endif

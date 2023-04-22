@@ -21,7 +21,7 @@ int PhoneBook::_count = -1;
  * @brief       Default Constructor
  */
 
-PhoneBook::PhoneBook( void ) : _id( -1 ) {
+PhoneBook::PhoneBook( void ) {
   return;
 }
 
