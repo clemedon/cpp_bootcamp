@@ -71,4 +71,18 @@ int main( void ) {
   delete a;
   delete b;
   delete c;
+
+  // XXX turn Dog's _brain public for this test
+  /* std::cout << std::endl; */
+  /* std::cout << "          [vvvvv]" << std::endl; */
+  /* std::cout << std::endl; */
+  /* Dog original; */
+  /* std::cout << std::endl; */
+  /* Dog copy1( original ); */
+  /* Dog copy2 = original; */
+  /* std::cout << original._brain<< std::endl; */
+  /* std::cout << copy1._brain<< std::endl; */
+  /* std::cout << copy2._brain<< std::endl; */
+
+  std::cout << std::endl;
 }

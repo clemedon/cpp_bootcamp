@@ -21,11 +21,11 @@ class Dog : public AAnimal {
  public:
   explicit Dog( std::string const& type = "Dog" );
   Dog( Dog const& src );
-  ~Dog( void );
-  Dog& operator=( Dog const& rhs );
-  void print( std::ostream& o ) const;
+  virtual ~Dog( void );
+  Dog&    operator=( Dog const& rhs );
+  virtual void print( std::ostream& o ) const;
 
-  void makeSound( void ) const;
+  virtual void makeSound( void ) const;
 
  private:
   Brain* _brain;

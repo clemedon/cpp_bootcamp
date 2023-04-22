@@ -19,9 +19,9 @@ class WrongCat : public WrongAnimal {
  public:
   explicit WrongCat( std::string const& type = "WrongCat" );
   WrongCat( WrongCat const& src );
-  ~WrongCat( void );
-  WrongCat& operator=( WrongCat const& rhs );
-  void      print( std::ostream& o ) const;
+  virtual ~WrongCat( void );
+  WrongCat&     operator=( WrongCat const& rhs );
+  virtual void  print( std::ostream& o ) const;
 
   void makeSound( void ) const;
 };

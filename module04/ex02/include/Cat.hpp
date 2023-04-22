@@ -21,11 +21,11 @@ class Cat : public AAnimal {
  public:
   explicit Cat( std::string const& type = "Cat" );
   Cat( Cat const& src );
-  ~Cat( void );
-  Cat& operator=( Cat const& rhs );
-  void print( std::ostream& o ) const;
+  virtual ~Cat( void );
+  Cat&          operator=( Cat const& rhs );
+  virtual void  print( std::ostream& o ) const;
 
-  void makeSound( void ) const;
+  virtual void makeSound( void ) const;
 
  private:
   Brain* _brain;
