@@ -100,15 +100,22 @@ std::ostream& operator<<( std::ostream& o, ClapTrap const& i ) {
 bool ClapTrap::isAble() const {
   unsigned int hp = _healthPoints;
   unsigned int ep = _energyPoints;
+  static bool end = 0;
 
+  if (end) {
+    return false;
+  }
   if( hp <= 0 && ep <= 0 ) {
     std::cout << *this << "is DEAD !!!" << std::endl;
+    end = true;
     return false;
   } else if( hp <= 0 && ep > 0 ) {
     std::cout << *this << "has NO MORE HEALTH points !" << std::endl;
+    end = true;
     return false;
   } else if( hp > 0 && ep <= 0 ) {
     std::cout << *this << "has NO MORE ENERGY points !" << std::endl;
+    end = true;
     return false;
   }
   return true;
@@ -125,7 +132,11 @@ bool ClapTrap::isAble() const {
 
 void ClapTrap::attack( std::string const& target ) {
   if( isAble() ) {
-    _energyPoints -= 1;
+    if ( _energyPoints < 1 ) {
+      _energyPoints = 0;
+    } else {
+      _energyPoints -= 1;
+    }
     std::cout << *this << "ATTACKED " << target << " with a mutex, causing "
               << _attackDamage << " points of damage !" << std::endl;
   }
@@ -142,7 +153,11 @@ void ClapTrap::attack( std::string const& target ) {
 
 void ClapTrap::takeDamage( unsigned int const& amount ) {
   if( isAble() ) {
-    _healthPoints -= amount;
+    if ( _healthPoints < amount ) {
+      _healthPoints = 0;
+    } else {
+      _healthPoints -= amount;
+    }
     std::cout << *this << "TOOK " << amount << " points of damage !"
               << std::endl;
   }
