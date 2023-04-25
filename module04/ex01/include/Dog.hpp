@@ -25,7 +25,7 @@ class Dog : public Animal {
   Dog&      operator=( Dog const& rhs );
   virtual   void print( std::ostream& o ) const;
 
-  virtual   void makeSound( void ) const;
+  virtual void makeSound( void ) const;
 
  private:
   Brain* _brain;

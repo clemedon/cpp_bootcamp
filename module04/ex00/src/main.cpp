@@ -31,6 +31,12 @@
  *  *cat = *dog;  // NOK a cat can not be a dog
  *  cat = dog;    // NOK only assign an address
  *
+ * I preferred to build the classes through a parameter to the constructor
+ * because if I had been satisfied to use the initialization of the parents'
+ * _type data member inherited by the children then the construction of a child
+ * class would always be preceded by a class with a wrongly defined type
+ * (ex. constructed cat: construct animal > construct cat > ... > destroy cat >
+ * destroy *cat*) which gives an asymmetric output.
  */
 
 int main( void ) {

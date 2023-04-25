@@ -14,6 +14,7 @@
 int main( void ) {
   size_t         i;
   const AAnimal* animals[4];
+  /* AAnimal test; */
 
   std::cout << std::endl;
   std::cout << "          [BIRTH]" << std::endl;
