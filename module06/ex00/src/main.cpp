@@ -26,7 +26,7 @@ int main( int argc, char* argv[] ) {
   std::string str = "fillme";
 #else
   if( argc != 2 ) {
-    std::cerr << "Usage: " << argv[0] << " <literal>\n";
+    std::cout << "Usage: " << argv[0] << " <literal>\n";
     return 1;
   }
   std::string str( argv[1] );
