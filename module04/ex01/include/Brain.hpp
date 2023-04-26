@@ -25,7 +25,7 @@ class Brain {
   void saveIdea( size_t index, std::string const& idea );
 
  private:
-  const size_t _size;
+  size_t const _size;
   std::string* _ideas;
 };
 

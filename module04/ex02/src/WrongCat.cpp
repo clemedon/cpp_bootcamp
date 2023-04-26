@@ -15,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-WrongCat::WrongCat( std::string const& type ) : WrongAnimal( type ) {
+WrongCat::WrongCat( void ) : WrongAnimal( "WrongCat" ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
   std::cout << _type;

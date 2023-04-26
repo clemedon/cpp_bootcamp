@@ -15,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-Cat::Cat( std::string const& type ) : AAnimal( type ), _brain( new Brain() ) {
+Cat::Cat( void ) : AAnimal( "Cat" ), _brain( new Brain() ) {
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;

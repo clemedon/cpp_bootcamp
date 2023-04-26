@@ -15,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-Cat::Cat( std::string const& type ) : Animal( type ) {
+Cat::Cat( void ) : Animal( "Cat" ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
   std::cout << _type;

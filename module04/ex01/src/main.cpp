@@ -12,17 +12,17 @@
 #include "WrongCat.hpp"
 
 /*
-Cat* a = new Cat();
-Cat* b = new Cat();
-Cat* c = new Cat( *b );
+  Cat* a = new Cat();
+  Cat* b = new Cat();
+  Cat* c = new Cat( *b );
 
-std::cout << "BEF" << std::endl;
-*b = *a = *c;
-std::cout << "AFT" << std::endl;
+  std::cout << "BEF" << std::endl;
+  *b = *a = *c;
+  std::cout << "AFT" << std::endl;
 
-delete a;
-delete b;
-delete c;
+  delete a;
+  delete b;
+  delete c;
 */
 
 int main( void ) {
@@ -72,7 +72,7 @@ int main( void ) {
   delete b;
   delete c;
 
-  // XXX turn Dog's _brain public for this test
+  // turn Dog's _brain public for those tests
   /* std::cout << std::endl; */
   /* std::cout << "          [vvvvv]" << std::endl; */
   /* std::cout << std::endl; */

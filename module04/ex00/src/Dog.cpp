@@ -15,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-Dog::Dog( std::string const& type ) : Animal( type ) {
+Dog::Dog( void ) : Animal( "Dog" ) {
   std::cout << *this;
   std::cout << " CONSTRUCTED ";
   std::cout << _type;

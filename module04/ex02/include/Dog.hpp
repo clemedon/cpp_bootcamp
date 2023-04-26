@@ -19,7 +19,7 @@
 
 class Dog : public AAnimal {
  public:
-  explicit Dog( std::string const& type = "Dog" );
+  explicit Dog( void );
   Dog( Dog const& src );
   virtual ~Dog( void );
   Dog&    operator=( Dog const& rhs );

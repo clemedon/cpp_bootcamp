@@ -15,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-Dog::Dog( std::string const& type ) : Animal( type ), _brain( new Brain() ) {
+Dog::Dog( void ) : Animal( "Dog" ), _brain( new Brain() ) {
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;

@@ -15,7 +15,7 @@
  * @brief       Default Constructor
  */
 
-Brain::Brain() : _size( 100 ), _ideas( new std::string[_size] ) {
+Brain::Brain( void ) : _size( 100 ), _ideas( new std::string[_size] ) {
   std::cout << __FILE__;
   std::cout << " CONSTRUCTED ";
   std::cout << *this;

@@ -19,7 +19,7 @@
 
 class Cat : public Animal {
  public:
-  explicit Cat( std::string const& type = "Cat" );
+  explicit Cat( void );
   Cat( Cat const& src );
   virtual ~Cat( void );
   Cat&      operator=( Cat const& rhs );
