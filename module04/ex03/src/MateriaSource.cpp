@@ -166,8 +166,7 @@ void MateriaSource::learnMateria( AMateria* m ) {
  * @brief       Create a Materia of one of the learned type
  *
  * @param[in]   type a type of Materia
- * @return      a new Materia of the given type if the type if known or
- * nothing
+ * @return      a new Materia of the given type if the type if known or nothing
  */
 
 AMateria* MateriaSource::createMateria( std::string const& type ) {
