@@ -13,6 +13,8 @@
  * Detect if a string represents a valid char, int, float or double value,
  * convert this string into the matching type's value, finally cast this value
  * into each of those types and print them.
+ *
+ * TODO "9999999999" "00000000.1" strto… -> sstream
  */
 
 int main( int argc, char* argv[] ) {
