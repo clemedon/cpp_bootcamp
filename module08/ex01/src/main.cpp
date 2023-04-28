@@ -23,7 +23,7 @@ void subjectTest( void ) {
 }
 
 void myTest( void ) {
-  Span             span( 10000 );
+  Span             span( 1000000 );
   std::vector<int> nums;
   int              i;
 
@@ -36,7 +36,7 @@ void myTest( void ) {
   std::cout << span << std::endl;
 
   std::cout << "Fill the remaining spaces with numbers: " << std::endl;
-  for( i = 0; static_cast<unsigned int>( i ) < ( 10000 - nums.size() ); i++ ) {
+  for( i = 0; static_cast<unsigned int>( i ) < ( 100000 - nums.size() ); i++ ) {
     span.addNumber( rand() % 1000 );
   }
   std::cout << span << std::endl;
@@ -46,7 +46,11 @@ void myTest( void ) {
 }
 
 int main( void ) {
-  subjectTest();
-  myTest();
+  try {
+    subjectTest();
+    myTest();
+  } catch( const std::exception& e ) {
+    std::cerr << e.what() << '\n';
+  }
   return 0;
 }
