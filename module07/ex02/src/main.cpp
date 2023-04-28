@@ -51,10 +51,13 @@ void subjectTests( void ) {
   return;
 }
 
-void myTests() {
+void myTests( void ) {
   size_t i;
 
-  std::cout << "Creating an array of integers..." << std::endl;
+  std::cout << "Creating an empty integers array..." << std::endl;
+  Array<size_t> uint_empty_array( 0 );
+
+  std::cout << "Creating an array of 5 integers..." << std::endl;
   Array<size_t> uint_array( 5 );
 
   std::cout << "Setting values of the array..." << std::endl;
@@ -76,7 +79,7 @@ void myTests() {
 
     str_array_cpy[0] = "I";
     str_array_cpy[1] = "am";
-    str_array_cpy[2] = "different";
+    str_array_cpy[2] = "there";
 
     std::cout << "Printing the arrays..." << std::endl;
     std::cout << str_array << std::endl;
@@ -93,8 +96,67 @@ void myTests() {
   return;
 }
 
+class CT { // Complex Type
+  public:
+    CT( void ) : _a( 0 ), _b( 0.0 ) {}
+    CT( int a, float b ) : _a( a ), _b( b ) {
+      return;
+    }
+    void print( std::ostream& o ) const {
+      o << _a << ", ";
+      o << _b << std::endl;
+      return;
+    }
+
+    int   _a;
+    float _b;
+};
+
+std::ostream& operator<<( std::ostream& o, CT const& i ) {
+  i.print ( o );
+  return o;
+}
+
+void ct( void ) {
+  Array<CT> ct( 3 );
+
+  std::cout << "Complex Type" << std::endl;
+
+  Array<int> numbers( MAX_VAL );
+  CT a( 1, 9.0 );
+  CT b( 2, 8.0 );
+  CT c( 3, 7.0 );
+  ct[0] = a;
+  ct[1] = b;
+  ct[2] = c;
+
+  std::cout << "Printing the array..." << std::endl;
+  std::cout << ct << std::endl;
+  std::cout << "Reading an element..." << std::endl;
+  std::cout << "ct[1] = " << ct[1] << std::endl;
+  std::cout << "Writing an element..." << std::endl;
+  std::cout << "ct[1]._a = 42" <<  std::endl;
+  ct[1]._a = 42;
+  std::cout << "Reading an element..." << std::endl;
+  std::cout << "ct[1] = " << ct[1] << std::endl;
+
+  try {
+    std::cout << "Accessing out of range element..." << std::endl;
+    std::cout << "ct[4]" << std::endl;
+    std::cout << ct[4] << std::endl;
+  } catch( const std::exception& e ) {
+    std::cerr << e.what() << '\n';
+  }
+
+  return;
+}
+
+
+
+
 int main( void ) {
   subjectTests();
   myTests();
+  ct();
   return 0;
 }

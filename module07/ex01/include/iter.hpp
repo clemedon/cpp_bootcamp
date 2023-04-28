@@ -9,21 +9,24 @@
 #include <cstddef>
 #include <iostream>
 
-template <typename T, typename F>
-void iter( T* arr, size_t len, F func ) {
+/** TODO
+ * template <typename T, typename F>
+ * void iter( T* arr, size_t len, F func ) {
+ */
+
+template <typename T>
+void iter( T* arr, size_t len, void ( *fun )( T & ) ) {
   size_t i;
 
   for( i = 0; i < len; ++i ) {
-    if( arr[i] ) {
-      func( arr[i] );
-    }
+    fun( arr[i] );
   }
   return;
 }
 
 template <typename T>
-void print( T val ) {
-  std::cout << val << "; ";
+void print( T& val ) {
+  std::cout << val << "\n";
   return;
 }
 
