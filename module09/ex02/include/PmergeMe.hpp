@@ -3,217 +3,167 @@
 /* Updated: 230705 17:29:52 by clem@spectre */
 /* Maintainer: Clément Vidon */
 
+// Recursively sort the [n/2] larger elements from each pair, creating a sorted
+// sequence S of [n/2] of the input elements, in ascending order.
+
+// Insert at the start of S the element that was paired with the first and
+// smallest element of S.
+
+// Insert the remaining [n/2] − 1 elements of X ∖ S into S, one at a time, with
+// a specially chosen insertion ordering described below. Use binary search in
+// subsequences of S (as described below) to determine the position at which
+// each element should be inserted.
+
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
-#include <sys/time.h>
 #include <algorithm>
 #include <iostream>
 #include <vector>
 
+long int straggler = -1;
+
 /**
- *  PmergeMe
+ * @brief       Utils. Print Pairs
  */
 
 template <typename T>
-class PmergeMe {
- private:
-  typedef typename T::iterator Iterator;
-  T                            _numbers;
-  double                       _executionTime;
+void printUnits( const T& units ) {
+  for( typename T::const_iterator it = units.begin(); it != units.end();
+       it++ ) {
+    std::cout << *it << " ";
+  }
+  std::cout << std::endl;
+}
 
-  PmergeMe( void );
-
- public:
-  PmergeMe( const std::vector<std::string>& numbers );
-  PmergeMe( const PmergeMe& src );
-  ~PmergeMe();
-  PmergeMe& operator=( const PmergeMe& rhs );
-
-  T&     getNumbers( void );
-  double getExecutionTime( void );
-
-  void calculateExecutionTime( struct timeval start, struct timeval finish );
-  long int calculateThreshold( long int size );
-  void     insertionSort( Iterator& first, Iterator& last );
-  void     merge( Iterator& first, Iterator& middle, Iterator& last );
-  void     mergeInsertionSortFordJohnson( Iterator& first,
-                                          Iterator& last,
-                                          long int  threshold );
-};
-
-/*  STANDARD
-------------------------------------------------- */
+template <typename T>
+void printPairs( T& pairs ) {
+  for( size_t i = 0; i < pairs.size(); ++i ) {
+    std::cout << "[" << pairs[i].first << ", " << pairs[i].second << "]\n";
+  }
+}
 
 /**
- * @brief       Parametric Constructor
+ * @brief       3. Create Sequence
  */
 
 template <typename T>
-PmergeMe<T>::PmergeMe( const std::vector<std::string>& numbers ) {
-  std::vector<std::string>::const_iterator it;
-  long                                     num;
-  Iterator                                 first, last;
-  long int                                 threshold = 0;
-  struct timeval                           start, finish;
-  char*                                    endptr;
+std::vector<typename T::value_type> createSequence(
+  std::vector<std::pair<typename T::value_type, typename T::value_type> >&
+    pairs ) {
+  typedef typename T::value_type value_type;
+  std::vector<long>              sequence;
+  std::vector<long>              pend;
 
-  for( it = numbers.begin(); it != numbers.end(); ++it ) {
-    num = std::strtol( ( *it ).c_str(), &endptr, 10 );
-    if( *endptr != '\0' || num < 0 ) {
-      throw std::runtime_error( "Error" );
+  typename std::vector<std::pair<value_type, value_type> >::iterator it;
+  for( it = pairs.begin(); it != pairs.end(); ++it ) {
+    if( it->first >= it->second ) {
+      sequence.push_back( it->first );
+      pend.push_back( it->second );
     } else {
-      _numbers.push_back( num );
+      sequence.push_back( it->second );
+      pend.push_back( it->first );
     }
   }
-  first = _numbers.begin();
-  last = _numbers.end();
-  gettimeofday( &start, NULL );
-  threshold = calculateThreshold( static_cast<long int>( _numbers.size() ) );
-  mergeInsertionSortFordJohnson( first, last, threshold );
-  gettimeofday( &finish, NULL );
-  calculateExecutionTime( start, finish );
-}
-
-/**
- * @brief       Copy Constructor
- */
-
-template <typename T>
-PmergeMe<T>::PmergeMe( const PmergeMe& src ) {
-  _numbers = src._numbers;
-}
-
-/**
- * @brief       Destructor
- */
-
-template <typename T>
-PmergeMe<T>::~PmergeMe( void ) {}
-
-/**
- * @brief       Copy Assignment Operator
- */
-
-template <typename T>
-PmergeMe<T>& PmergeMe<T>::operator=( const PmergeMe& rhs ) {
-  if( this == &rhs ) {
-    return *this;
+  // Insert the first element of pend at the first index of sequence
+  if( !pend.empty() ) {
+    sequence.insert( sequence.begin(), pend.front() );
   }
-  _numbers = rhs._numbers;
-  return *this;
-}
-
-/*  ACCESSORS
-------------------------------------------------- */
-
-template <typename T>
-T& PmergeMe<T>::getNumbers( void ) {
-  return _numbers;
-}
-
-template <typename T>
-double PmergeMe<T>::getExecutionTime( void ) {
-  return _executionTime;
-}
-
-/*  HELPERS
-------------------------------------------------- */
-
-/**
- * @brief       Calculate algo execution time
- */
-
-template <typename T>
-void PmergeMe<T>::calculateExecutionTime( struct timeval start,
-                                          struct timeval finish ) {
-  double startTime, finishTime;
-
-  startTime = static_cast<double>( start.tv_sec )
-              + static_cast<double>( start.tv_usec ) * 1e-6;
-  finishTime = static_cast<double>( finish.tv_sec )
-               + static_cast<double>( finish.tv_usec ) * 1e-6;
-  _executionTime = ( finishTime - startTime ) * 1e6;
-}
-
-/*  CORE LOGIC
-------------------------------------------------- */
-
-/**
- * @brief     	Calculate threshold
- *
- *  Calculate the threshold value based on the size of the input array.
- *  The threshold is equal to the square root of the numbers array size.
- */
-
-template <typename T>
-long int PmergeMe<T>::calculateThreshold( long int size ) {
-  long int threshold = 0;
-
-  while( ( threshold + 1 ) * ( threshold + 1 ) <= size ) {
-    ++threshold;
+  // Insert the remaining elements of pend into sequence using lower_bound
+  for( typename std::vector<value_type>::iterator it = pend.begin() + 1;
+       it != pend.end(); ++it ) {
+    typename std::vector<value_type>::iterator pos = std::lower_bound(
+      sequence.begin(), sequence.end(), *it );
+    sequence.insert( pos, *it );
   }
-  return threshold;
-}
-
-/**
- * @brief       Sort the smaller subarrays
- *
- *  The insertion sort algorithm sort the subarrays within the specified range.
- */
-
-template <typename T>
-void PmergeMe<T>::insertionSort( Iterator& first, Iterator& last ) {
-  for( Iterator it = first + 1; it != last; ++it ) {
-    Iterator const insertion_point = std::upper_bound( first, it, *it );
-    std::rotate( insertion_point, it, it + 1 );  // Shifting the unsorted part
+  if( straggler != -1 ) {
+    typename std::vector<value_type>::iterator pos = std::lower_bound(
+      sequence.begin(), sequence.end(), straggler );
+    sequence.insert( pos, straggler );
   }
+  pairs.clear();
+  return sequence;
 }
 
 /**
- * @brief       Merge the sorted subarrays
- *
- *  Compare elements from the left and right subarrays and merge them into a
- *  single sorted array.
+ * @brief       2. Sort Pairs By Their Larger Units
  */
 
 template <typename T>
-void PmergeMe<T>::merge( Iterator& first, Iterator& middle, Iterator& last ) {
-  int rightSize = static_cast<int>( std::distance( middle, last ) );
-  int right = 0;
-  int left = 0;
+bool sortPairBySecond(
+  const std::pair<typename T::value_type, typename T::value_type>& a,
+  const std::pair<typename T::value_type, typename T::value_type>& b ) {
+  return a.second < b.second;
+}
 
-  while( right < rightSize ) {
-    if( middle[right] > first[left] )
-      ++left;
-    else {
-      std::rotate( first + left, middle + right, middle + right + 1 );
-      ++right;
+template <typename T>
+void sortPairsBySecond(
+  std::vector<std::pair<typename T::value_type, typename T::value_type> >&
+    pairs ) {
+  if( pairs.size() <= 1 )
+    return;
+  typedef typename T::value_type value_type;
+  size_t                         mid = pairs.size() / 2;
+
+  // Split the pairs into two halves
+  std::vector<std::pair<value_type, value_type> > left(
+    pairs.begin(), pairs.begin() + static_cast<long int>( mid ) );
+  std::vector<std::pair<value_type, value_type> > right(
+    pairs.begin() + static_cast<long int>( mid ), pairs.end() );
+
+  // Sort each half recursively
+  sortPairsBySecond<T>( left );
+  sortPairsBySecond<T>( right );
+
+  // Merge the two sorted halves
+  std::merge( left.begin(), left.end(), right.begin(), right.end(),
+              pairs.begin(), sortPairBySecond<T> );
+}
+
+/**
+ * @brief       1. Create Pairs
+ */
+
+// Group the elements of X into [n/2] pairs of elements, arbitrarily, leaving
+// one element unpaired if there is an odd number of elements.
+//
+// Perform [n/2] comparisons, one per pair, to determine the larger of the two
+// elements in each pair.
+
+template <typename T>
+std::vector<std::pair<typename T::value_type, typename T::value_type> >
+  createPairs( T& units ) {
+  std::vector<std::pair<typename T::value_type, typename T::value_type> > pairs;
+  size_t itemsCount = units.size();
+  size_t pairsCount = itemsCount / 2;
+
+  if( itemsCount % 2 != 0 ) {
+    straggler = units[itemsCount - 1];
+  }
+  for( size_t i = 0; i < pairsCount; ++i ) {
+    if( units[2 * i + 1] < units[2 * i] ) {
+      pairs.push_back( std::make_pair( units[2 * i + 1], units[2 * i] ) );
+    } else {
+      pairs.push_back( std::make_pair( units[2 * i], units[2 * i + 1] ) );
     }
   }
+  return pairs;
 }
 
 /**
- * @brief       Split the range into smaller subarrays
- *
- *  Checks the size of the range and recursively splits it into smaller
- *  subarrays until the size is <= to the threshold value.
+ * @brief       0. START
  */
 
 template <typename T>
-void PmergeMe<T>::mergeInsertionSortFordJohnson( Iterator& first,
-                                                 Iterator& last,
-                                                 long int  threshold ) {
-  Iterator middle;
-
-  if( std::distance( first, last ) <= threshold ) {
-    insertionSort( first, last );
-  } else {
-    middle = first + ( std::distance( first, last ) / 2 );
-    mergeInsertionSortFordJohnson( first, middle, threshold );
-    mergeInsertionSortFordJohnson( middle, last, threshold );
-    merge( first, middle, last );
-  }
+std::vector<typename T::value_type> sort( T& units ) {
+  typedef typename T::value_type                  value_type;
+  std::vector<std::pair<value_type, value_type> > pairs;
+  pairs = createPairs( units );
+  sortPairsBySecond<std::vector<value_type, std::allocator<value_type> > >(
+    pairs );
+  return (
+    createSequence<std::vector<value_type, std::allocator<value_type> > >(
+      pairs ) );
 }
 
 #endif  // PMERGEME_HPP

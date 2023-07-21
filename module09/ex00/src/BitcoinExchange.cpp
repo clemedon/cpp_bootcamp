@@ -51,7 +51,11 @@ BitcoinExchange::BitcoinExchange( const std::string& csvFile ) {
 }
 
 BitcoinExchange::BitcoinExchange( BitcoinExchange const& src ) {
-  _database = src._database;  // TODO copy or alias?
+  _database.clear();
+  for( std::map<std::string, double>::const_iterator it = src._database.begin();
+       it != src._database.end(); ++it ) {
+    _database.insert( std::make_pair( it->first, it->second ) );
+  }
 }
 
 BitcoinExchange::~BitcoinExchange( void ) {}
@@ -60,7 +64,11 @@ BitcoinExchange& BitcoinExchange::operator=( BitcoinExchange const& rhs ) {
   if( this == &rhs ) {
     return *this;
   }
-  _database = rhs._database;  // TODO copy or alias?
+  std::map<std::string, double>::const_iterator it;
+  _database.clear();
+  for( it = rhs._database.begin(); it != rhs._database.end(); ++it ) {
+    _database.insert( std::make_pair( it->first, it->second ) );
+  }
   return *this;
 }
 

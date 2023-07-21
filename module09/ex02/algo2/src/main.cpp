@@ -13,6 +13,17 @@
 
 #include "PmergeMe.hpp"
 
+#ifndef PRINTNUMBERS
+#  define PRINTNUMBERS
+template <typename T>
+void printNumbers( T& numbers ) {
+  for( typename T::iterator it = numbers.begin(); it != numbers.end(); it++ ) {
+    std::cout << *it << " ";
+  }
+  std::cout << '\n';
+}
+#endif
+
 double calculateExecutionTime( struct timeval start, struct timeval finish ) {
   double startTime, finishTime;
 
@@ -22,29 +33,6 @@ double calculateExecutionTime( struct timeval start, struct timeval finish ) {
                + static_cast<double>( finish.tv_usec ) * 1e-6;
   return ( finishTime - startTime ) * 1e6;
 }
-
-/**
- * @brief       Ford-Johnson merge-insertion sort
- *
- * Wikipedia:
- *
- * Group the elements of X into [n/2] pairs of elements, arbitrarily, leaving
- * one element unpaired if there is an odd number of elements.
- *
- * Perform [n/2] comparisons, one per pair, to determine the larger of the two
- * elements in each pair.
- *
- * Recursively sort the [n/2] larger elements from each pair, creating a sorted
- * sequence S of [n/2] of the input elements, in ascending order.
- *
- * Insert at the start of S the element that was paired with the first and
- * smallest element of S.
- *
- * Insert the remaining [n/2] − 1 elements of X ∖ S into S, one at a time, with
- * a specially chosen insertion ordering described below. Use binary search in
- * subsequences of S (as described below) to determine the position at which
- * each element should be inserted.
- */
 
 int main( int argc, char** argv ) {
   try {
@@ -69,30 +57,27 @@ int main( int argc, char** argv ) {
         deq.push_back( num );
       }
     }
-    if( vec.size() == 1 ) {
-      throw std::runtime_error( "Error" );
-    }
 
     struct timeval start, finish;
     double         vecExecutionTime;
     double         deqExecutionTime;
 
-    std::cout << "Before:\t";
-    printUnits( vec );
-
-    std::cout << "After:\t";
     gettimeofday( &start, NULL );
-    printUnits( sort( vec ) );
+    mergeInsertSort( vec );
     gettimeofday( &finish, NULL );
     vecExecutionTime = calculateExecutionTime( start, finish );
 
     gettimeofday( &start, NULL );
-    sort( deq );
+    mergeInsertSort( deq );
     gettimeofday( &finish, NULL );
     deqExecutionTime = calculateExecutionTime( start, finish );
 
-    /* std::cout << "      \t"; */
-    /* printNumbers( deq ); */
+    std::cout << "Before:\t";
+    printNumbers( numbers );
+    std::cout << "After:\t";
+    printNumbers( vec );
+    std::cout << "      \t";
+    printNumbers( deq );
     std::cout << "Time to process a range of " << argc - 1
               << " elements with std::vector : " << std::scientific
               << std::setprecision( 6 ) << vecExecutionTime << " μs\n";

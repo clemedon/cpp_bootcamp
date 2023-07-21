@@ -13,13 +13,24 @@
 
 #include "PmergeMe.hpp"
 
+#ifndef PRINTNUMBERS
+#  define PRINTNUMBERS
+template <typename T>
+void printNumbers( T& numbers ) {
+  for( typename T::iterator it = numbers.begin(); it != numbers.end(); it++ ) {
+    std::cout << *it << " ";
+  }
+  std::cout << '\n';
+}
+#endif
+
 double calculateExecutionTime( struct timeval start, struct timeval finish ) {
   double startTime, finishTime;
 
   startTime = static_cast<double>( start.tv_sec )
-              + static_cast<double>( start.tv_usec ) * 1e-6;
+    + static_cast<double>( start.tv_usec ) * 1e-6;
   finishTime = static_cast<double>( finish.tv_sec )
-               + static_cast<double>( finish.tv_usec ) * 1e-6;
+    + static_cast<double>( finish.tv_usec ) * 1e-6;
   return ( finishTime - startTime ) * 1e6;
 }
 
@@ -46,6 +57,7 @@ double calculateExecutionTime( struct timeval start, struct timeval finish ) {
  * each element should be inserted.
  */
 
+
 int main( int argc, char** argv ) {
   try {
     if( argc < 2 ) {
@@ -69,36 +81,35 @@ int main( int argc, char** argv ) {
         deq.push_back( num );
       }
     }
-    if( vec.size() == 1 ) {
-      throw std::runtime_error( "Error" );
-    }
 
     struct timeval start, finish;
     double         vecExecutionTime;
     double         deqExecutionTime;
 
-    std::cout << "Before:\t";
-    printUnits( vec );
-
-    std::cout << "After:\t";
     gettimeofday( &start, NULL );
-    printUnits( sort( vec ) );
+    makePairs( vec );
+    mergeInsertSort( vec );
     gettimeofday( &finish, NULL );
     vecExecutionTime = calculateExecutionTime( start, finish );
 
     gettimeofday( &start, NULL );
-    sort( deq );
+    makePairs( deq );
+    mergeInsertSort( deq );
     gettimeofday( &finish, NULL );
     deqExecutionTime = calculateExecutionTime( start, finish );
 
+    std::cout << "Before:\t";
+    printNumbers( numbers );
+    std::cout << "After:\t";
+    printNumbers( vec );
     /* std::cout << "      \t"; */
     /* printNumbers( deq ); */
     std::cout << "Time to process a range of " << argc - 1
-              << " elements with std::vector : " << std::scientific
-              << std::setprecision( 6 ) << vecExecutionTime << " μs\n";
+      << " elements with std::vector : " << std::scientific
+      << std::setprecision( 6 ) << vecExecutionTime << " μs\n";
     std::cout << "Time to process a range of " << argc - 1
-              << " elements with std::deque  : " << std::scientific
-              << std::setprecision( 6 ) << deqExecutionTime << " μs\n";
+      << " elements with std::deque  : " << std::scientific
+      << std::setprecision( 6 ) << deqExecutionTime << " μs\n";
   } catch( const std::exception& e ) {
     std::cout << e.what() << std::endl;
     return 1;
